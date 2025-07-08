@@ -1,0 +1,70 @@
+2025-07-08 19:30:24,585 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:30:24,587 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-08 19:30:25,536 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:30:25,726 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:30:25,728 - server - INFO - 正在连接数据库...
+2025-07-08 19:30:25,838 - database - ERROR - Failed to connect to MongoDB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}
+2025-07-08 19:30:25,838 - server - ERROR - 数据库连接失败: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}
+2025-07-08 19:48:09,662 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:48:09,671 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-08 19:48:10,631 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:48:10,723 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:48:10,725 - server - INFO - 正在连接数据库...
+2025-07-08 19:48:10,805 - database - ERROR - Failed to connect to MongoDB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}
+2025-07-08 19:48:10,805 - server - ERROR - 数据库连接失败: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}
+2025-07-08 19:57:27,697 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:57:27,849 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:57:27,849 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:57:27,851 - server - INFO - 正在连接数据库...
+2025-07-08 19:57:27,851 - server - INFO - 正在连接数据库...
+2025-07-08 19:57:27,851 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 19:57:27,851 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 19:58:31,660 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:58:31,660 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-08 19:58:32,635 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:58:32,731 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 19:58:32,733 - server - INFO - 正在连接数据库...
+2025-07-08 19:58:32,733 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 19:59:35,722 - user_service - INFO - 尝试创建新男性用户: 1655745347864687646876358786
+2025-07-08 19:59:35,723 - database - ERROR - Error inserting document: 'NoneType' object is not subscriptable
+2025-07-08 19:59:35,724 - user_service - ERROR - 创建用户失败: 'NoneType' object is not subscriptable
+2025-07-08 20:02:03,483 - server - INFO - 正在关闭数据库连接...
+2025-07-08 20:02:03,484 - server - INFO - 数据库连接已关闭或跳过
+2025-07-08 20:02:03,559 - server - INFO - 正在关闭数据库连接...
+2025-07-08 20:02:03,560 - server - INFO - 数据库连接已关闭或跳过
+2025-07-08 20:02:04,808 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,808 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,811 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,920 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,920 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,920 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:02:04,924 - server - INFO - 正在连接数据库...
+2025-07-08 20:02:04,925 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 20:02:04,926 - server - INFO - 正在连接数据库...
+2025-07-08 20:02:04,926 - server - INFO - 正在连接数据库...
+2025-07-08 20:02:04,928 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 20:02:04,929 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 20:02:52,344 - server - INFO - 正在关闭数据库连接...
+2025-07-08 20:02:52,372 - server - INFO - 数据库连接已关闭或跳过
+2025-07-08 20:03:54,136 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:03:54,137 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-08 20:03:55,090 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:03:55,164 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:03:55,166 - server - INFO - 正在连接数据库...
+2025-07-08 20:03:55,167 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 20:19:16,537 - server - INFO - 正在关闭数据库连接...
+2025-07-08 20:19:16,537 - server - INFO - 数据库连接已关闭或跳过
+2025-07-08 20:25:33,541 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:25:33,541 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-08 20:25:34,328 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:25:34,451 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-08 20:25:34,453 - server - INFO - 正在连接数据库...
+2025-07-08 20:25:34,453 - server - INFO - 数据库连接已跳过或成功
+2025-07-08 20:26:09,854 - user_service - INFO - 尝试创建新男性用户: 5374531435743557698334635746534163987
+2025-07-08 20:26:09,854 - user_service - INFO - 模拟用户创建成功，模拟ID: 571ff498-c320-4660-9f7e-7ecfe2b09002
+2025-07-08 20:27:04,847 - user_service - INFO - 尝试创建新男性用户: 34967463997838743748576
+2025-07-08 20:27:04,848 - user_service - INFO - 模拟用户创建成功，模拟ID: 502d64fa-e119-42f3-b843-47768a48ef23
+2025-07-08 20:28:34,407 - user_service - INFO - 尝试创建新男性用户: 34967463997838743748576
+2025-07-08 20:28:34,407 - user_service - INFO - 模拟用户创建成功，模拟ID: c3849265-78ad-4ddb-bdb7-9986ce584853
+2025-07-08 20:51:59,619 - server - INFO - 正在关闭数据库连接...
+2025-07-08 20:51:59,620 - server - INFO - 数据库连接已关闭或跳过
