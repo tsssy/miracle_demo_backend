@@ -19,16 +19,16 @@ async def lifespan(app: FastAPI):
     # 启动时连接数据库
     logger.info("正在连接数据库...")
     try:
-        # await Database.connect()  # 暂时注释掉数据库连接
-        logger.info("数据库连接已跳过或成功")
+        await Database.connect()  # 恢复数据库连接
+        logger.info("数据库连接成功")
     except Exception as e:
         logger.error(f"数据库连接失败: {str(e)}")
         raise
     yield
     # 关闭时断开数据库连接
     logger.info("正在关闭数据库连接...")
-    # await Database.close()  # 暂时注释掉数据库关闭
-    logger.info("数据库连接已关闭或跳过")
+    await Database.close()  # 恢复数据库关闭
+    logger.info("数据库连接已关闭")
 
 
 app = FastAPI(
