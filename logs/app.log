@@ -295,9 +295,17 @@
 2025-07-10 01:17:25,318 - server - INFO - 正在连接数据库...
 2025-07-10 01:17:25,350 - database - INFO - Connected to MongoDB successfully
 2025-07-10 01:17:25,351 - server - INFO - 数据库连接成功
+<<<<<<< HEAD
 >>>>>>> 9dffdd4 (Check whether allow all head works)
 2025-07-10 01:20:23,653 - server - INFO - API路由已注册，前缀: /api/v1
 2025-07-10 01:20:23,693 - server - INFO - API路由已注册，前缀: /api/v1
 2025-07-10 01:20:23,695 - server - INFO - 正在连接数据库...
 2025-07-10 01:20:23,734 - database - INFO - Connected to MongoDB successfully
 2025-07-10 01:20:23,736 - server - INFO - 数据库连接成功
+=======
+2025-07-10 01:18:24,762 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:18:24,800 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:18:24,802 - server - INFO - 正在连接数据库...
+2025-07-10 01:18:24,835 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:18:24,836 - server - INFO - 数据库连接成功
+>>>>>>> 1824414 (* works, replace back and test again)
