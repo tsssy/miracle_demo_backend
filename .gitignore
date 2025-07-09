@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Additional cache patterns
+*.pyc
+*.pyo
+*.pyd
+.cache/
+cache/
+
 # C extensions
 *.so
 
@@ -191,4 +198,11 @@ logs/
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
+
+# Additional cache and temporary files
+*.cache
+*.bak
+*.swp
+*.swo
+*~ 
