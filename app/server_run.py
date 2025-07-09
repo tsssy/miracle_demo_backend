@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 import sys
 from pathlib import Path
+from fastapi.middleware.cors import CORSMiddleware # 导入 CORS 中间件
 
 ROOT_PATH = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT_PATH))
@@ -42,6 +43,15 @@ app = FastAPI(
             "description": "用户相关操作",
         }
     ]
+)
+
+# 添加 CORS 中间件，只允许特定来源
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://cupid-yukio-frontend.vercel.app/"],  # 允许的来源
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有 HTTP 方法
+    allow_headers=["*"],  # 允许所有请求头
 )
 
 # 注册API路由
