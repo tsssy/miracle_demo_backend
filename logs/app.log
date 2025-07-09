@@ -309,3 +309,181 @@
 2025-07-10 01:18:24,835 - database - INFO - Connected to MongoDB successfully
 2025-07-10 01:18:24,836 - server - INFO - 数据库连接成功
 >>>>>>> 1824414 (* works, replace back and test again)
+2025-07-10 01:25:16,187 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:25:16,189 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 01:25:17,215 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:25:17,250 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:25:17,253 - server - INFO - 正在连接数据库...
+2025-07-10 01:25:17,287 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:25:17,287 - server - INFO - 数据库连接成功
+2025-07-10 01:38:44,436 - user_service - INFO - 尝试创建新男性用户: non_telegram_tester
+2025-07-10 01:38:44,437 - user_service - ERROR - telegram_id转换失败: invalid literal for int() with base 10: 'non_telegram_tester'
+2025-07-10 01:43:59,340 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 01:43:59,381 - database - INFO - Inserted document with id: 686eaa5f075f87acd9b6c613
+2025-07-10 01:43:59,382 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaa5f075f87acd9b6c613
+2025-07-10 01:46:24,985 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:46:24,989 - database - INFO - Closed MongoDB connection
+2025-07-10 01:46:24,989 - server - INFO - 数据库连接已关闭
+2025-07-10 01:46:25,914 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:25,951 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:25,953 - server - INFO - 正在连接数据库...
+2025-07-10 01:46:25,988 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:46:25,989 - server - INFO - 数据库连接成功
+2025-07-10 01:46:43,344 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:46:43,345 - database - INFO - Closed MongoDB connection
+2025-07-10 01:46:43,345 - server - INFO - 数据库连接已关闭
+2025-07-10 01:46:44,096 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 01:46:44,099 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:44,134 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 01:46:44,137 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:44,139 - server - INFO - 正在连接数据库...
+2025-07-10 01:46:44,176 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:46:44,177 - server - INFO - 数据库连接成功
+2025-07-10 01:46:50,198 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:46:50,198 - database - INFO - Closed MongoDB connection
+2025-07-10 01:46:50,199 - server - INFO - 数据库连接已关闭
+2025-07-10 01:46:50,941 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://lovetapoversea.xyz:4433', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 01:46:50,944 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:50,980 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://lovetapoversea.xyz:4433', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 01:46:50,983 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:50,985 - server - INFO - 正在连接数据库...
+2025-07-10 01:46:51,025 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:46:51,026 - server - INFO - 数据库连接成功
+2025-07-10 01:46:55,444 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:46:55,444 - database - INFO - Closed MongoDB connection
+2025-07-10 01:46:55,445 - server - INFO - 数据库连接已关闭
+2025-07-10 01:46:56,250 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:56,321 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:46:56,324 - server - INFO - 正在连接数据库...
+2025-07-10 01:46:56,395 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:46:56,396 - server - INFO - 数据库连接成功
+2025-07-10 01:51:15,231 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:51:15,232 - database - INFO - Closed MongoDB connection
+2025-07-10 01:51:15,232 - server - INFO - 数据库连接已关闭
+2025-07-10 01:51:16,404 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:51:16,442 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:51:16,444 - server - INFO - 正在连接数据库...
+2025-07-10 01:51:16,478 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:51:16,478 - server - INFO - 数据库连接成功
+2025-07-10 01:51:25,658 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 01:51:25,683 - database - INFO - Inserted document with id: 686eac1d1b015cffe9ded721
+2025-07-10 01:51:25,683 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eac1d1b015cffe9ded721
+2025-07-10 01:52:20,078 - user_service - INFO - 尝试创建新男性用户: test123
+2025-07-10 01:52:20,078 - user_service - ERROR - telegram_id转换失败: invalid literal for int() with base 10: 'test123'
+2025-07-10 01:53:19,459 - user_service - INFO - 尝试创建新男性用户: test123
+2025-07-10 01:53:19,460 - user_service - ERROR - telegram_id转换失败: invalid literal for int() with base 10: 'test123'
+2025-07-10 01:53:34,914 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:53:34,918 - database - INFO - Closed MongoDB connection
+2025-07-10 01:53:34,919 - server - INFO - 数据库连接已关闭
+2025-07-10 01:53:35,669 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:53:35,720 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:53:35,722 - server - INFO - 正在连接数据库...
+2025-07-10 01:53:35,786 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:53:35,787 - server - INFO - 数据库连接成功
+2025-07-10 01:53:37,964 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 01:53:37,989 - database - INFO - Inserted document with id: 686eaca17341639a886e9a79
+2025-07-10 01:53:37,989 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaca17341639a886e9a79
+2025-07-10 01:53:40,504 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 01:53:40,508 - database - INFO - Inserted document with id: 686eaca47341639a886e9a7a
+2025-07-10 01:53:40,508 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaca47341639a886e9a7a
+2025-07-10 01:56:05,064 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 01:56:05,067 - database - INFO - Inserted document with id: 686ead357341639a886e9a7b
+2025-07-10 01:56:05,068 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686ead357341639a886e9a7b
+2025-07-10 01:58:11,678 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:58:11,680 - database - INFO - Closed MongoDB connection
+2025-07-10 01:58:11,680 - server - INFO - 数据库连接已关闭
+2025-07-10 01:58:12,540 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:58:12,578 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:58:12,581 - server - INFO - 正在连接数据库...
+2025-07-10 01:58:12,614 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:58:12,615 - server - INFO - 数据库连接成功
+2025-07-10 02:00:06,258 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:00:06,258 - database - INFO - Closed MongoDB connection
+2025-07-10 02:00:06,260 - server - INFO - 数据库连接已关闭
+2025-07-10 02:00:07,160 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:07,232 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:07,235 - server - INFO - 正在连接数据库...
+2025-07-10 02:00:07,271 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:00:07,272 - server - INFO - 数据库连接成功
+2025-07-10 02:00:18,648 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:00:18,648 - database - INFO - Closed MongoDB connection
+2025-07-10 02:00:18,649 - server - INFO - 数据库连接已关闭
+2025-07-10 02:00:19,865 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:19,903 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:19,905 - server - INFO - 正在连接数据库...
+2025-07-10 02:00:19,940 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:00:19,941 - server - INFO - 数据库连接成功
+2025-07-10 02:00:28,469 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:00:28,470 - database - INFO - Closed MongoDB connection
+2025-07-10 02:00:28,470 - server - INFO - 数据库连接已关闭
+2025-07-10 02:00:29,718 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:29,719 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 02:00:30,594 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:30,630 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:00:30,633 - server - INFO - 正在连接数据库...
+2025-07-10 02:00:30,668 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:00:30,669 - server - INFO - 数据库连接成功
+2025-07-10 02:00:39,703 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:00:39,728 - database - INFO - Inserted document with id: 686eae47ca4355006941b85e
+2025-07-10 02:00:39,729 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eae47ca4355006941b85e
+2025-07-10 02:00:57,689 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:00:57,692 - database - INFO - Inserted document with id: 686eae59ca4355006941b85f
+2025-07-10 02:00:57,692 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eae59ca4355006941b85f
+2025-07-10 02:03:33,599 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:03:33,604 - database - INFO - Inserted document with id: 686eaef5ca4355006941b860
+2025-07-10 02:03:33,605 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaef5ca4355006941b860
+2025-07-10 02:03:50,686 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:03:50,688 - database - INFO - Closed MongoDB connection
+2025-07-10 02:03:50,689 - server - INFO - 数据库连接已关闭
+2025-07-10 02:04:01,826 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:04:01,827 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 02:04:02,626 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:04:02,681 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:04:02,683 - server - INFO - 正在连接数据库...
+2025-07-10 02:04:02,718 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:04:02,718 - server - INFO - 数据库连接成功
+2025-07-10 02:04:12,242 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:04:12,271 - database - INFO - Inserted document with id: 686eaf1cb8487b589fa6316a
+2025-07-10 02:04:12,272 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaf1cb8487b589fa6316a
+2025-07-10 02:05:42,345 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:05:42,348 - database - INFO - Closed MongoDB connection
+2025-07-10 02:05:42,348 - server - INFO - 数据库连接已关闭
+2025-07-10 02:05:43,137 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:05:43,177 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:05:43,180 - server - INFO - 正在连接数据库...
+2025-07-10 02:05:43,213 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:05:43,214 - server - INFO - 数据库连接成功
+2025-07-10 02:06:14,727 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:06:14,780 - database - INFO - Inserted document with id: 686eaf96bd973c7af08437c4
+2025-07-10 02:06:14,781 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eaf96bd973c7af08437c4
+2025-07-10 02:06:43,116 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:06:43,118 - database - INFO - Closed MongoDB connection
+2025-07-10 02:06:43,118 - server - INFO - 数据库连接已关闭
+2025-07-10 02:06:44,272 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:06:44,273 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 02:06:45,110 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:06:45,151 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:06:45,153 - server - INFO - 正在连接数据库...
+2025-07-10 02:06:45,190 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:06:45,191 - server - INFO - 数据库连接成功
+2025-07-10 02:07:00,024 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:07:00,050 - database - INFO - Inserted document with id: 686eafc47d6e2abd8b0e9974
+2025-07-10 02:07:00,050 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eafc47d6e2abd8b0e9974
+2025-07-10 02:08:02,933 - server - INFO - 正在关闭数据库连接...
+2025-07-10 02:08:02,935 - database - INFO - Closed MongoDB connection
+2025-07-10 02:08:02,936 - server - INFO - 数据库连接已关闭
+2025-07-10 02:08:14,047 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:08:14,048 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 02:08:14,119 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 02:08:14,121 - server - INFO - 正在连接数据库...
+2025-07-10 02:08:14,157 - database - INFO - Connected to MongoDB successfully
+2025-07-10 02:08:14,158 - server - INFO - 数据库连接成功
+2025-07-10 02:09:33,801 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:09:33,829 - database - INFO - Inserted document with id: 686eb05de5cbaa6da224485a
+2025-07-10 02:09:33,829 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eb05de5cbaa6da224485a
+2025-07-10 02:09:41,687 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:09:41,693 - database - INFO - Inserted document with id: 686eb065e5cbaa6da224485b
+2025-07-10 02:09:41,695 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eb065e5cbaa6da224485b
+2025-07-10 02:10:37,061 - user_service - INFO - 尝试创建新男性用户: 9168168168
+2025-07-10 02:10:37,066 - database - INFO - Inserted document with id: 686eb09de5cbaa6da224485c
+2025-07-10 02:10:37,066 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686eb09de5cbaa6da224485c

@@ -45,7 +45,7 @@ class UserService:
             # 返回创建的用户数据，包含ID和mode（不再返回telegram_id）
             return {
                 "_id": inserted_id,
-                "user_id": telegram_id_int,
+                "telegram_id": str(telegram_id_int),  # 转换为字符串以匹配schema
                 "mode": mode_int
             }
         except ValueError as e:
