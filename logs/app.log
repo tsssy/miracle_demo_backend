@@ -256,3 +256,30 @@
 2025-07-10 01:05:36,190 - server - INFO - 正在连接数据库...
 2025-07-10 01:05:36,227 - database - INFO - Connected to MongoDB successfully
 2025-07-10 01:05:36,229 - server - INFO - 数据库连接成功
+2025-07-10 01:08:36,254 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:08:36,255 - database - INFO - Closed MongoDB connection
+2025-07-10 01:08:36,256 - server - INFO - 数据库连接已关闭
+2025-07-10 01:08:37,598 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:08:37,599 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 01:08:38,439 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:08:38,476 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:08:38,479 - server - INFO - 正在连接数据库...
+2025-07-10 01:08:38,512 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:08:38,513 - server - INFO - 数据库连接成功
+2025-07-10 01:09:18,958 - user_service - INFO - 尝试创建新男性用户: test_connection
+2025-07-10 01:09:18,983 - database - INFO - Inserted document with id: 686ea23e5a40b9fb55f8e865
+2025-07-10 01:09:18,983 - user_service - INFO - 用户数据已插入 MongoDB，ID: 686ea23e5a40b9fb55f8e865
+2025-07-10 01:09:24,394 - user_service - INFO - 尝试创建新男性用户: non_telegram_tester
+2025-07-10 01:09:24,397 - database - INFO - Inserted document with id: 686ea2445a40b9fb55f8e866
+2025-07-10 01:09:24,398 - user_service - INFO - 用户数据已插入 MongoDB，ID: 686ea2445a40b9fb55f8e866
+2025-07-10 01:10:53,561 - user_service - INFO - 尝试创建新男性用户: test_connection
+2025-07-10 01:10:53,564 - database - INFO - Inserted document with id: 686ea29d5a40b9fb55f8e867
+2025-07-10 01:10:53,565 - user_service - INFO - 用户数据已插入 MongoDB，ID: 686ea29d5a40b9fb55f8e867
+2025-07-10 01:14:32,591 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:14:32,593 - database - INFO - Closed MongoDB connection
+2025-07-10 01:14:32,593 - server - INFO - 数据库连接已关闭
+2025-07-10 01:14:33,700 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:14:33,739 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:14:33,741 - server - INFO - 正在连接数据库...
+2025-07-10 01:14:33,775 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:14:33,776 - server - INFO - 数据库连接成功
