@@ -283,3 +283,8 @@
 2025-07-10 01:14:33,741 - server - INFO - 正在连接数据库...
 2025-07-10 01:14:33,775 - database - INFO - Connected to MongoDB successfully
 2025-07-10 01:14:33,776 - server - INFO - 数据库连接成功
+2025-07-10 01:20:02,840 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:20:02,909 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:20:02,912 - server - INFO - 正在连接数据库...
+2025-07-10 01:20:02,987 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:20:02,990 - server - INFO - 数据库连接成功
