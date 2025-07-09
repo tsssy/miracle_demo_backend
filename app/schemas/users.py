@@ -16,4 +16,12 @@ class UserResponse(BaseModel):
         allow_population_by_field_name = True
         json_encoders = {
             str: lambda v: v # 这里我们假设ObjectId已经被转换成了str
-        } 
+        }
+
+
+class UserGenderResponse(BaseModel):
+    gender: str = Field(..., description="用户的性别")
+
+
+class UserGenderRequest(BaseModel):
+    user_id: str = Field(..., description="用户ID") 

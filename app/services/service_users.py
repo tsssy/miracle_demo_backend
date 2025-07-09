@@ -35,4 +35,28 @@ class UserService:
             }
         except Exception as e:
             logger.error(f"创建用户失败: {e}")
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建用户失败: {e}") 
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建用户失败: {e}")
+
+    @staticmethod
+    async def get_user_gender(user_id: str) -> Dict[str, Any]:
+        """根据用户ID获取用户性别"""
+        logger.info(f"尝试获取用户ID {user_id} 的性别")
+        try:
+            # 将 user_id 转换为整数类型
+            user_id_int = int(user_id)
+            # 关键修改：将查询键从 'user_id' 改为 '_id'
+            user = await Database.find_one("telegram_sessions", {"_id": user_id_int})
+            if user and "gender" in user:
+                logger.info(f"找到用户ID {user_id} 的性别: {user["gender"]}")
+                return {"gender": user["gender"]}
+            else:
+                logger.warning(f"未找到用户ID {user_id} 或其性别信息")
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户未找到或性别信息缺失")
+        except ValueError:
+            logger.error(f"用户ID {user_id} 无法转换为整数。")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="无效的用户ID格式，请提供整数ID。")
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error(f"获取用户ID {user_id} 性别失败: {e}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"获取用户性别失败: {e}") 
