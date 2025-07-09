@@ -50,7 +50,8 @@ app = FastAPI(
 # 添加 CORS 中间件，只允许特定来源
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://cupid-yukio-frontend.vercel.app/"],  # 允许的来源
+    allow_origins=["*"],  # 允许的来源
+    # allow_origins=["https://cupid-yukio-frontend.vercel.app/"],  # 允许的来源
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有 HTTP 方法
     allow_headers=["*"],  # 允许所有请求头

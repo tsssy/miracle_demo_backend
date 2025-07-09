@@ -235,3 +235,24 @@
 2025-07-09 19:20:14,740 - server - INFO - 正在连接数据库...
 2025-07-09 19:20:14,812 - database - INFO - Connected to MongoDB successfully
 2025-07-09 19:20:14,813 - server - INFO - 数据库连接成功
+2025-07-10 01:04:15,734 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:04:15,849 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:04:15,851 - server - INFO - 正在连接数据库...
+2025-07-10 01:04:15,930 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:04:15,931 - server - INFO - 数据库连接成功
+2025-07-10 01:04:32,884 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:04:32,885 - database - INFO - Closed MongoDB connection
+2025-07-10 01:04:32,885 - server - INFO - 数据库连接已关闭
+2025-07-10 01:04:33,694 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:04:33,750 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:04:33,752 - server - INFO - 正在连接数据库...
+2025-07-10 01:04:33,794 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:04:33,794 - server - INFO - 数据库连接成功
+2025-07-10 01:05:35,278 - server - INFO - 正在关闭数据库连接...
+2025-07-10 01:05:35,278 - database - INFO - Closed MongoDB connection
+2025-07-10 01:05:35,278 - server - INFO - 数据库连接已关闭
+2025-07-10 01:05:36,142 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:05:36,187 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 01:05:36,190 - server - INFO - 正在连接数据库...
+2025-07-10 01:05:36,227 - database - INFO - Connected to MongoDB successfully
+2025-07-10 01:05:36,229 - server - INFO - 数据库连接成功
