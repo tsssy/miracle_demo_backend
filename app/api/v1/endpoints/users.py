@@ -17,6 +17,22 @@ async def create_male_user(user_data: UserCreateRequest):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建用户失败: {e}")
 
 
+@router.post("/female_users", status_code=status.HTTP_201_CREATED)
+async def create_female_user(session_id: int):
+    """
+    创建一个新的女性用户
+    参数: session_id (int) - telegram_sessions表的_id
+    返回: 新建用户的相关信息
+    """
+    try:
+        created_user = await UserService.create_female_user(session_id)
+        return created_user
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建女性用户失败: {e}")
+
+
 @router.post("/users/gender", response_model=UserGenderResponse)
 async def get_user_gender(request: UserGenderRequest):
     """根据用户ID获取用户性别"""
