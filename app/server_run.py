@@ -50,6 +50,7 @@ app = FastAPI(
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
     "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
+    "https://cupid-yukio-frontend-test.vercel.app",
     "http://localhost:5173",  # 本地开发环境前端地址
     "http://127.0.0.1:5173",  # 本地IP地址
 ]
