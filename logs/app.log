@@ -153,3 +153,650 @@
 2025-07-08 22:21:17,594 - user_service - INFO - 尝试创建新男性用户: 53487475873878
 2025-07-08 22:21:17,726 - database - INFO - Inserted document with id: 686d295d3051eddcc6a2ceed
 2025-07-08 22:21:17,727 - user_service - INFO - 用户数据已插入 MongoDB，ID: 686d295d3051eddcc6a2ceed
+2025-07-10 17:19:48,594 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:19:48,595 - server - INFO - 正在连接数据库...
+2025-07-10 17:19:49,646 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:19:49,646 - server - INFO - 数据库连接成功
+2025-07-10 17:20:59,757 - database - INFO - Inserted document with id: 686f85fad4b11ec09671bd1d
+2025-07-10 17:20:59,759 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686f85fad4b11ec09671bd1d
+2025-07-10 17:21:30,996 - user_service - WARNING - 未找到session或string字段: session_id=21141332455
+2025-07-10 17:28:20,794 - user_service - WARNING - 未找到session或string字段: session_id=7226798439
+2025-07-10 17:29:52,112 - user_service - WARNING - 未找到session或string字段: session_id=7968638237
+2025-07-10 17:34:38,482 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:34:38,589 - database - INFO - Closed MongoDB connection
+2025-07-10 17:34:38,589 - server - INFO - 数据库连接已关闭
+2025-07-10 17:34:39,036 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:34:39,037 - server - INFO - 正在连接数据库...
+2025-07-10 17:34:40,736 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:34:40,736 - server - INFO - 数据库连接成功
+2025-07-10 17:35:14,814 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:35:14,815 - database - INFO - Closed MongoDB connection
+2025-07-10 17:35:14,815 - server - INFO - 数据库连接已关闭
+2025-07-10 17:35:15,323 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:35:15,324 - server - INFO - 正在连接数据库...
+2025-07-10 17:35:16,816 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:35:16,816 - server - INFO - 数据库连接成功
+2025-07-10 17:36:09,922 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:36:09,923 - server - INFO - 正在连接数据库...
+2025-07-10 17:36:11,860 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:36:11,860 - server - INFO - 数据库连接成功
+2025-07-10 17:44:41,823 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:44:41,934 - database - INFO - Closed MongoDB connection
+2025-07-10 17:44:41,934 - server - INFO - 数据库连接已关闭
+2025-07-10 17:44:42,425 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:44:42,425 - server - INFO - 正在连接数据库...
+2025-07-10 17:44:43,702 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:44:43,702 - server - INFO - 数据库连接成功
+2025-07-10 17:46:46,217 - database - INFO - Inserted document with id: 686f8c06150966a492071644
+2025-07-10 17:46:46,326 - database - INFO - Inserted document with id: 686f8c06150966a492071645
+2025-07-10 17:46:46,452 - database - INFO - Inserted document with id: 686f8c06150966a492071646
+2025-07-10 17:46:46,571 - database - INFO - Inserted document with id: 686f8c06150966a492071647
+2025-07-10 17:46:46,571 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8c06150966a492071647
+2025-07-10 17:47:36,855 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:47:36,855 - server - INFO - 正在连接数据库...
+2025-07-10 17:47:37,881 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:47:37,881 - server - INFO - 数据库连接成功
+2025-07-10 17:47:40,557 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:47:40,557 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 17:47:40,807 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:47:40,822 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:47:40,823 - server - INFO - 正在连接数据库...
+2025-07-10 17:47:41,879 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:47:41,880 - server - INFO - 数据库连接成功
+2025-07-10 17:48:52,081 - database - INFO - Inserted document with id: 686f8c83dd4278351790b9a8
+2025-07-10 17:48:52,187 - database - INFO - Inserted document with id: 686f8c84dd4278351790b9a9
+2025-07-10 17:48:52,310 - database - INFO - Inserted document with id: 686f8c84dd4278351790b9aa
+2025-07-10 17:48:52,419 - database - INFO - Inserted document with id: 686f8c84dd4278351790b9ab
+2025-07-10 17:48:52,420 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8c84dd4278351790b9ab
+2025-07-10 17:52:04,144 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:52:04,146 - database - INFO - Closed MongoDB connection
+2025-07-10 17:52:04,146 - server - INFO - 数据库连接已关闭
+2025-07-10 17:52:04,156 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:52:04,304 - database - INFO - Closed MongoDB connection
+2025-07-10 17:52:04,304 - server - INFO - 数据库连接已关闭
+2025-07-10 17:52:04,603 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:52:04,621 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:52:04,621 - server - INFO - 正在连接数据库...
+2025-07-10 17:52:04,625 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:52:04,626 - server - INFO - 正在连接数据库...
+2025-07-10 17:52:05,981 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:52:05,982 - server - INFO - 数据库连接成功
+2025-07-10 17:52:06,033 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:52:06,033 - server - INFO - 数据库连接成功
+2025-07-10 17:52:35,475 - database - INFO - Inserted document with id: 686f8d633cee933ea3e86162
+2025-07-10 17:52:35,582 - database - INFO - Inserted document with id: 686f8d633cee933ea3e86163
+2025-07-10 17:52:35,687 - database - INFO - Inserted document with id: 686f8d633cee933ea3e86164
+2025-07-10 17:52:35,838 - database - INFO - Inserted document with id: 686f8d633cee933ea3e86165
+2025-07-10 17:52:35,838 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8d633cee933ea3e86165
+2025-07-10 17:55:14,132 - database - INFO - Inserted document with id: 686f8e023cee933ea3e86166
+2025-07-10 17:55:14,239 - database - INFO - Inserted document with id: 686f8e023cee933ea3e86167
+2025-07-10 17:55:14,346 - database - INFO - Inserted document with id: 686f8e023cee933ea3e86168
+2025-07-10 17:55:14,452 - database - INFO - Inserted document with id: 686f8e023cee933ea3e86169
+2025-07-10 17:55:14,452 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8e023cee933ea3e86169
+2025-07-10 17:56:06,142 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:56:06,251 - database - INFO - Closed MongoDB connection
+2025-07-10 17:56:06,251 - server - INFO - 数据库连接已关闭
+2025-07-10 17:56:06,720 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:56:06,721 - server - INFO - 正在连接数据库...
+2025-07-10 17:56:07,721 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:56:07,721 - server - INFO - 数据库连接成功
+2025-07-10 17:56:24,271 - database - INFO - Inserted document with id: 686f8e48678ff9549b4e2cbb
+2025-07-10 17:56:24,378 - database - INFO - Inserted document with id: 686f8e48678ff9549b4e2cbc
+2025-07-10 17:56:24,523 - database - INFO - Inserted document with id: 686f8e48678ff9549b4e2cbd
+2025-07-10 17:56:24,630 - database - INFO - Inserted document with id: 686f8e48678ff9549b4e2cbe
+2025-07-10 17:56:24,630 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8e48678ff9549b4e2cbe
+2025-07-10 17:57:13,395 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:57:13,508 - database - INFO - Closed MongoDB connection
+2025-07-10 17:57:13,509 - server - INFO - 数据库连接已关闭
+2025-07-10 17:57:13,975 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:57:13,976 - server - INFO - 正在连接数据库...
+2025-07-10 17:57:14,936 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:57:14,936 - server - INFO - 数据库连接成功
+2025-07-10 17:58:04,092 - server - INFO - 正在关闭数据库连接...
+2025-07-10 17:58:04,094 - database - INFO - Closed MongoDB connection
+2025-07-10 17:58:04,095 - server - INFO - 数据库连接已关闭
+2025-07-10 17:58:04,649 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 17:58:04,649 - server - INFO - 正在连接数据库...
+2025-07-10 17:58:05,797 - database - INFO - Connected to MongoDB successfully
+2025-07-10 17:58:05,797 - server - INFO - 数据库连接成功
+2025-07-10 17:58:29,557 - database - INFO - Inserted document with id: 686f8ec5a50ce7a6f12f6423
+2025-07-10 17:58:29,665 - database - INFO - Inserted document with id: 686f8ec5a50ce7a6f12f6424
+2025-07-10 17:58:29,770 - database - INFO - Inserted document with id: 686f8ec5a50ce7a6f12f6425
+2025-07-10 17:58:29,875 - database - INFO - Inserted document with id: 686f8ec5a50ce7a6f12f6426
+2025-07-10 17:58:29,875 - user_service - INFO - 女性用户数据已插入 MongoDB User集合，ID: 686f8ec5a50ce7a6f12f6426
+2025-07-10 18:08:09,150 - server - INFO - 正在关闭数据库连接...
+2025-07-10 18:08:09,260 - database - INFO - Closed MongoDB connection
+2025-07-10 18:08:09,262 - server - INFO - 数据库连接已关闭
+2025-07-10 18:08:09,724 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:08:09,725 - server - INFO - 正在连接数据库...
+2025-07-10 18:08:11,258 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:08:11,258 - server - INFO - 数据库连接成功
+2025-07-10 18:08:11,967 - server - INFO - 正在关闭数据库连接...
+2025-07-10 18:08:11,967 - database - INFO - Closed MongoDB connection
+2025-07-10 18:08:11,967 - server - INFO - 数据库连接已关闭
+2025-07-10 18:08:12,258 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:08:12,258 - server - INFO - 正在连接数据库...
+2025-07-10 18:08:13,359 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:08:13,359 - server - INFO - 数据库连接成功
+2025-07-10 18:08:27,397 - server - INFO - 正在关闭数据库连接...
+2025-07-10 18:08:27,400 - database - INFO - Closed MongoDB connection
+2025-07-10 18:08:27,400 - server - INFO - 数据库连接已关闭
+2025-07-10 18:08:27,803 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:08:27,803 - server - INFO - 正在连接数据库...
+2025-07-10 18:08:28,826 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:08:28,826 - server - INFO - 数据库连接成功
+2025-07-10 18:08:31,253 - server - INFO - 正在关闭数据库连接...
+2025-07-10 18:08:31,254 - database - INFO - Closed MongoDB connection
+2025-07-10 18:08:31,254 - server - INFO - 数据库连接已关闭
+2025-07-10 18:08:31,531 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:08:31,531 - server - INFO - 正在连接数据库...
+2025-07-10 18:08:33,312 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:08:33,312 - server - INFO - 数据库连接成功
+2025-07-10 18:10:24,969 - server - INFO - 正在关闭数据库连接...
+2025-07-10 18:10:24,973 - database - INFO - Closed MongoDB connection
+2025-07-10 18:10:24,974 - server - INFO - 数据库连接已关闭
+2025-07-10 18:10:25,578 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:10:25,578 - server - INFO - 正在连接数据库...
+2025-07-10 18:10:27,664 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:10:27,665 - server - INFO - 数据库连接成功
+2025-07-10 18:10:27,939 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 18:10:27,940 - server - INFO - 正在连接数据库...
+2025-07-10 18:10:30,428 - database - INFO - Connected to MongoDB successfully
+2025-07-10 18:10:30,429 - server - INFO - 数据库连接成功
+2025-07-10 18:58:49,008 - user_service - INFO - 尝试从telegram_sessions表获取用户ID 123456789 的性别
+2025-07-10 18:58:49,909 - user_service - INFO - 成功找到用户ID 123456789 的性别: 1
+2025-07-10 19:03:11,861 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:03:11,988 - database - INFO - Closed MongoDB connection
+2025-07-10 19:03:11,988 - server - INFO - 数据库连接已关闭
+2025-07-10 19:03:55,435 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:03:55,435 - server - INFO - 正在连接数据库...
+2025-07-10 19:03:56,497 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:03:56,497 - server - INFO - 数据库连接成功
+2025-07-10 19:03:56,778 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:03:56,778 - server - INFO - 正在连接数据库...
+2025-07-10 19:03:57,847 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:03:57,848 - server - INFO - 数据库连接成功
+2025-07-10 19:04:54,028 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:04:54,029 - database - INFO - Closed MongoDB connection
+2025-07-10 19:04:54,030 - server - INFO - 数据库连接已关闭
+2025-07-10 19:04:54,527 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:04:54,528 - server - INFO - 正在连接数据库...
+2025-07-10 19:04:55,599 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:04:55,599 - server - INFO - 数据库连接成功
+2025-07-10 19:04:56,104 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:04:56,104 - database - INFO - Closed MongoDB connection
+2025-07-10 19:04:56,104 - server - INFO - 数据库连接已关闭
+2025-07-10 19:04:56,423 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:04:56,424 - server - INFO - 正在连接数据库...
+2025-07-10 19:04:57,761 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:04:57,762 - server - INFO - 数据库连接成功
+2025-07-10 19:05:16,078 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:05:16,079 - database - INFO - Closed MongoDB connection
+2025-07-10 19:05:16,079 - server - INFO - 数据库连接已关闭
+2025-07-10 19:05:16,474 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:05:16,476 - server - INFO - 正在连接数据库...
+2025-07-10 19:05:17,580 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:05:17,580 - server - INFO - 数据库连接成功
+2025-07-10 19:32:04,908 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:32:04,909 - database - INFO - Closed MongoDB connection
+2025-07-10 19:32:04,909 - server - INFO - 数据库连接已关闭
+2025-07-10 19:32:05,444 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:32:05,444 - server - INFO - 正在连接数据库...
+2025-07-10 19:32:06,436 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:32:06,437 - server - INFO - 数据库连接成功
+2025-07-10 19:32:53,223 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:32:53,224 - database - INFO - Closed MongoDB connection
+2025-07-10 19:32:53,224 - server - INFO - 数据库连接已关闭
+2025-07-10 19:32:53,626 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:32:53,627 - server - INFO - 正在连接数据库...
+2025-07-10 19:32:54,587 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:32:54,588 - server - INFO - 数据库连接成功
+2025-07-10 19:32:55,733 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:32:55,736 - database - INFO - Closed MongoDB connection
+2025-07-10 19:32:55,736 - server - INFO - 数据库连接已关闭
+2025-07-10 19:32:56,059 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:32:56,059 - server - INFO - 正在连接数据库...
+2025-07-10 19:32:57,082 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:32:57,082 - server - INFO - 数据库连接成功
+2025-07-10 19:32:57,488 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:32:57,488 - database - INFO - Closed MongoDB connection
+2025-07-10 19:32:57,488 - server - INFO - 数据库连接已关闭
+2025-07-10 19:32:57,786 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:32:57,786 - server - INFO - 正在连接数据库...
+2025-07-10 19:32:58,751 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:32:58,751 - server - INFO - 数据库连接成功
+2025-07-10 19:33:11,073 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:11,075 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:11,075 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:11,465 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:11,465 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:12,439 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:12,440 - server - INFO - 数据库连接成功
+2025-07-10 19:33:12,946 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:12,946 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:12,946 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:13,231 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:13,232 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:14,235 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:14,236 - server - INFO - 数据库连接成功
+2025-07-10 19:33:22,626 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:22,628 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:22,628 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:23,005 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:23,006 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:23,935 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:23,935 - server - INFO - 数据库连接成功
+2025-07-10 19:33:25,047 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:25,047 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:25,048 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:25,343 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:25,344 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:26,306 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:26,306 - server - INFO - 数据库连接成功
+2025-07-10 19:33:40,083 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:40,084 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:40,084 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:40,523 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:40,524 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:41,496 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:41,496 - server - INFO - 数据库连接成功
+2025-07-10 19:33:43,114 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:33:43,114 - database - INFO - Closed MongoDB connection
+2025-07-10 19:33:43,114 - server - INFO - 数据库连接已关闭
+2025-07-10 19:33:43,392 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:33:43,393 - server - INFO - 正在连接数据库...
+2025-07-10 19:33:44,353 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:33:44,354 - server - INFO - 数据库连接成功
+2025-07-10 19:34:01,351 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:34:01,354 - database - INFO - Closed MongoDB connection
+2025-07-10 19:34:01,355 - server - INFO - 数据库连接已关闭
+2025-07-10 19:34:01,783 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:34:01,784 - server - INFO - 正在连接数据库...
+2025-07-10 19:34:02,694 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:34:02,695 - server - INFO - 数据库连接成功
+2025-07-10 19:35:34,426 - user_service - INFO - 尝试创建女性用户，telegram_id: 123456789
+2025-07-10 19:35:35,373 - database - INFO - Inserted document with id: 686fa58758d805771a027baf
+2025-07-10 19:35:35,477 - database - INFO - Inserted document with id: 686fa58758d805771a027bb0
+2025-07-10 19:35:35,581 - database - INFO - Inserted document with id: 686fa58758d805771a027bb1
+2025-07-10 19:35:35,686 - database - INFO - Inserted document with id: 686fa58758d805771a027bb2
+2025-07-10 19:35:35,687 - user_service - INFO - 女性用户创建成功，telegram_id: 123456789, User集合ID: 686fa58758d805771a027bb2
+2025-07-10 19:41:30,764 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:41:30,875 - database - INFO - Closed MongoDB connection
+2025-07-10 19:41:30,875 - server - INFO - 数据库连接已关闭
+2025-07-10 19:41:39,122 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:41:39,123 - server - INFO - 正在连接数据库...
+2025-07-10 19:41:40,133 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:41:40,133 - server - INFO - 数据库连接成功
+2025-07-10 19:41:46,800 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:41:46,800 - database - INFO - Closed MongoDB connection
+2025-07-10 19:41:46,800 - server - INFO - 数据库连接已关闭
+2025-07-10 19:41:47,096 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:41:47,096 - server - INFO - 正在连接数据库...
+2025-07-10 19:41:48,062 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:41:48,062 - server - INFO - 数据库连接成功
+2025-07-10 19:45:15,604 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:45:15,605 - database - INFO - Closed MongoDB connection
+2025-07-10 19:45:15,605 - server - INFO - 数据库连接已关闭
+2025-07-10 19:45:16,088 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:16,089 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:17,073 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:17,073 - server - INFO - 数据库连接成功
+2025-07-10 19:45:17,362 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:17,363 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:18,571 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:18,571 - server - INFO - 数据库连接成功
+2025-07-10 19:45:22,409 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:45:22,410 - database - INFO - Closed MongoDB connection
+2025-07-10 19:45:22,410 - server - INFO - 数据库连接已关闭
+2025-07-10 19:45:22,703 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:22,703 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:23,661 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:23,661 - server - INFO - 数据库连接成功
+2025-07-10 19:45:34,982 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:45:34,983 - database - INFO - Closed MongoDB connection
+2025-07-10 19:45:34,984 - server - INFO - 数据库连接已关闭
+2025-07-10 19:45:35,354 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:35,355 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:36,388 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:36,388 - server - INFO - 数据库连接成功
+2025-07-10 19:45:49,028 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:45:49,029 - database - INFO - Closed MongoDB connection
+2025-07-10 19:45:49,029 - server - INFO - 数据库连接已关闭
+2025-07-10 19:45:49,532 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:49,532 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:50,510 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:50,510 - server - INFO - 数据库连接成功
+2025-07-10 19:45:51,442 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:45:51,444 - database - INFO - Closed MongoDB connection
+2025-07-10 19:45:51,444 - server - INFO - 数据库连接已关闭
+2025-07-10 19:45:51,734 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:45:51,734 - server - INFO - 正在连接数据库...
+2025-07-10 19:45:52,705 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:45:52,705 - server - INFO - 数据库连接成功
+2025-07-10 19:46:00,081 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:46:00,082 - database - INFO - Closed MongoDB connection
+2025-07-10 19:46:00,083 - server - INFO - 数据库连接已关闭
+2025-07-10 19:46:00,385 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:46:00,385 - server - INFO - 正在连接数据库...
+2025-07-10 19:46:01,367 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:46:01,367 - server - INFO - 数据库连接成功
+2025-07-10 19:47:13,578 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:47:13,581 - database - INFO - Closed MongoDB connection
+2025-07-10 19:47:13,582 - server - INFO - 数据库连接已关闭
+2025-07-10 19:59:49,285 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:59:49,286 - server - INFO - 正在连接数据库...
+2025-07-10 19:59:50,608 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:59:50,609 - server - INFO - 数据库连接成功
+2025-07-10 19:59:52,089 - server - INFO - 正在关闭数据库连接...
+2025-07-10 19:59:52,091 - database - INFO - Closed MongoDB connection
+2025-07-10 19:59:52,091 - server - INFO - 数据库连接已关闭
+2025-07-10 19:59:52,471 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 19:59:52,471 - server - INFO - 正在连接数据库...
+2025-07-10 19:59:53,451 - database - INFO - Connected to MongoDB successfully
+2025-07-10 19:59:53,451 - server - INFO - 数据库连接成功
+2025-07-10 20:13:35,778 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:13:35,779 - database - INFO - Closed MongoDB connection
+2025-07-10 20:13:35,779 - server - INFO - 数据库连接已关闭
+2025-07-10 20:13:36,246 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:13:36,247 - server - INFO - 正在连接数据库...
+2025-07-10 20:13:37,509 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:13:37,510 - server - INFO - 数据库连接成功
+2025-07-10 20:13:51,867 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:13:51,868 - database - INFO - Closed MongoDB connection
+2025-07-10 20:13:51,868 - server - INFO - 数据库连接已关闭
+2025-07-10 20:13:52,217 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:13:52,218 - server - INFO - 正在连接数据库...
+2025-07-10 20:13:53,169 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:13:53,169 - server - INFO - 数据库连接成功
+2025-07-10 20:13:56,000 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:13:56,000 - database - INFO - Closed MongoDB connection
+2025-07-10 20:13:56,000 - server - INFO - 数据库连接已关闭
+2025-07-10 20:13:56,308 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:13:56,308 - server - INFO - 正在连接数据库...
+2025-07-10 20:13:57,287 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:13:57,288 - server - INFO - 数据库连接成功
+2025-07-10 20:14:02,541 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:14:02,542 - database - INFO - Closed MongoDB connection
+2025-07-10 20:14:02,542 - server - INFO - 数据库连接已关闭
+2025-07-10 20:14:02,969 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:14:02,970 - server - INFO - 正在连接数据库...
+2025-07-10 20:14:03,988 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:14:03,989 - server - INFO - 数据库连接成功
+2025-07-10 20:14:04,596 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:14:04,596 - database - INFO - Closed MongoDB connection
+2025-07-10 20:14:04,596 - server - INFO - 数据库连接已关闭
+2025-07-10 20:14:04,876 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:14:04,876 - server - INFO - 正在连接数据库...
+2025-07-10 20:14:06,059 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:14:06,059 - server - INFO - 数据库连接成功
+2025-07-10 20:17:49,444 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:17:49,458 - database - INFO - Closed MongoDB connection
+2025-07-10 20:17:49,458 - server - INFO - 数据库连接已关闭
+2025-07-10 20:17:50,569 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:17:50,570 - server - INFO - 正在连接数据库...
+2025-07-10 20:17:51,534 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:17:51,535 - server - INFO - 数据库连接成功
+2025-07-10 20:17:51,806 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:17:51,806 - server - INFO - 正在连接数据库...
+2025-07-10 20:17:57,185 - database - ERROR - Failed to connect to MongoDB: 8.216.32.239:27017: connection closed (configured timeouts: connectTimeoutMS: 20000.0ms)
+2025-07-10 20:17:57,185 - server - ERROR - 数据库连接失败: 8.216.32.239:27017: connection closed (configured timeouts: connectTimeoutMS: 20000.0ms)
+2025-07-10 20:22:34,616 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:22:34,617 - server - INFO - 正在连接数据库...
+2025-07-10 20:22:35,867 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:22:35,867 - server - INFO - 数据库连接成功
+2025-07-10 20:23:33,598 - user_service - INFO - 尝试创建女性用户，telegram_id: 10001
+2025-07-10 20:23:34,627 - database - INFO - Inserted document with id: 686fb0c667c8163e5219adce
+2025-07-10 20:23:34,731 - database - INFO - Inserted document with id: 686fb0c667c8163e5219adcf
+2025-07-10 20:23:34,834 - database - INFO - Inserted document with id: 686fb0c667c8163e5219add0
+2025-07-10 20:23:34,938 - database - INFO - Inserted document with id: 686fb0c667c8163e5219add1
+2025-07-10 20:23:34,939 - user_service - INFO - 女性用户创建成功，telegram_id: 10001, User集合ID: 686fb0c667c8163e5219add1
+2025-07-10 20:25:09,145 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 10001 的性别
+2025-07-10 20:25:09,250 - user_service - INFO - 成功找到telegram_id 10001 的性别: 1
+2025-07-10 20:29:22,355 - database - INFO - Inserted document with id: 686fb22267c8163e5219add2
+2025-07-10 20:29:22,357 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 686fb22267c8163e5219add2
+2025-07-10 20:40:46,239 - server - INFO - 正在关闭数据库连接...
+2025-07-10 20:40:46,775 - database - INFO - Closed MongoDB connection
+2025-07-10 20:40:46,775 - server - INFO - 数据库连接已关闭
+2025-07-10 20:42:28,736 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 20:42:28,737 - server - INFO - 正在连接数据库...
+2025-07-10 20:42:29,845 - database - INFO - Connected to MongoDB successfully
+2025-07-10 20:42:29,845 - server - INFO - 数据库连接成功
+2025-07-10 21:15:06,811 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:15:06,819 - database - INFO - Closed MongoDB connection
+2025-07-10 21:15:06,820 - server - INFO - 数据库连接已关闭
+2025-07-10 21:15:07,349 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:15:07,350 - server - INFO - 正在连接数据库...
+2025-07-10 21:15:08,606 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:15:08,606 - server - INFO - 数据库连接成功
+2025-07-10 21:16:31,312 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:16:31,313 - server - INFO - 正在连接数据库...
+2025-07-10 21:16:32,768 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:16:32,768 - server - INFO - 数据库连接成功
+2025-07-10 21:26:15,965 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:15,967 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:15,967 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:16,458 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:16,458 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:17,711 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:17,711 - server - INFO - 数据库连接成功
+2025-07-10 21:26:19,848 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:19,851 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:19,851 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:20,161 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:20,162 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:21,268 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:21,268 - server - INFO - 数据库连接成功
+2025-07-10 21:26:25,512 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:25,512 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:25,512 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:25,961 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:25,961 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:27,635 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:27,635 - server - INFO - 数据库连接成功
+2025-07-10 21:26:29,655 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:29,656 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:29,656 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:29,967 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:29,967 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:31,036 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:31,036 - server - INFO - 数据库连接成功
+2025-07-10 21:26:36,698 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:36,700 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:36,700 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:37,030 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:37,031 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:38,261 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:38,264 - server - INFO - 数据库连接成功
+2025-07-10 21:26:38,681 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:26:38,681 - database - INFO - Closed MongoDB connection
+2025-07-10 21:26:38,681 - server - INFO - 数据库连接已关闭
+2025-07-10 21:26:38,985 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:26:38,986 - server - INFO - 正在连接数据库...
+2025-07-10 21:26:39,996 - database - INFO - Connected to MongoDB successfully
+2025-07-10 21:26:39,996 - server - INFO - 数据库连接成功
+2025-07-10 21:33:23,235 - server - INFO - 正在关闭数据库连接...
+2025-07-10 21:33:23,239 - database - INFO - Closed MongoDB connection
+2025-07-10 21:33:23,240 - server - INFO - 数据库连接已关闭
+2025-07-10 21:33:23,740 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:33:23,740 - server - INFO - 正在连接数据库...
+2025-07-10 21:33:28,779 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc1234a7c65aa0f9639d2, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:28,780 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc1234a7c65aa0f9639d2, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:29,207 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:33:29,207 - server - INFO - 正在连接数据库...
+2025-07-10 21:33:34,250 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc129f753f350cc560d76, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:34,251 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc129f753f350cc560d76, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:35,994 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:33:35,994 - server - INFO - 正在连接数据库...
+2025-07-10 21:33:41,042 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc12f7a5ae981ee2be242, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:41,043 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc12f7a5ae981ee2be242, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:41,446 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:33:41,446 - server - INFO - 正在连接数据库...
+2025-07-10 21:33:46,489 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc135aa78effbe76a03d0, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:46,489 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc135aa78effbe76a03d0, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:46,842 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:33:46,842 - server - INFO - 正在连接数据库...
+2025-07-10 21:33:51,881 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc13aed589e3c8414cc62, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:33:51,882 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc13aed589e3c8414cc62, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:07,358 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:34:07,358 - server - INFO - 正在连接数据库...
+2025-07-10 21:34:12,404 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc14fbbff55d8ab935842, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:12,404 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc14fbbff55d8ab935842, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:12,711 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:34:12,711 - server - INFO - 正在连接数据库...
+2025-07-10 21:34:17,753 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc1540bda0b86a0c51c6e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:17,755 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc1540bda0b86a0c51c6e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:18,125 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:34:18,126 - server - INFO - 正在连接数据库...
+2025-07-10 21:34:23,164 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc15ac8c129f1be6d380e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:23,166 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc15ac8c129f1be6d380e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:24,434 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:34:24,434 - server - INFO - 正在连接数据库...
+2025-07-10 21:34:29,478 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc160f3c6bad810069c4a, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:29,479 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc160f3c6bad810069c4a, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:34,363 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:34:34,364 - server - INFO - 正在连接数据库...
+2025-07-10 21:34:39,409 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc16a8e01931fc49f8687, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:34:39,411 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc16a8e01931fc49f8687, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:12,248 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:12,249 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:17,315 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc20868620a271d173756, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:17,316 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc20868620a271d173756, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:17,778 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:17,780 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:22,831 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc20deab7f9229b2bc7d7, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:22,832 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc20deab7f9229b2bc7d7, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:23,161 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:23,161 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:28,199 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2132de9647d84eb1268, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:28,200 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2132de9647d84eb1268, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:28,694 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:28,695 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:33,733 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc21811f21fa7eea1017e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:33,734 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc21811f21fa7eea1017e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:35,148 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:35,148 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:40,180 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc21fbcd5b048cef31fdf, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:40,180 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc21fbcd5b048cef31fdf, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:40,530 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:40,531 - server - INFO - 正在连接数据库...
+2025-07-10 21:37:45,571 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc224d1a82e37f342ec5f, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:45,571 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc224d1a82e37f342ec5f, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:37:58,188 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:37:58,189 - server - INFO - 正在连接数据库...
+2025-07-10 21:38:03,230 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2365d4c1a8772697422, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:38:03,231 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2365d4c1a8772697422, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:38:03,635 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:38:03,636 - server - INFO - 正在连接数据库...
+2025-07-10 21:38:08,685 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc23b6f1a0323a6bbbb13, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:38:08,686 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc23b6f1a0323a6bbbb13, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:39:46,299 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:39:46,299 - server - INFO - 正在连接数据库...
+2025-07-10 21:39:51,336 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2a2c96761a003d4856e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:39:51,337 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2a2c96761a003d4856e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:39:51,705 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:39:51,705 - server - INFO - 正在连接数据库...
+2025-07-10 21:39:56,747 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2a76700fe611da18520, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:39:56,748 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2a76700fe611da18520, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:39:58,256 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:39:58,256 - server - INFO - 正在连接数据库...
+2025-07-10 21:40:03,297 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2ae636d95fae4998d5e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:40:03,297 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2ae636d95fae4998d5e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:40:12,459 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:40:12,460 - server - INFO - 正在连接数据库...
+2025-07-10 21:40:17,514 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2bc63b5a5c0318ebd0b, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:40:17,514 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc2bc63b5a5c0318ebd0b, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:43:41,637 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 21:43:41,638 - server - INFO - 正在连接数据库...
+2025-07-10 21:43:46,682 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc38dce64ebd302d8688c, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 21:43:46,683 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc38dce64ebd302d8688c, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:27,973 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:03:27,974 - server - INFO - 正在连接数据库...
+2025-07-10 22:03:33,034 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc82fb3a5358501f6025e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:33,035 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc82fb3a5358501f6025e, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:33,436 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:03:33,436 - server - INFO - 正在连接数据库...
+2025-07-10 22:03:38,486 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8353eb4fad1b1ff8de7, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:38,487 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8353eb4fad1b1ff8de7, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:38,847 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:03:38,848 - server - INFO - 正在连接数据库...
+2025-07-10 22:03:43,882 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc83a28f9f5e63aec2a77, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:43,883 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc83a28f9f5e63aec2a77, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:44,300 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:03:44,301 - server - INFO - 正在连接数据库...
+2025-07-10 22:03:49,339 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc84017d9a3720de38546, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:03:49,340 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc84017d9a3720de38546, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:06:36,242 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:06:36,243 - server - INFO - 正在连接数据库...
+2025-07-10 22:06:41,313 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8ecbdbced7136c1a7c3, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:06:41,314 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8ecbdbced7136c1a7c3, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:06:41,726 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:06:41,726 - server - INFO - 正在连接数据库...
+2025-07-10 22:06:46,764 - database - ERROR - Failed to connect to MongoDB: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8f17a78868e1e38fbac, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:06:46,764 - server - ERROR - 数据库连接失败: No servers found yet, Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fc8f17a78868e1e38fbac, topology_type: Unknown, servers: [<ServerDescription ('8.216.32.239', 27017) server_type: Unknown, rtt: None>]>
+2025-07-10 22:12:18,488 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:12:18,488 - server - INFO - 正在连接数据库...
+2025-07-10 22:12:20,518 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:12:20,518 - server - INFO - 数据库连接成功
+2025-07-10 22:12:43,765 - server - INFO - 正在关闭数据库连接...
+2025-07-10 22:12:43,769 - database - INFO - Closed MongoDB connection
+2025-07-10 22:12:43,769 - server - INFO - 数据库连接已关闭
+2025-07-10 22:13:01,848 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:13:01,849 - server - INFO - 正在连接数据库...
+2025-07-10 22:13:02,799 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:13:02,804 - server - INFO - 数据库连接成功
+2025-07-10 22:13:32,078 - server - INFO - 正在关闭数据库连接...
+2025-07-10 22:13:32,079 - database - INFO - Closed MongoDB connection
+2025-07-10 22:13:32,079 - server - INFO - 数据库连接已关闭
+2025-07-10 22:13:51,291 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:13:51,292 - server - INFO - 正在连接数据库...
+2025-07-10 22:13:52,351 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:13:52,352 - server - INFO - 数据库连接成功
+2025-07-10 22:16:08,467 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:16:08,468 - server - INFO - 正在连接数据库...
+2025-07-10 22:16:13,522 - database - ERROR - Failed to connect to MongoDB: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcb28b8b2efea1bfea342, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:16:13,522 - server - ERROR - 数据库连接失败: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcb28b8b2efea1bfea342, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:19:15,373 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:19:15,373 - server - INFO - 正在连接数据库...
+2025-07-10 22:19:20,418 - database - ERROR - Failed to connect to MongoDB: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcbe3d7be8c7468a97b64, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:19:20,418 - server - ERROR - 数据库连接失败: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcbe3d7be8c7468a97b64, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:19:22,126 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:19:22,127 - server - INFO - 正在连接数据库...
+2025-07-10 22:19:27,171 - database - ERROR - Failed to connect to MongoDB: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcbea415063f32ce7cee2, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:19:27,171 - server - ERROR - 数据库连接失败: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 686fcbea415063f32ce7cee2, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-10 22:20:26,258 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:20:26,259 - server - INFO - 正在连接数据库...
+2025-07-10 22:20:27,253 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:20:27,253 - server - INFO - 数据库连接成功
+2025-07-10 22:24:50,706 - server - INFO - 正在关闭数据库连接...
+2025-07-10 22:24:50,720 - database - INFO - Closed MongoDB connection
+2025-07-10 22:24:50,721 - server - INFO - 数据库连接已关闭
+2025-07-10 22:24:51,287 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:24:51,288 - server - INFO - 正在连接数据库...
+2025-07-10 22:24:52,592 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:24:52,592 - server - INFO - 数据库连接成功
+2025-07-10 22:24:56,232 - server - INFO - 正在关闭数据库连接...
+2025-07-10 22:24:56,233 - database - INFO - Closed MongoDB connection
+2025-07-10 22:24:56,233 - server - INFO - 数据库连接已关闭
+2025-07-10 22:24:56,603 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:24:56,603 - server - INFO - 正在连接数据库...
+2025-07-10 22:24:57,912 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:24:57,912 - server - INFO - 数据库连接成功
+2025-07-10 22:28:22,244 - server - INFO - 正在关闭数据库连接...
+2025-07-10 22:28:22,251 - database - INFO - Closed MongoDB connection
+2025-07-10 22:28:22,256 - server - INFO - 数据库连接已关闭
+2025-07-10 22:28:22,763 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:28:22,764 - server - INFO - 正在连接数据库...
+2025-07-10 22:28:24,279 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:28:24,279 - server - INFO - 数据库连接成功
+2025-07-10 22:28:24,606 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:28:24,606 - server - INFO - 正在连接数据库...
+2025-07-10 22:28:25,953 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:28:25,953 - server - INFO - 数据库连接成功
+2025-07-10 22:29:03,071 - database - INFO - Inserted document with id: 686fce2eb7a5631e37126d4b
+2025-07-10 22:29:03,072 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 686fce2eb7a5631e37126d4b
+2025-07-10 22:29:30,317 - cardpoll_service - INFO - 正在创建/编辑答案: {'telegram_id': 0, 'question_id': 'string', 'new_answer': 'string', 'is_send': True, 'answer_id': 'string', 'answer_is_draft': True}
+2025-07-10 22:30:01,058 - cardpoll_service - INFO - 正在切换问题 string 的保存状态...
+2025-07-10 22:30:11,535 - cardpoll_service - INFO - 用户 0 正在获取问题...
+2025-07-10 22:30:26,403 - cardpoll_service - INFO - 用户 0 正在屏蔽答案 string...
+2025-07-10 22:30:34,628 - cardpoll_service - INFO - 用户 0 正在点赞答案 string...
+2025-07-10 22:30:44,058 - cardpoll_service - INFO - 用户 0 正在获取答案...

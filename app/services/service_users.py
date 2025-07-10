@@ -1,112 +1,42 @@
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from fastapi import HTTPException, status
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
+from app.schemas.users import (
+    GetTelegramSessionGenderRequest,
+    GetTelegramSessionGenderResponse,
+    CreateNewFemaleUserRequest,
+    CreateNewFemaleUserResponse,
+    CreateMaleUserRequest,
+    CreateMaleUserResponse,
+    GetUserExistRequest,
+    GetUserExistResponse
+)
+from pydantic import BaseModel, Field
 
 logger = MyLogger("user_service")
 
 
 class UserService:
     @staticmethod
-    async def create_male_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
-        """创建一个新的男性用户"""
-        logger.info(f"尝试创建新男性用户: {user_data.get('telegram_id')}")
-
-        # 检查 mode 字段是否有效
-        valid_modes = [1, 2, 3]  # 1=friends, 2=long-term_compinionship, 3=short-term_compinionship
-        if user_data.get('mode') not in valid_modes:
-            logger.warning(f"无效的 mode 参数: {user_data.get('mode')}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"无效的 'mode' 参数，请选择 {valid_modes} (1=friends, 2=long-term_compinionship, 3=short-term_compinionship)"
-            )
-
-        try:
-            # 将telegram_id转换为int64，作为user_id
-            telegram_id_int = int(user_data["telegram_id"])
-            mode_int = int(user_data["mode"])
-            # 构建User集合的完整结构，除user_id、mode、gender外其他字段全部置空
-            user_document = {
-                "user_id": telegram_id_int,  # 用户唯一ID，int类型
-                "gender": 0,  # 男性，int类型
-                "mode": mode_int,  # 关系模式，int类型
-                "question_list": [],  # 空列表
-                "answer_list": [],  # 空列表
-                "paired_user": [],  # 空列表
-                "profile_photo": None,  # 空，未上传头像
-                "profile": {},  # 空字典
-                "model_id": None,  # 空
-                "saved_list_question": [],  # 空列表
-                "saved_list_answer": []  # 空列表
-            }
-            # 插入用户数据到 MongoDB User集合
-            inserted_id = await Database.insert_one("User", user_document)
-            logger.info(f"用户数据已插入 MongoDB User集合，ID: {inserted_id}")
-            # 返回创建的用户数据，包含ID和mode（不再返回telegram_id）
-            return {
-                "_id": inserted_id,
-                "user_id": telegram_id_int,
-                "mode": mode_int
-            }
-        except ValueError as e:
-            logger.error(f"telegram_id转换失败: {e}")
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="无效的telegram_id格式，请提供有效的数字")
-        except Exception as e:
-            logger.error(f"创建用户失败: {e}")
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建用户失败: {e}")
-
-    @staticmethod
-    async def create_female_user(session_id: int) -> Dict[str, Any]:
+    async def create_new_male_user(user_data: CreateMaleUserRequest) -> CreateMaleUserResponse:
         """
-        创建一个新的女性用户。
-        1. 从telegram_session库获取_id和string
-        2. 提取string中的三个问题内容，插入Question集合，收集question_id
-        3. User的question_list存入新插入的question_id列表
-        4. gender为1，user_id为int，其他字段空置
+        新建男用户业务逻辑
+        - 参数: user_data（CreateMaleUserRequest对象，包含telegram_id和可选mode）
+        - 返回: CreateMaleUserResponse模型，表示是否成功创建
         """
-        logger.info(f"尝试创建新女性用户: session_id={session_id}")
+        valid_modes = [1, 2, 3]
+        # mode为可选，如果传了则校验
+        if user_data.mode is not None and user_data.mode not in valid_modes:
+            logger.warning(f"无效的 mode 参数: {user_data.mode}")
+            return CreateMaleUserResponse(success=False)
         try:
-            # 从telegram_session库获取对应session
-            session = await Database.find_one("telegram_sessions", {"_id": session_id})
-            if not session or "string" not in session:
-                logger.warning(f"未找到session或string字段: session_id={session_id}")
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="未找到对应的telegram_session或string字段")
-            string_content = session["string"]
-
-            # 正则提取问题内容
-            import re
-            from datetime import datetime
-            pattern = r"问题1: (.*?)\n\n问题2: (.*?)\n\n问题3: (.*?)\n"
-            match = re.search(pattern, string_content, re.DOTALL)
-            if not match:
-                logger.warning(f"string字段格式不正确: {string_content}")
-                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="string字段格式不正确，无法提取问题内容")
-            question_contents = [match.group(1).strip(), match.group(2).strip(), match.group(3).strip()]
-
-            user_id_int = int(session["_id"])
-            question_id_list = []
-            # 插入每个问题到Question集合
-            for idx, content in enumerate(question_contents):
-                question_doc = {
-                    "question_id": idx,  # 问题在user.question_list中的索引
-                    "content": content,  # 问题内容
-                    "user_id": user_id_int,  # 提问者id
-                    "is_draft": False,  # 默认非草稿
-                    "created_at": datetime.utcnow(),  # 当前时间
-                    "answer_list": [],
-                    "blocked_answer_list": [],
-                    "liked_answer_list": [],
-                    "is_active": True
-                }
-                qid = await Database.insert_one("Question", question_doc)
-                question_id_list.append(qid)
-
-            # 构建User集合的完整结构
+            telegram_id = user_data.telegram_id
             user_document = {
-                "user_id": user_id_int,  # 用户唯一ID，int类型
-                "gender": 1,  # 女性，int类型
-                "mode": None,  # 女性用户mode可置为None或后续补充
-                "question_list": question_id_list,  # 存入新插入的question_id列表
+                "telegram_id": telegram_id,
+                "gender": 2,  # 男性为2
+                "mode": user_data.mode,
+                "question_list": [],
                 "answer_list": [],
                 "paired_user": [],
                 "profile_photo": None,
@@ -115,40 +45,114 @@ class UserService:
                 "saved_list_question": [],
                 "saved_list_answer": []
             }
-            # 插入用户数据到 MongoDB User集合
             inserted_id = await Database.insert_one("User", user_document)
-            logger.info(f"女性用户数据已插入 MongoDB User集合，ID: {inserted_id}")
-            # 返回创建的用户数据，包含ID、user_id、gender、question_list
-            return {
-                "_id": inserted_id,
-                "user_id": user_id_int,
-                "gender": 1,
-                "question_list": question_id_list
-            }
+            logger.info(f"男用户数据已插入 MongoDB User集合，ID: {inserted_id}")
+            return CreateMaleUserResponse(success=True)
         except Exception as e:
-            logger.error(f"创建女性用户失败: {e}")
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"创建女性用户失败: {e}")
+            logger.error(f"创建男用户失败: {e}")
+            return CreateMaleUserResponse(success=False)
 
     @staticmethod
-    async def get_user_gender(user_id: str) -> Dict[str, Any]:
-        """根据用户ID获取用户性别"""
-        logger.info(f"尝试获取用户ID {user_id} 的性别")
+    async def create_new_female_user(telegram_id: int) -> CreateNewFemaleUserResponse:
+        """
+        新建女用户业务逻辑
+        - 参数: telegram_id（整数类型的Telegram ID）
+        - 返回: CreateNewFemaleUserResponse模型，包含是否成功创建的状态
+        - 流程: 在telegram_sessions表中查找telegram_id，如果找到则创建用户和问题
+        """
+        logger.info(f"尝试创建女性用户，telegram_id: {telegram_id}")
         try:
-            # 将 user_id 转换为整数类型
-            user_id_int = int(user_id)
-            # 关键修改：将查询键从 'user_id' 改为 '_id'
-            user = await Database.find_one("telegram_sessions", {"_id": user_id_int})
-            if user and "gender" in user:
-                logger.info(f"找到用户ID {user_id} 的性别: {user["gender"]}")
-                return {"gender": user["gender"]}
-            else:
-                logger.warning(f"未找到用户ID {user_id} 或其性别信息")
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户未找到或性别信息缺失")
-        except ValueError:
-            logger.error(f"用户ID {user_id} 无法转换为整数。")
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="无效的用户ID格式，请提供整数ID。")
-        except HTTPException:
-            raise
+            # 在telegram_sessions表中查找对应的记录
+            session = await Database.find_one("telegram_sessions", {"_id": telegram_id})
+            if not session:
+                logger.warning(f"在telegram_sessions表中未找到telegram_id: {telegram_id}")
+                return CreateNewFemaleUserResponse(success=False)
+            if "final_string" not in session:
+                logger.warning(f"telegram_sessions记录中缺少final_string字段: telegram_id={telegram_id}")
+                return CreateNewFemaleUserResponse(success=False)
+            # 解析final_string中的问题内容
+            import re
+            from datetime import datetime
+            string_content = session["final_string"]
+            pattern = r"问题1: (.*?)\n\n问题2: (.*?)\n\n问题3: (.*?)\n"
+            match = re.search(pattern, string_content, re.DOTALL)
+            if not match:
+                logger.warning(f"final_string字段格式不正确，无法提取问题内容: {string_content}")
+                return CreateNewFemaleUserResponse(success=False)
+            # 提取问题内容
+            question_contents = [match.group(1).strip(), match.group(2).strip(), match.group(3).strip()]
+            # 创建问题记录
+            question_id_list = []
+            for idx, content in enumerate(question_contents):
+                question_doc = {
+                    "question_id": idx,
+                    "content": content,
+                    "telegram_id": telegram_id,
+                    "is_draft": False,
+                    "created_at": datetime.utcnow(),
+                    "answer_list": [],
+                    "blocked_answer_list": [],
+                    "liked_answer_list": [],
+                    "is_active": True
+                }
+                qid = await Database.insert_one("Question", question_doc)
+                question_id_list.append(qid)
+            # 创建用户记录
+            user_document = {
+                "telegram_id": telegram_id,
+                "gender": 1,  # 女性为1
+                "mode": None,
+                "question_list": question_id_list,
+                "answer_list": [],
+                "paired_user": [],
+                "profile_photo": None,
+                "profile": {},
+                "model_id": None,
+                "saved_list_question": [],
+                "saved_list_answer": []
+            }
+            inserted_id = await Database.insert_one("User", user_document)
+            logger.info(f"女性用户创建成功，telegram_id: {telegram_id}, User集合ID: {inserted_id}")
+            return CreateNewFemaleUserResponse(success=True)
         except Exception as e:
-            logger.error(f"获取用户ID {user_id} 性别失败: {e}")
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"获取用户性别失败: {e}") 
+            logger.error(f"创建女性用户时发生未知错误: {e}")
+            return CreateNewFemaleUserResponse(success=False)
+
+    @staticmethod
+    async def get_user_from_telegram_session(request: GetTelegramSessionGenderRequest) -> GetTelegramSessionGenderResponse:
+        """
+        根据telegram_id从telegram_sessions表中获取用户性别
+        - 参数: request（GetTelegramSessionGenderRequest对象，包含telegram_id）
+        - 返回: GetTelegramSessionGenderResponse模型，包含gender字段
+        """
+        logger.info(f"尝试从telegram_sessions表获取telegram_id {request.telegram_id} 的性别")
+        try:
+            # 在telegram_sessions表中根据_id查询用户记录
+            session_record = await Database.find_one("telegram_sessions", {"_id": request.telegram_id})
+            # 检查是否找到记录以及是否包含gender字段
+            if session_record and "gender" in session_record:
+                gender_value = session_record["gender"]
+                logger.info(f"成功找到telegram_id {request.telegram_id} 的性别: {gender_value}")
+                return GetTelegramSessionGenderResponse(gender=gender_value)
+            else:
+                logger.warning(f"在telegram_sessions表中未找到telegram_id {request.telegram_id} 或其性别信息")
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND, 
+                    detail="用户未找到或性别信息缺失"
+                )
+        except Exception as e:
+            logger.error(f"获取telegram_id {request.telegram_id} 性别时发生未知错误: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+                detail=f"获取用户性别失败: {e}"
+            ) 
+
+    @staticmethod
+    async def get_user_exist(request: GetUserExistRequest) -> GetUserExistResponse:
+        """
+        查询用户是否存在（定义占位，未实现）
+        - 参数: request（GetUserExistRequest对象，包含telegram_id）
+        - 返回: GetUserExistResponse模型
+        """
+        # TODO: 实现用户存在性查询逻辑
+        pass 
