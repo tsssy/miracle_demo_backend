@@ -800,3 +800,41 @@
 2025-07-10 22:30:26,403 - cardpoll_service - INFO - 用户 0 正在屏蔽答案 string...
 2025-07-10 22:30:34,628 - cardpoll_service - INFO - 用户 0 正在点赞答案 string...
 2025-07-10 22:30:44,058 - cardpoll_service - INFO - 用户 0 正在获取答案...
+2025-07-10 22:51:35,739 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 22:51:35,744 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:51:35,745 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-10 22:51:36,036 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 22:51:36,040 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:51:37,161 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 22:51:37,169 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 22:51:37,169 - server - INFO - 正在连接数据库...
+2025-07-10 22:51:38,145 - database - INFO - Connected to MongoDB successfully
+2025-07-10 22:51:38,145 - server - INFO - 数据库连接成功
+2025-07-10 23:02:47,656 - server - INFO - 正在关闭数据库连接...
+2025-07-10 23:02:47,670 - database - INFO - Closed MongoDB connection
+2025-07-10 23:02:47,670 - server - INFO - 数据库连接已关闭
+2025-07-10 23:06:17,610 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 23:06:17,614 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 23:06:17,645 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 23:06:17,649 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 23:06:17,649 - server - INFO - 正在连接数据库...
+2025-07-10 23:06:18,651 - database - INFO - Connected to MongoDB successfully
+2025-07-10 23:06:18,652 - server - INFO - 数据库连接成功
+2025-07-10 23:08:03,794 - server - INFO - 正在关闭数据库连接...
+2025-07-10 23:08:03,798 - database - INFO - Closed MongoDB connection
+2025-07-10 23:08:03,799 - server - INFO - 数据库连接已关闭
+2025-07-10 23:08:05,360 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 23:08:05,388 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 23:08:05,488 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 23:08:05,503 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 23:08:05,505 - server - INFO - 正在连接数据库...
+2025-07-10 23:08:06,701 - database - INFO - Connected to MongoDB successfully
+2025-07-10 23:08:06,703 - server - INFO - 数据库连接成功
+2025-07-10 23:10:32,021 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-10 23:10:32,025 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-10 23:10:32,026 - server - INFO - 正在连接数据库...
+2025-07-10 23:10:33,288 - database - INFO - Connected to MongoDB successfully
+2025-07-10 23:10:33,288 - server - INFO - 数据库连接成功
+2025-07-10 23:14:15,231 - server - INFO - 正在关闭数据库连接...
+2025-07-10 23:14:15,234 - database - INFO - Closed MongoDB connection
+2025-07-10 23:14:15,235 - server - INFO - 数据库连接已关闭

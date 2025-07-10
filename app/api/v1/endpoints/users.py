@@ -51,7 +51,7 @@ async def users_create_female_user(request: CreateNewFemaleUserRequest) -> Any:
         logger.error(f"创建女性用户失败: {e}")
         return CreateNewFemaleUserResponse(success=False)
 
-@router.post("/users/telegram_session", response_model=GetTelegramSessionGenderResponse)
+@router.post("/telegram_session", response_model=GetTelegramSessionGenderResponse)
 async def users_get_user_from_telegram_session(request: GetTelegramSessionGenderRequest) -> Any:
     """
     根据telegram_id从telegram_sessions表中获取用户性别

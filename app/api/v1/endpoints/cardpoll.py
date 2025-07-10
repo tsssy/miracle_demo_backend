@@ -2,20 +2,20 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Dict, Any
 from app.services.service_cardpoll import ServiceCardpoll
 from app.schemas.cardpoll import (
-    EditAnswer_Request, EditAnswer_Response,
-    ToggleQuestionSave_Request, ToggleQuestionSave_Response,
-    GetQuestion_Request, GetQuestion_Response,
-    BlockAnswer_Request, BlockAnswer_Response,
-    LikeAnswer_Request, LikeAnswer_Response,
-    GetAnswer_Request, GetAnswer_Response
+    EditAnswerRequest, EditAnswerResponse,
+    ToggleQuestionSaveRequest, ToggleQuestionSaveResponse,
+    GetQuestionRequest, GetQuestionResponse,
+    BlockAnswerRequest, BlockAnswerResponse,
+    LikeAnswerRequest, LikeAnswerResponse,
+    GetAnswerRequest, GetAnswerResponse
 )
 from app.core.security import get_current_active_user
 
 router = APIRouter()
 
-@router.post("/edit_answer", response_model=EditAnswer_Response, summary="创建或编辑答案")
+@router.post("/edit_answer", response_model=EditAnswerResponse, summary="创建或编辑答案")
 # async def edit_answer(request: EditAnswer_Request, current_user: Dict[str, Any] = Depends(get_current_active_user)):
-async def edit_answer(request: EditAnswer_Request): # 暂时不需要用户认证
+async def edit_answer(request: EditAnswerRequest): # 暂时不需要用户认证
     """
     创建或编辑一个答案。
     - 如果提供了 answer_id，则为编辑模式。
@@ -32,9 +32,9 @@ async def edit_answer(request: EditAnswer_Request): # 暂时不需要用户认�
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/toggle_question_save", response_model=ToggleQuestionSave_Response, summary="切换问题保存状态")
+@router.post("/toggle_question_save", response_model=ToggleQuestionSaveResponse, summary="切换问题保存状态")
 # async def toggle_question_save(request: ToggleQuestionSave_Request, current_user: Dict[str, Any] = Depends(get_current_active_user)):
-async def toggle_question_save(request: ToggleQuestionSave_Request): # 暂时不需要用户认证
+async def toggle_question_save(request: ToggleQuestionSaveRequest): # 暂时不需要用户认证
     """收藏或取消收藏一个问题。"""
     try:
         request_data = request.dict()
@@ -46,8 +46,8 @@ async def toggle_question_save(request: ToggleQuestionSave_Request): # 暂时不
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/get_question", response_model=GetQuestion_Response, summary="获取一个问题")
-async def get_question(request: GetQuestion_Request):
+@router.post("/get_question", response_model=GetQuestionResponse, summary="获取一个问题")
+async def get_question(request: GetQuestionRequest):
     """获取一个随机或推荐的问题以供回答。"""
     try:
         request_data = request.dict()
@@ -58,8 +58,8 @@ async def get_question(request: GetQuestion_Request):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/block_answer", response_model=BlockAnswer_Response, summary="拉黑答案")
-async def block_answer(request: BlockAnswer_Request):
+@router.post("/block_answer", response_model=BlockAnswerResponse, summary="拉黑答案")
+async def block_answer(request: BlockAnswerRequest):
     """拉黑一个答案，使其不再出现。"""
     try:
         request_data = request.dict()
@@ -70,8 +70,8 @@ async def block_answer(request: BlockAnswer_Request):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/like_answer", response_model=LikeAnswer_Response, summary="点赞答案")
-async def like_answer(request: LikeAnswer_Request):
+@router.post("/like_answer", response_model=LikeAnswerResponse, summary="点赞答案")
+async def like_answer(request: LikeAnswerRequest):
     """点赞或取消点赞一个答案。"""
     try:
         request_data = request.dict()
@@ -82,8 +82,8 @@ async def like_answer(request: LikeAnswer_Request):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/get_answer", response_model=GetAnswer_Response, summary="获取一个答案")
-async def get_answer(request: GetAnswer_Request):
+@router.post("/get_answer", response_model=GetAnswerResponse, summary="获取一个答案")
+async def get_answer(request: GetAnswerRequest):
     """根据滑动方向获取一个答案的详细信息。"""
     try:
         request_data = request.dict()
