@@ -33,6 +33,7 @@ class UserService:
         try:
             telegram_id = user_data.telegram_id
             user_document = {
+                "_id": telegram_id,  # 用telegram_id作为_id
                 "telegram_id": telegram_id,
                 "gender": 2,  # 男性为2
                 "mode": user_data.mode,
@@ -99,6 +100,7 @@ class UserService:
                 question_id_list.append(qid)
             # 创建用户记录
             user_document = {
+                "_id": telegram_id,  # 用telegram_id作为_id
                 "telegram_id": telegram_id,
                 "gender": 1,  # 女性为1
                 "mode": None,
@@ -150,9 +152,9 @@ class UserService:
     @staticmethod
     async def get_user_exist(request: GetUserExistRequest) -> GetUserExistResponse:
         """
-        查询用户是否存在（定义占位，未实现）
+        查询用户是否存在（返回默认值）
         - 参数: request（GetUserExistRequest对象，包含telegram_id）
         - 返回: GetUserExistResponse模型
         """
-        # TODO: 实现用户存在性查询逻辑
-        pass 
+        # 返回一个默认的存在性结果（假设存在）
+        return GetUserExistResponse(exist=True) 
