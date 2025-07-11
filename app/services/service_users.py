@@ -75,11 +75,29 @@ class UserService:
             import re
             from datetime import datetime
             string_content = session["final_string"]
-            pattern = r"问题1: (.*?)\n\n问题2: (.*?)\n\n问题3: (.*?)\n"
-            match = re.search(pattern, string_content, re.DOTALL)
+            
+            # 支持多种格式的正则表达式
+            patterns = [
+                # 英文格式: "Question 1: ...\nQuestion 2: ...\nQuestion 3: ..."
+                r"Question 1: (.*?)\nQuestion 2: (.*?)\nQuestion 3: (.*?)(?:\n|$)",
+                # 中文格式: "问题1: ...\n\n问题2: ...\n\n问题3: ..."
+                r"问题1: (.*?)\n\n问题2: (.*?)\n\n问题3: (.*?)\n",
+                # 其他可能的格式
+                r"Q1: (.*?)\nQ2: (.*?)\nQ3: (.*?)(?:\n|$)",
+                r"1\. (.*?)\n2\. (.*?)\n3\. (.*?)(?:\n|$)"
+            ]
+            
+            match = None
+            for pattern in patterns:
+                match = re.search(pattern, string_content, re.DOTALL)
+                if match:
+                    logger.info(f"使用正则表达式匹配成功: {pattern}")
+                    break
+            
             if not match:
                 logger.warning(f"final_string字段格式不正确，无法提取问题内容: {string_content}")
                 return CreateNewFemaleUserResponse(success=False)
+            
             # 提取问题内容
             question_contents = [match.group(1).strip(), match.group(2).strip(), match.group(3).strip()]
             # 创建问题记录
