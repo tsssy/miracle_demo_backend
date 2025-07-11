@@ -157,4 +157,4 @@ class UserService:
         - 返回: GetUserExistResponse模型
         """
         # 返回一个默认的存在性结果（假设存在）
-        return GetUserExistResponse(success=True) 
+        return GetUserExistResponse(success=False) 
