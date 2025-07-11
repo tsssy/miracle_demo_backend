@@ -498,3 +498,73 @@
 2025-07-10 15:30:52,880 - user_service - INFO - 尝试创建新男性用户: 9168168168
 2025-07-10 15:30:52,909 - database - INFO - Inserted document with id: 686f6c2c9564f7ee6c679483
 2025-07-10 15:30:52,909 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686f6c2c9564f7ee6c679483
+2025-07-12 01:52:25,278 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:52:25,299 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:52:25,300 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 01:52:25,340 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:52:25,373 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:52:25,375 - server - INFO - 正在连接数据库...
+2025-07-12 01:52:25,416 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:52:25,417 - server - INFO - 数据库连接成功
+2025-07-12 01:52:40,921 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
+2025-07-12 01:57:49,265 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
+2025-07-12 01:58:08,159 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
+2025-07-12 02:02:50,089 - server - INFO - 正在关闭数据库连接...
+2025-07-12 02:02:50,090 - database - INFO - Closed MongoDB connection
+2025-07-12 02:02:50,090 - server - INFO - 数据库连接已关闭
+2025-07-12 02:02:52,549 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 02:02:52,572 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 02:02:52,573 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 02:02:52,612 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 02:02:52,633 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 02:02:52,635 - server - INFO - 正在连接数据库...
+2025-07-12 02:02:52,681 - database - INFO - Connected to MongoDB successfully
+2025-07-12 02:02:52,681 - server - INFO - 数据库连接成功
+2025-07-12 02:03:03,110 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
+2025-07-12 02:03:03,138 - user_service - WARNING - 在telegram_sessions表中未找到telegram_id 9168168168 或其性别信息
+2025-07-12 02:03:03,138 - user_service - ERROR - 获取telegram_id 9168168168 性别时发生未知错误: 404: 用户未找到或性别信息缺失
+2025-07-12 02:03:03,139 - user_endpoints - ERROR - 获取用户性别失败: 500: 获取用户性别失败: 404: 用户未找到或性别信息缺失
+2025-07-12 02:04:48,032 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
+2025-07-12 02:04:48,035 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 1
+2025-07-12 02:04:48,480 - user_service - INFO - 尝试创建女性用户，telegram_id: telegram_id=9168168168
+2025-07-12 02:04:48,482 - database - ERROR - Error finding document: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=9168168168)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xd0\tH\x96KoDc\xbd\xd6V\x02E\r\xb0\x02', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=9168168168), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
+2025-07-12 02:04:48,482 - user_service - ERROR - 创建女性用户时发生未知错误: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=9168168168)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xd0\tH\x96KoDc\xbd\xd6V\x02E\r\xb0\x02', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=9168168168), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
+2025-07-12 02:05:22,555 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
+2025-07-12 02:05:22,558 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 2
+2025-07-12 02:05:35,082 - database - INFO - Inserted document with id: 9168168168
+2025-07-12 02:05:35,082 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 9168168168
+2025-07-12 02:10:57,073 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
+2025-07-12 02:10:57,076 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 2
+2025-07-12 02:11:01,286 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 9168168168}}
+2025-07-12 02:11:01,287 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 9168168168}}
+2025-07-12 02:16:45,335 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
+2025-07-12 02:16:45,338 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
+2025-07-12 02:17:08,028 - database - INFO - Inserted document with id: 7226798439
+2025-07-12 02:17:08,028 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 7226798439
+2025-07-12 02:17:40,343 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
+2025-07-12 02:17:40,346 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
+2025-07-12 02:17:45,943 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
+2025-07-12 02:17:45,946 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
+2025-07-12 02:18:19,235 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
+2025-07-12 02:18:19,238 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: female
+2025-07-12 02:18:19,239 - user_service - ERROR - 获取telegram_id 7226798439 性别时发生未知错误: 1 validation error for GetTelegramSessionGenderResponse
+gender
+  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='female', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
+2025-07-12 02:18:19,240 - user_endpoints - ERROR - 获取用户性别失败: 500: 获取用户性别失败: 1 validation error for GetTelegramSessionGenderResponse
+gender
+  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='female', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
+2025-07-12 02:46:50,466 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 02:46:50,489 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 02:46:50,490 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 02:46:50,603 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 02:46:50,625 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 02:46:50,628 - server - INFO - 正在连接数据库...
+2025-07-12 02:46:50,691 - database - INFO - Connected to MongoDB successfully
+2025-07-12 02:46:50,692 - server - INFO - 数据库连接成功
+2025-07-12 02:46:58,028 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
+2025-07-12 02:46:58,061 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 1
+2025-07-12 02:46:58,760 - user_service - INFO - 尝试创建女性用户，telegram_id: telegram_id=7226798439
+2025-07-12 02:46:58,762 - database - ERROR - Error finding document: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xa8:]\xb2\xf4FI\x1f\xb63\x96\xfe\xee%\xd1f', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
+2025-07-12 02:46:58,763 - user_service - ERROR - 创建女性用户时发生未知错误: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xa8:]\xb2\xf4FI\x1f\xb63\x96\xfe\xee%\xd1f', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
