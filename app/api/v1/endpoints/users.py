@@ -22,7 +22,7 @@ logger = MyLogger("user_endpoints")
 
 router = APIRouter()
 
-@router.post("/create_male_user", response_model=CreateMaleUserResponse, status_code=status.HTTP_200_OK)
+@router.post("/create_new_male_user", response_model=CreateMaleUserResponse, status_code=status.HTTP_200_OK)
 async def users_create_male_user(request: CreateMaleUserRequest) -> Any:
     """
     新建男用户API接口
@@ -36,7 +36,7 @@ async def users_create_male_user(request: CreateMaleUserRequest) -> Any:
         logger.error(f"创建男用户失败: {e}")
         return CreateMaleUserResponse(success=False)
 
-@router.post("/create_female_user", response_model=CreateNewFemaleUserResponse, status_code=status.HTTP_200_OK)
+@router.post("/create_new_female_user", response_model=CreateNewFemaleUserResponse, status_code=status.HTTP_200_OK)
 async def users_create_female_user(request: CreateNewFemaleUserRequest) -> Any:
     """
     新建女用户API接口
