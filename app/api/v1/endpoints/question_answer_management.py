@@ -4,7 +4,6 @@ from app.schemas.question_answer_management import (
     ToggleQuestionActiveRequest, ToggleQuestionActiveResponse,
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
-    GetAnswerRequest, GetAnswerResponse,
     GetQAMAnswerRequest, GetQAMAnswerResponse
 )
 from app.services.service_question_answer_management import QuestionAnswerManagementService
@@ -46,15 +45,6 @@ async def get_question_list(request: GetQuestionListRequest):
     - 出参: GetQuestionListResponse（question_list, question_strings）
     """
     return await QuestionAnswerManagementService.get_question_list(request)
-
-@router.post("/get_answer", response_model=GetAnswerResponse)
-async def get_answer(request: GetAnswerRequest):
-    """
-    获取答案接口
-    - 入参: GetAnswerRequest（telegram_id）
-    - 出参: GetAnswerResponse（answer_id_list, question_id_list, answer_content, question_content）
-    """
-    return await QuestionAnswerManagementService.get_answer(request)
 
 @router.post("/get_qa_answer", response_model=GetQAMAnswerResponse)
 async def get_qa_answer(request: GetQAMAnswerRequest):

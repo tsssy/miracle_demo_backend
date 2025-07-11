@@ -7,7 +7,7 @@ from app.schemas.cardpoll import (
     GetQuestionRequest, GetQuestionResponse,
     BlockAnswerRequest, BlockAnswerResponse,
     LikeAnswerRequest, LikeAnswerResponse,
-    GetAnswerRequest, GetAnswerResponse
+    GetCardPollAnswerRequest, GetCardPollAnswerResponse
 )
 from app.core.security import get_current_active_user
 
@@ -82,8 +82,8 @@ async def like_answer(request: LikeAnswerRequest):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
-@router.post("/get_answer", response_model=GetAnswerResponse, summary="获取一个答案")
-async def get_answer(request: GetAnswerRequest):
+@router.post("/get_answer", response_model=GetCardPollAnswerResponse, summary="获取一个答案")
+async def get_answer(request: GetCardPollAnswerRequest):
     """根据滑动方向获取一个答案的详细信息。"""
     try:
         request_data = request.dict()

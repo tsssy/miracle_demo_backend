@@ -63,26 +63,6 @@ class GetQuestionListResponse(BaseModel):
     question_list: List[str] = Field(..., description="问题ID列表", example=["q1", "q2"])
     question_strings: List[str] = Field(..., description="问题内容列表", example=["你喜欢什么颜色？", "你喜欢什么运动？"])
 
-class GetAnswerRequest(BaseModel):
-    """
-    获取答案请求体
-    - telegram_id: Telegram用户ID
-    """
-    telegram_id: int = Field(..., description="Telegram用户ID", example=10001)
-
-class GetAnswerResponse(BaseModel):
-    """
-    获取答案响应体
-    - answer_id_list: 答案ID列表
-    - question_id_list: 问题ID列表
-    - answer_content: 答案内容列表
-    - question_content: 问题内容列表
-    """
-    answer_id_list: List[str] = Field(..., description="答案ID列表", example=["a1", "a2"])
-    question_id_list: List[str] = Field(..., description="问题ID列表", example=["q1", "q2"])
-    answer_content: List[str] = Field(..., description="答案内容列表", example=["蓝色", "足球"])
-    question_content: List[str] = Field(..., description="问题内容列表", example=["你喜欢什么颜色？", "你喜欢什么运动？"])
-
 class GetQAMAnswerRequest(BaseModel):
     """
     获取问答答案请求体

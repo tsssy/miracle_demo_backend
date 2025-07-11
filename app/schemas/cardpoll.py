@@ -54,11 +54,11 @@ class LikeAnswerResponse(BaseModel):
     is_liked: bool = Field(..., description="当前是否为点赞状态")
 
 # 获取答案
-class GetAnswerRequest(BaseModel):
+class GetCardPollAnswerRequest(BaseModel):
     telegram_id: int = Field(..., description="用户的 Telegram ID")
     is_swiping_toward_left: bool = Field(..., description="是否向左滑动 (用于获取下一个答案)")
 
-class GetAnswerResponse(BaseModel):
+class GetCardPollAnswerResponse(BaseModel):
     answer_id: str = Field(..., description="答案ID")
     answer_content: str = Field(..., description="答案内容")
     question_string: str = Field(..., description="对应的问题内容")

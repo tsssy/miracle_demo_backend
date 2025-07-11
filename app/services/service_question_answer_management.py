@@ -3,7 +3,6 @@ from app.schemas.question_answer_management import (
     ToggleQuestionActiveRequest, ToggleQuestionActiveResponse,
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
-    GetAnswerRequest, GetAnswerResponse,
     GetQAMAnswerRequest, GetQAMAnswerResponse
 )
 
@@ -48,20 +47,6 @@ class QuestionAnswerManagementService:
         return GetQuestionListResponse(
             question_list=["q1", "q2"],
             question_strings=["你喜欢什么颜色？", "你喜欢什么运动？"]
-        )
-
-    @staticmethod
-    async def get_answer(request: GetAnswerRequest) -> GetAnswerResponse:
-        """
-        获取答案（返回示例数据）
-        - 参数: request（GetAnswerRequest对象）
-        - 返回: GetAnswerResponse
-        """
-        return GetAnswerResponse(
-            answer_id_list=["a1", "a2"],
-            question_id_list=["q1", "q2"],
-            answer_content=["蓝色", "足球"],
-            question_content=["你喜欢什么颜色？", "你喜欢什么运动？"]
         )
 
     @staticmethod
