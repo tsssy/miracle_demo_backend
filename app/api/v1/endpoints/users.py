@@ -71,5 +71,6 @@ async def user_exist(request: GetUserExistRequest) -> GetUserExistResponse:
     - 参数: request（包含telegram_id的请求体）
     - 返回: 用户是否存在
     """
-    # TODO: 实现用户存在性查询逻辑
-    raise NotImplementedError("get_user_exist功能未实现") 
+    return await UserService.get_user_exist(request)
+    #TODO: 实现用户存在性查询逻辑
+    #raise NotImplementedError("get_user_exist功能未实现") 
