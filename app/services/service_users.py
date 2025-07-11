@@ -54,22 +54,22 @@ class UserService:
             return CreateMaleUserResponse(success=False)
 
     @staticmethod
-    async def create_new_female_user(telegram_id: int) -> CreateNewFemaleUserResponse:
+    async def create_new_female_user(request: CreateNewFemaleUserRequest) -> CreateNewFemaleUserResponse:
         """
         新建女用户业务逻辑
-        - 参数: telegram_id（整数类型的Telegram ID）
+        - 参数: request（CreateNewFemaleUserRequest对象，包含telegram_id）
         - 返回: CreateNewFemaleUserResponse模型，包含是否成功创建的状态
         - 流程: 在telegram_sessions表中查找telegram_id，如果找到则创建用户和问题
         """
-        logger.info(f"尝试创建女性用户，telegram_id: {telegram_id}")
+        logger.info(f"尝试创建女性用户，telegram_id: {request.telegram_id}")
         try:
             # 在telegram_sessions表中查找对应的记录
-            session = await Database.find_one("telegram_sessions", {"_id": telegram_id})
+            session = await Database.find_one("telegram_sessions", {"_id": request.telegram_id})
             if not session:
-                logger.warning(f"在telegram_sessions表中未找到telegram_id: {telegram_id}")
+                logger.warning(f"在telegram_sessions表中未找到telegram_id: {request.telegram_id}")
                 return CreateNewFemaleUserResponse(success=False)
             if "final_string" not in session:
-                logger.warning(f"telegram_sessions记录中缺少final_string字段: telegram_id={telegram_id}")
+                logger.warning(f"telegram_sessions记录中缺少final_string字段: telegram_id={request.telegram_id}")
                 return CreateNewFemaleUserResponse(success=False)
             # 解析final_string中的问题内容
             import re
@@ -88,7 +88,7 @@ class UserService:
                 question_doc = {
                     "question_id": idx,
                     "content": content,
-                    "telegram_id": telegram_id,
+                    "telegram_id": request.telegram_id,
                     "is_draft": False,
                     "created_at": datetime.utcnow(),
                     "answer_list": [],
@@ -100,8 +100,8 @@ class UserService:
                 question_id_list.append(qid)
             # 创建用户记录
             user_document = {
-                "_id": telegram_id,  # 用telegram_id作为_id
-                "telegram_id": telegram_id,
+                "_id": request.telegram_id,  # 用telegram_id作为_id
+                "telegram_id": request.telegram_id,
                 "gender": 1,  # 女性为1
                 "mode": None,
                 "question_list": question_id_list,
@@ -114,7 +114,7 @@ class UserService:
                 "saved_list_answer": []
             }
             inserted_id = await Database.insert_one("User", user_document)
-            logger.info(f"女性用户创建成功，telegram_id: {telegram_id}, User集合ID: {inserted_id}")
+            logger.info(f"女性用户创建成功，telegram_id: {request.telegram_id}, User集合ID: {inserted_id}")
             return CreateNewFemaleUserResponse(success=True)
         except Exception as e:
             logger.error(f"创建女性用户时发生未知错误: {e}")
