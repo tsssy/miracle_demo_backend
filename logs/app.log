@@ -498,684 +498,858 @@
 2025-07-10 15:30:52,880 - user_service - INFO - 尝试创建新男性用户: 9168168168
 2025-07-10 15:30:52,909 - database - INFO - Inserted document with id: 686f6c2c9564f7ee6c679483
 2025-07-10 15:30:52,909 - user_service - INFO - 用户数据已插入 MongoDB User集合，ID: 686f6c2c9564f7ee6c679483
-2025-07-12 01:52:25,278 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 01:52:25,299 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 01:52:25,300 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 01:52:25,340 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 01:52:25,373 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 01:52:25,375 - server - INFO - 正在连接数据库...
-2025-07-12 01:52:25,416 - database - INFO - Connected to MongoDB successfully
-2025-07-12 01:52:25,417 - server - INFO - 数据库连接成功
-2025-07-12 01:52:40,921 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
-2025-07-12 01:57:49,265 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
-2025-07-12 01:58:08,159 - user_endpoints - ERROR - 获取用户性别失败: type object 'UserService' has no attribute 'get_user_gender_from_telegram_session'
-2025-07-12 02:02:50,089 - server - INFO - 正在关闭数据库连接...
-2025-07-12 02:02:50,090 - database - INFO - Closed MongoDB connection
-2025-07-12 02:02:50,090 - server - INFO - 数据库连接已关闭
-2025-07-12 02:02:52,549 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 02:02:52,572 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 02:02:52,573 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 02:02:52,612 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 02:02:52,633 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 02:02:52,635 - server - INFO - 正在连接数据库...
-2025-07-12 02:02:52,681 - database - INFO - Connected to MongoDB successfully
-2025-07-12 02:02:52,681 - server - INFO - 数据库连接成功
-2025-07-12 02:03:03,110 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
-2025-07-12 02:03:03,138 - user_service - WARNING - 在telegram_sessions表中未找到telegram_id 9168168168 或其性别信息
-2025-07-12 02:03:03,138 - user_service - ERROR - 获取telegram_id 9168168168 性别时发生未知错误: 404: 用户未找到或性别信息缺失
-2025-07-12 02:03:03,139 - user_endpoints - ERROR - 获取用户性别失败: 500: 获取用户性别失败: 404: 用户未找到或性别信息缺失
-2025-07-12 02:04:48,032 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
-2025-07-12 02:04:48,035 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 1
-2025-07-12 02:04:48,480 - user_service - INFO - 尝试创建女性用户，telegram_id: telegram_id=9168168168
-2025-07-12 02:04:48,482 - database - ERROR - Error finding document: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=9168168168)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xd0\tH\x96KoDc\xbd\xd6V\x02E\r\xb0\x02', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=9168168168), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 02:04:48,482 - user_service - ERROR - 创建女性用户时发生未知错误: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=9168168168)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xd0\tH\x96KoDc\xbd\xd6V\x02E\r\xb0\x02', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=9168168168), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 02:05:22,555 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
-2025-07-12 02:05:22,558 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 2
-2025-07-12 02:05:35,082 - database - INFO - Inserted document with id: 9168168168
-2025-07-12 02:05:35,082 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 9168168168
-2025-07-12 02:10:57,073 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 9168168168 的性别
-2025-07-12 02:10:57,076 - user_service - INFO - 成功找到telegram_id 9168168168 的性别: 2
-2025-07-12 02:11:01,286 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 9168168168}}
-2025-07-12 02:11:01,287 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 9168168168 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 9168168168}}
-2025-07-12 02:16:45,335 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 02:16:45,338 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 02:17:08,028 - database - INFO - Inserted document with id: 7226798439
-2025-07-12 02:17:08,028 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 7226798439
-2025-07-12 02:17:40,343 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 02:17:40,346 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 02:17:45,943 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 02:17:45,946 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 02:18:19,235 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 02:18:19,238 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: female
-2025-07-12 02:18:19,239 - user_service - ERROR - 获取telegram_id 7226798439 性别时发生未知错误: 1 validation error for GetTelegramSessionGenderResponse
-gender
-  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='female', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
-2025-07-12 02:18:19,240 - user_endpoints - ERROR - 获取用户性别失败: 500: 获取用户性别失败: 1 validation error for GetTelegramSessionGenderResponse
-gender
-  Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='female', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.11/v/int_parsing
-2025-07-12 02:46:50,466 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 02:46:50,489 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 02:46:50,490 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 02:46:50,603 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 02:46:50,625 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 02:46:50,628 - server - INFO - 正在连接数据库...
-2025-07-12 02:46:50,691 - database - INFO - Connected to MongoDB successfully
-2025-07-12 02:46:50,692 - server - INFO - 数据库连接成功
-2025-07-12 02:46:58,028 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 02:46:58,061 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 1
-2025-07-12 02:46:58,760 - user_service - INFO - 尝试创建女性用户，telegram_id: telegram_id=7226798439
-2025-07-12 02:46:58,762 - database - ERROR - Error finding document: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xa8:]\xb2\xf4FI\x1f\xb63\x96\xfe\xee%\xd1f', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 02:46:58,763 - user_service - ERROR - 创建女性用户时发生未知错误: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'\xa8:]\xb2\xf4FI\x1f\xb63\x96\xfe\xee%\xd1f', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 03:38:35,459 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:38:35,487 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:38:35,488 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 03:38:35,588 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:38:35,612 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:38:35,615 - server - INFO - 正在连接数据库...
-2025-07-12 03:38:35,686 - database - INFO - Connected to MongoDB successfully
-2025-07-12 03:38:35,686 - server - INFO - 数据库连接成功
-2025-07-12 03:45:36,637 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:45:36,665 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:45:36,666 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 03:45:36,708 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:45:36,732 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:45:36,734 - server - INFO - 正在连接数据库...
-2025-07-12 03:45:36,775 - database - INFO - Connected to MongoDB successfully
-2025-07-12 03:45:36,776 - server - INFO - 数据库连接成功
-2025-07-12 03:45:45,854 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:45:45,883 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:46:11,146 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:46:11,147 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:46:32,778 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:46:32,782 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:46:36,919 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:46:36,919 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:46:57,510 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:46:57,518 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:47:01,539 - database - INFO - Inserted document with id: 7226798439
-2025-07-12 03:47:01,540 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 7226798439
-2025-07-12 03:47:20,605 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:47:20,608 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:47:24,685 - database - INFO - Inserted document with id: 7226798439
-2025-07-12 03:47:24,685 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 7226798439
-2025-07-12 03:54:46,251 - server - INFO - 正在关闭数据库连接...
-2025-07-12 03:54:46,255 - database - INFO - Closed MongoDB connection
-2025-07-12 03:54:46,255 - server - INFO - 数据库连接已关闭
-2025-07-12 03:54:48,635 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:54:48,662 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:54:48,663 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
-2025-07-12 03:54:48,857 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
-2025-07-12 03:54:48,886 - server - INFO - API路由已注册，前缀: /api/v1
-2025-07-12 03:54:48,889 - server - INFO - 正在连接数据库...
-2025-07-12 03:54:48,951 - database - INFO - Connected to MongoDB successfully
-2025-07-12 03:54:48,953 - server - INFO - 数据库连接成功
-2025-07-12 03:55:05,462 - server - INFO - 🔵 [req_1752263705462] ====== 收到新请求 ======
-2025-07-12 03:55:05,464 - server - INFO - 🔵 [req_1752263705462] 时间: 2025-07-12 03:55:05
-2025-07-12 03:55:05,466 - server - INFO - 🔵 [req_1752263705462] 方法: POST
-2025-07-12 03:55:05,466 - server - INFO - 🔵 [req_1752263705462] URL: https://lovetapoversea.xyz/api/v1/users/get_user_exist
-2025-07-12 03:55:05,468 - server - INFO - 🔵 [req_1752263705462] 路径: /api/v1/users/get_user_exist
-2025-07-12 03:55:05,469 - server - INFO - 🔵 [req_1752263705462] 客户端IP: 5.34.216.10
-2025-07-12 03:55:05,471 - server - INFO - 🔵 [req_1752263705462] ====== 请求头 ======
-2025-07-12 03:55:05,473 - server - INFO - 🔵 [req_1752263705462] connection: upgrade
-2025-07-12 03:55:05,477 - server - INFO - 🔵 [req_1752263705462] host: lovetapoversea.xyz
-2025-07-12 03:55:05,477 - server - INFO - 🔵 [req_1752263705462] x-real-ip: 5.34.216.10
-2025-07-12 03:55:05,478 - server - INFO - 🔵 [req_1752263705462] x-forwarded-for: 5.34.216.10
-2025-07-12 03:55:05,478 - server - INFO - 🔵 [req_1752263705462] x-forwarded-proto: https
-2025-07-12 03:55:05,479 - server - INFO - 🔵 [req_1752263705462] content-length: 26
-2025-07-12 03:55:05,481 - server - INFO - 🔵 [req_1752263705462] content-type: application/json
-2025-07-12 03:55:05,482 - server - INFO - 🔵 [req_1752263705462] accept: application/json
-2025-07-12 03:55:05,486 - server - INFO - 🔵 [req_1752263705462] sec-fetch-site: cross-site
-2025-07-12 03:55:05,487 - server - INFO - 🔵 [req_1752263705462] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:55:05,488 - server - INFO - 🔵 [req_1752263705462] accept-encoding: gzip, deflate, br
-2025-07-12 03:55:05,489 - server - INFO - 🔵 [req_1752263705462] sec-fetch-mode: cors
-2025-07-12 03:55:05,490 - server - INFO - 🔵 [req_1752263705462] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:55:05,491 - server - INFO - 🔵 [req_1752263705462] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:55:05,494 - server - INFO - 🔵 [req_1752263705462] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:55:05,494 - server - INFO - 🔵 [req_1752263705462] sec-fetch-dest: empty
-2025-07-12 03:55:05,496 - server - INFO - 🔵 [req_1752263705462] ====== 请求体 ======
-2025-07-12 03:55:05,497 - server - INFO - 🔵 [req_1752263705462] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:55:05,498 - server - INFO - 🔵 [req_1752263705462] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:55:05,504 - server - INFO - 🟢 [req_1752263705462] ====== 响应信息 ======
-2025-07-12 03:55:05,506 - server - INFO - 🟢 [req_1752263705462] 状态码: 200
-2025-07-12 03:55:05,510 - server - INFO - 🟢 [req_1752263705462] 处理时间: 0.005秒
-2025-07-12 03:55:05,510 - server - INFO - 🟢 [req_1752263705462] ====== 响应头 ======
-2025-07-12 03:55:05,511 - server - INFO - 🟢 [req_1752263705462] content-length: 17
-2025-07-12 03:55:05,511 - server - INFO - 🟢 [req_1752263705462] content-type: application/json
-2025-07-12 03:55:05,513 - server - INFO - 🟢 [req_1752263705462] ====== 响应体 ======
-2025-07-12 03:55:05,517 - server - INFO - 🟢 [req_1752263705462] JSON响应: {
-  "success": false
-}
-2025-07-12 03:55:05,517 - server - INFO - 🟢 [req_1752263705462] ====== 请求完成 ======
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] ====== 收到新请求 ======
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] 时间: 2025-07-12 03:55:06
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] 方法: POST
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] URL: https://lovetapoversea.xyz/api/v1/users/get_user_from_telegram_session
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] 路径: /api/v1/users/get_user_from_telegram_session
-2025-07-12 03:55:06,245 - server - INFO - 🔵 [req_1752263706245] 客户端IP: 5.34.216.10
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] ====== 请求头 ======
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] connection: upgrade
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] host: lovetapoversea.xyz
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] x-real-ip: 5.34.216.10
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] x-forwarded-for: 5.34.216.10
-2025-07-12 03:55:06,246 - server - INFO - 🔵 [req_1752263706245] x-forwarded-proto: https
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] content-length: 26
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] content-type: application/json
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] accept: application/json
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] sec-fetch-site: cross-site
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] accept-encoding: gzip, deflate, br
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] sec-fetch-mode: cors
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:55:06,247 - server - INFO - 🔵 [req_1752263706245] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:55:06,248 - server - INFO - 🔵 [req_1752263706245] sec-fetch-dest: empty
-2025-07-12 03:55:06,249 - server - INFO - 🔵 [req_1752263706245] ====== 请求体 ======
-2025-07-12 03:55:06,251 - server - INFO - 🔵 [req_1752263706245] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:55:06,251 - server - INFO - 🔵 [req_1752263706245] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:55:06,253 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:55:06,280 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:55:06,281 - server - INFO - 🟢 [req_1752263706245] ====== 响应信息 ======
-2025-07-12 03:55:06,281 - server - INFO - 🟢 [req_1752263706245] 状态码: 200
-2025-07-12 03:55:06,282 - server - INFO - 🟢 [req_1752263706245] 处理时间: 0.029秒
-2025-07-12 03:55:06,282 - server - INFO - 🟢 [req_1752263706245] ====== 响应头 ======
-2025-07-12 03:55:06,283 - server - INFO - 🟢 [req_1752263706245] content-length: 12
-2025-07-12 03:55:06,283 - server - INFO - 🟢 [req_1752263706245] content-type: application/json
-2025-07-12 03:55:06,284 - server - INFO - 🟢 [req_1752263706245] ====== 响应体 ======
-2025-07-12 03:55:06,284 - server - INFO - 🟢 [req_1752263706245] JSON响应: {
-  "gender": 2
-}
-2025-07-12 03:55:06,285 - server - INFO - 🟢 [req_1752263706245] ====== 请求完成 ======
-2025-07-12 03:55:37,087 - server - INFO - 🔵 [req_1752263737087] ====== 收到新请求 ======
-2025-07-12 03:55:37,088 - server - INFO - 🔵 [req_1752263737087] 时间: 2025-07-12 03:55:37
-2025-07-12 03:55:37,088 - server - INFO - 🔵 [req_1752263737087] 方法: POST
-2025-07-12 03:55:37,088 - server - INFO - 🔵 [req_1752263737087] URL: https://lovetapoversea.xyz/api/v1/users/create_new_male_user
-2025-07-12 03:55:37,089 - server - INFO - 🔵 [req_1752263737087] 路径: /api/v1/users/create_new_male_user
-2025-07-12 03:55:37,089 - server - INFO - 🔵 [req_1752263737087] 客户端IP: 5.34.216.10
-2025-07-12 03:55:37,089 - server - INFO - 🔵 [req_1752263737087] ====== 请求头 ======
-2025-07-12 03:55:37,089 - server - INFO - 🔵 [req_1752263737087] connection: upgrade
-2025-07-12 03:55:37,090 - server - INFO - 🔵 [req_1752263737087] host: lovetapoversea.xyz
-2025-07-12 03:55:37,091 - server - INFO - 🔵 [req_1752263737087] x-real-ip: 5.34.216.10
-2025-07-12 03:55:37,091 - server - INFO - 🔵 [req_1752263737087] x-forwarded-for: 5.34.216.10
-2025-07-12 03:55:37,091 - server - INFO - 🔵 [req_1752263737087] x-forwarded-proto: https
-2025-07-12 03:55:37,091 - server - INFO - 🔵 [req_1752263737087] content-length: 35
-2025-07-12 03:55:37,091 - server - INFO - 🔵 [req_1752263737087] content-type: application/json
-2025-07-12 03:55:37,092 - server - INFO - 🔵 [req_1752263737087] accept: application/json
-2025-07-12 03:55:37,093 - server - INFO - 🔵 [req_1752263737087] sec-fetch-site: cross-site
-2025-07-12 03:55:37,094 - server - INFO - 🔵 [req_1752263737087] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:55:37,094 - server - INFO - 🔵 [req_1752263737087] accept-encoding: gzip, deflate, br
-2025-07-12 03:55:37,095 - server - INFO - 🔵 [req_1752263737087] sec-fetch-mode: cors
-2025-07-12 03:55:37,096 - server - INFO - 🔵 [req_1752263737087] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:55:37,096 - server - INFO - 🔵 [req_1752263737087] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:55:37,097 - server - INFO - 🔵 [req_1752263737087] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:55:37,097 - server - INFO - 🔵 [req_1752263737087] sec-fetch-dest: empty
-2025-07-12 03:55:37,097 - server - INFO - 🔵 [req_1752263737087] ====== 请求体 ======
-2025-07-12 03:55:37,097 - server - INFO - 🔵 [req_1752263737087] 原始数据: b'{"telegram_id":7226798439,"mode":3}'
-2025-07-12 03:55:37,098 - server - INFO - 🔵 [req_1752263737087] JSON数据: {
-  "telegram_id": 7226798439,
-  "mode": 3
-}
-2025-07-12 03:55:37,103 - database - INFO - Inserted document with id: 7226798439
-2025-07-12 03:55:37,104 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 7226798439
-2025-07-12 03:55:37,105 - server - INFO - 🟢 [req_1752263737087] ====== 响应信息 ======
-2025-07-12 03:55:37,105 - server - INFO - 🟢 [req_1752263737087] 状态码: 200
-2025-07-12 03:55:37,105 - server - INFO - 🟢 [req_1752263737087] 处理时间: 0.007秒
-2025-07-12 03:55:37,105 - server - INFO - 🟢 [req_1752263737087] ====== 响应头 ======
-2025-07-12 03:55:37,106 - server - INFO - 🟢 [req_1752263737087] content-length: 16
-2025-07-12 03:55:37,106 - server - INFO - 🟢 [req_1752263737087] content-type: application/json
-2025-07-12 03:55:37,106 - server - INFO - 🟢 [req_1752263737087] ====== 响应体 ======
-2025-07-12 03:55:37,107 - server - INFO - 🟢 [req_1752263737087] JSON响应: {
-  "success": true
-}
-2025-07-12 03:55:37,107 - server - INFO - 🟢 [req_1752263737087] ====== 请求完成 ======
-2025-07-12 03:56:05,244 - server - INFO - 🔵 [req_1752263765244] ====== 收到新请求 ======
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] 时间: 2025-07-12 03:56:05
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] 方法: POST
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] URL: https://lovetapoversea.xyz/api/v1/users/get_user_exist
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] 路径: /api/v1/users/get_user_exist
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] 客户端IP: 5.34.216.10
-2025-07-12 03:56:05,245 - server - INFO - 🔵 [req_1752263765244] ====== 请求头 ======
-2025-07-12 03:56:05,246 - server - INFO - 🔵 [req_1752263765244] connection: upgrade
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] host: lovetapoversea.xyz
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] x-real-ip: 5.34.216.10
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] x-forwarded-proto: https
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] content-length: 26
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] content-type: application/json
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] accept: application/json
-2025-07-12 03:56:05,247 - server - INFO - 🔵 [req_1752263765244] sec-fetch-site: cross-site
-2025-07-12 03:56:05,248 - server - INFO - 🔵 [req_1752263765244] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:05,248 - server - INFO - 🔵 [req_1752263765244] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:05,249 - server - INFO - 🔵 [req_1752263765244] sec-fetch-mode: cors
-2025-07-12 03:56:05,250 - server - INFO - 🔵 [req_1752263765244] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:05,251 - server - INFO - 🔵 [req_1752263765244] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:05,252 - server - INFO - 🔵 [req_1752263765244] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:05,253 - server - INFO - 🔵 [req_1752263765244] sec-fetch-dest: empty
-2025-07-12 03:56:05,254 - server - INFO - 🔵 [req_1752263765244] ====== 请求体 ======
-2025-07-12 03:56:05,255 - server - INFO - 🔵 [req_1752263765244] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:56:05,257 - server - INFO - 🔵 [req_1752263765244] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:56:05,262 - server - INFO - 🟢 [req_1752263765244] ====== 响应信息 ======
-2025-07-12 03:56:05,262 - server - INFO - 🟢 [req_1752263765244] 状态码: 200
-2025-07-12 03:56:05,263 - server - INFO - 🟢 [req_1752263765244] 处理时间: 0.002秒
-2025-07-12 03:56:05,263 - server - INFO - 🟢 [req_1752263765244] ====== 响应头 ======
-2025-07-12 03:56:05,263 - server - INFO - 🟢 [req_1752263765244] content-length: 17
-2025-07-12 03:56:05,264 - server - INFO - 🟢 [req_1752263765244] content-type: application/json
-2025-07-12 03:56:05,264 - server - INFO - 🟢 [req_1752263765244] ====== 响应体 ======
-2025-07-12 03:56:05,264 - server - INFO - 🟢 [req_1752263765244] JSON响应: {
-  "success": false
-}
-2025-07-12 03:56:05,265 - server - INFO - 🟢 [req_1752263765244] ====== 请求完成 ======
-2025-07-12 03:56:06,025 - server - INFO - 🔵 [req_1752263766025] ====== 收到新请求 ======
-2025-07-12 03:56:06,025 - server - INFO - 🔵 [req_1752263766025] 时间: 2025-07-12 03:56:06
-2025-07-12 03:56:06,025 - server - INFO - 🔵 [req_1752263766025] 方法: POST
-2025-07-12 03:56:06,025 - server - INFO - 🔵 [req_1752263766025] URL: https://lovetapoversea.xyz/api/v1/users/get_user_from_telegram_session
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] 路径: /api/v1/users/get_user_from_telegram_session
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] 客户端IP: 5.34.216.10
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] ====== 请求头 ======
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] connection: upgrade
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] host: lovetapoversea.xyz
-2025-07-12 03:56:06,026 - server - INFO - 🔵 [req_1752263766025] x-real-ip: 5.34.216.10
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] x-forwarded-proto: https
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] content-length: 26
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] content-type: application/json
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] accept: application/json
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] sec-fetch-site: cross-site
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:06,027 - server - INFO - 🔵 [req_1752263766025] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] sec-fetch-mode: cors
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] sec-fetch-dest: empty
-2025-07-12 03:56:06,028 - server - INFO - 🔵 [req_1752263766025] ====== 请求体 ======
-2025-07-12 03:56:06,029 - server - INFO - 🔵 [req_1752263766025] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:56:06,029 - server - INFO - 🔵 [req_1752263766025] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:56:06,032 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:56:06,035 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] ====== 响应信息 ======
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] 状态码: 200
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] 处理时间: 0.006秒
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] ====== 响应头 ======
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] content-length: 12
-2025-07-12 03:56:06,036 - server - INFO - 🟢 [req_1752263766025] content-type: application/json
-2025-07-12 03:56:06,037 - server - INFO - 🟢 [req_1752263766025] ====== 响应体 ======
-2025-07-12 03:56:06,037 - server - INFO - 🟢 [req_1752263766025] JSON响应: {
-  "gender": 2
-}
-2025-07-12 03:56:06,038 - server - INFO - 🟢 [req_1752263766025] ====== 请求完成 ======
-2025-07-12 03:56:09,247 - server - INFO - 🔵 [req_1752263769247] ====== 收到新请求 ======
-2025-07-12 03:56:09,248 - server - INFO - 🔵 [req_1752263769247] 时间: 2025-07-12 03:56:09
-2025-07-12 03:56:09,249 - server - INFO - 🔵 [req_1752263769247] 方法: POST
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] URL: https://lovetapoversea.xyz/api/v1/users/create_new_male_user
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] 路径: /api/v1/users/create_new_male_user
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] 客户端IP: 5.34.216.10
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] ====== 请求头 ======
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] connection: upgrade
-2025-07-12 03:56:09,250 - server - INFO - 🔵 [req_1752263769247] host: lovetapoversea.xyz
-2025-07-12 03:56:09,251 - server - INFO - 🔵 [req_1752263769247] x-real-ip: 5.34.216.10
-2025-07-12 03:56:09,251 - server - INFO - 🔵 [req_1752263769247] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:09,252 - server - INFO - 🔵 [req_1752263769247] x-forwarded-proto: https
-2025-07-12 03:56:09,252 - server - INFO - 🔵 [req_1752263769247] content-length: 35
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] content-type: application/json
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] accept: application/json
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] sec-fetch-site: cross-site
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] sec-fetch-mode: cors
-2025-07-12 03:56:09,253 - server - INFO - 🔵 [req_1752263769247] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:09,254 - server - INFO - 🔵 [req_1752263769247] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:09,254 - server - INFO - 🔵 [req_1752263769247] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:09,254 - server - INFO - 🔵 [req_1752263769247] sec-fetch-dest: empty
-2025-07-12 03:56:09,254 - server - INFO - 🔵 [req_1752263769247] ====== 请求体 ======
-2025-07-12 03:56:09,255 - server - INFO - 🔵 [req_1752263769247] 原始数据: b'{"telegram_id":7226798439,"mode":1}'
-2025-07-12 03:56:09,256 - server - INFO - 🔵 [req_1752263769247] JSON数据: {
-  "telegram_id": 7226798439,
-  "mode": 1
-}
-2025-07-12 03:56:09,260 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:56:09,260 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] ====== 响应信息 ======
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] 状态码: 200
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] 处理时间: 0.005秒
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] ====== 响应头 ======
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] content-length: 17
-2025-07-12 03:56:09,262 - server - INFO - 🟢 [req_1752263769247] content-type: application/json
-2025-07-12 03:56:09,263 - server - INFO - 🟢 [req_1752263769247] ====== 响应体 ======
-2025-07-12 03:56:09,263 - server - INFO - 🟢 [req_1752263769247] JSON响应: {
-  "success": false
-}
-2025-07-12 03:56:09,263 - server - INFO - 🟢 [req_1752263769247] ====== 请求完成 ======
-2025-07-12 03:56:48,547 - server - INFO - 🔵 [req_1752263808547] ====== 收到新请求 ======
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] 时间: 2025-07-12 03:56:48
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] 方法: POST
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] URL: https://lovetapoversea.xyz/api/v1/users/get_user_exist
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] 路径: /api/v1/users/get_user_exist
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] 客户端IP: 5.34.216.10
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] ====== 请求头 ======
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] connection: upgrade
-2025-07-12 03:56:48,548 - server - INFO - 🔵 [req_1752263808547] host: lovetapoversea.xyz
-2025-07-12 03:56:48,549 - server - INFO - 🔵 [req_1752263808547] x-real-ip: 5.34.216.10
-2025-07-12 03:56:48,550 - server - INFO - 🔵 [req_1752263808547] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:48,550 - server - INFO - 🔵 [req_1752263808547] x-forwarded-proto: https
-2025-07-12 03:56:48,551 - server - INFO - 🔵 [req_1752263808547] content-length: 26
-2025-07-12 03:56:48,551 - server - INFO - 🔵 [req_1752263808547] content-type: application/json
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] accept: application/json
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] sec-fetch-site: cross-site
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] sec-fetch-mode: cors
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:48,552 - server - INFO - 🔵 [req_1752263808547] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:48,553 - server - INFO - 🔵 [req_1752263808547] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:48,553 - server - INFO - 🔵 [req_1752263808547] sec-fetch-dest: empty
-2025-07-12 03:56:48,553 - server - INFO - 🔵 [req_1752263808547] ====== 请求体 ======
-2025-07-12 03:56:48,553 - server - INFO - 🔵 [req_1752263808547] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:56:48,554 - server - INFO - 🔵 [req_1752263808547] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:56:48,556 - server - INFO - 🟢 [req_1752263808547] ====== 响应信息 ======
-2025-07-12 03:56:48,556 - server - INFO - 🟢 [req_1752263808547] 状态码: 200
-2025-07-12 03:56:48,556 - server - INFO - 🟢 [req_1752263808547] 处理时间: 0.001秒
-2025-07-12 03:56:48,557 - server - INFO - 🟢 [req_1752263808547] ====== 响应头 ======
-2025-07-12 03:56:48,557 - server - INFO - 🟢 [req_1752263808547] content-length: 17
-2025-07-12 03:56:48,557 - server - INFO - 🟢 [req_1752263808547] content-type: application/json
-2025-07-12 03:56:48,557 - server - INFO - 🟢 [req_1752263808547] ====== 响应体 ======
-2025-07-12 03:56:48,558 - server - INFO - 🟢 [req_1752263808547] JSON响应: {
-  "success": false
-}
-2025-07-12 03:56:48,561 - server - INFO - 🟢 [req_1752263808547] ====== 请求完成 ======
-2025-07-12 03:56:49,324 - server - INFO - 🔵 [req_1752263809324] ====== 收到新请求 ======
-2025-07-12 03:56:49,325 - server - INFO - 🔵 [req_1752263809324] 时间: 2025-07-12 03:56:49
-2025-07-12 03:56:49,325 - server - INFO - 🔵 [req_1752263809324] 方法: POST
-2025-07-12 03:56:49,325 - server - INFO - 🔵 [req_1752263809324] URL: https://lovetapoversea.xyz/api/v1/users/get_user_from_telegram_session
-2025-07-12 03:56:49,325 - server - INFO - 🔵 [req_1752263809324] 路径: /api/v1/users/get_user_from_telegram_session
-2025-07-12 03:56:49,326 - server - INFO - 🔵 [req_1752263809324] 客户端IP: 5.34.216.10
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] ====== 请求头 ======
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] connection: upgrade
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] host: lovetapoversea.xyz
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] x-real-ip: 5.34.216.10
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] x-forwarded-proto: https
-2025-07-12 03:56:49,327 - server - INFO - 🔵 [req_1752263809324] content-length: 26
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] content-type: application/json
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] accept: application/json
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] sec-fetch-site: cross-site
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] sec-fetch-mode: cors
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] sec-fetch-dest: empty
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] ====== 请求体 ======
-2025-07-12 03:56:49,328 - server - INFO - 🔵 [req_1752263809324] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:56:49,329 - server - INFO - 🔵 [req_1752263809324] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:56:49,330 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:56:49,333 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:56:49,334 - server - INFO - 🟢 [req_1752263809324] ====== 响应信息 ======
-2025-07-12 03:56:49,334 - server - INFO - 🟢 [req_1752263809324] 状态码: 200
-2025-07-12 03:56:49,335 - server - INFO - 🟢 [req_1752263809324] 处理时间: 0.005秒
-2025-07-12 03:56:49,335 - server - INFO - 🟢 [req_1752263809324] ====== 响应头 ======
-2025-07-12 03:56:49,336 - server - INFO - 🟢 [req_1752263809324] content-length: 12
-2025-07-12 03:56:49,336 - server - INFO - 🟢 [req_1752263809324] content-type: application/json
-2025-07-12 03:56:49,337 - server - INFO - 🟢 [req_1752263809324] ====== 响应体 ======
-2025-07-12 03:56:49,337 - server - INFO - 🟢 [req_1752263809324] JSON响应: {
-  "gender": 2
-}
-2025-07-12 03:56:49,338 - server - INFO - 🟢 [req_1752263809324] ====== 请求完成 ======
-2025-07-12 03:56:52,418 - server - INFO - 🔵 [req_1752263812418] ====== 收到新请求 ======
-2025-07-12 03:56:52,419 - server - INFO - 🔵 [req_1752263812418] 时间: 2025-07-12 03:56:52
-2025-07-12 03:56:52,419 - server - INFO - 🔵 [req_1752263812418] 方法: POST
-2025-07-12 03:56:52,419 - server - INFO - 🔵 [req_1752263812418] URL: https://lovetapoversea.xyz/api/v1/users/create_new_male_user
-2025-07-12 03:56:52,419 - server - INFO - 🔵 [req_1752263812418] 路径: /api/v1/users/create_new_male_user
-2025-07-12 03:56:52,421 - server - INFO - 🔵 [req_1752263812418] 客户端IP: 5.34.216.10
-2025-07-12 03:56:52,424 - server - INFO - 🔵 [req_1752263812418] ====== 请求头 ======
-2025-07-12 03:56:52,426 - server - INFO - 🔵 [req_1752263812418] connection: upgrade
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] host: lovetapoversea.xyz
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] x-real-ip: 5.34.216.10
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] x-forwarded-for: 5.34.216.10
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] x-forwarded-proto: https
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] content-length: 35
-2025-07-12 03:56:52,428 - server - INFO - 🔵 [req_1752263812418] content-type: application/json
-2025-07-12 03:56:52,429 - server - INFO - 🔵 [req_1752263812418] accept: application/json
-2025-07-12 03:56:52,430 - server - INFO - 🔵 [req_1752263812418] sec-fetch-site: cross-site
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] accept-encoding: gzip, deflate, br
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] sec-fetch-mode: cors
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:56:52,431 - server - INFO - 🔵 [req_1752263812418] sec-fetch-dest: empty
-2025-07-12 03:56:52,432 - server - INFO - 🔵 [req_1752263812418] ====== 请求体 ======
-2025-07-12 03:56:52,435 - server - INFO - 🔵 [req_1752263812418] 原始数据: b'{"telegram_id":7226798439,"mode":2}'
-2025-07-12 03:56:52,435 - server - INFO - 🔵 [req_1752263812418] JSON数据: {
-  "telegram_id": 7226798439,
-  "mode": 2
-}
-2025-07-12 03:56:52,449 - database - ERROR - Error inserting document: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:56:52,450 - user_service - ERROR - 创建男用户失败: E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }, full error: {'index': 0, 'code': 11000, 'errmsg': 'E11000 duplicate key error collection: lovelush_db.User index: _id_ dup key: { _id: 7226798439 }', 'keyPattern': {'_id': 1}, 'keyValue': {'_id': 7226798439}}
-2025-07-12 03:56:52,453 - server - INFO - 🟢 [req_1752263812418] ====== 响应信息 ======
-2025-07-12 03:56:52,455 - server - INFO - 🟢 [req_1752263812418] 状态码: 200
-2025-07-12 03:56:52,456 - server - INFO - 🟢 [req_1752263812418] 处理时间: 0.017秒
-2025-07-12 03:56:52,457 - server - INFO - 🟢 [req_1752263812418] ====== 响应头 ======
-2025-07-12 03:56:52,458 - server - INFO - 🟢 [req_1752263812418] content-length: 17
-2025-07-12 03:56:52,458 - server - INFO - 🟢 [req_1752263812418] content-type: application/json
-2025-07-12 03:56:52,459 - server - INFO - 🟢 [req_1752263812418] ====== 响应体 ======
-2025-07-12 03:56:52,460 - server - INFO - 🟢 [req_1752263812418] JSON响应: {
-  "success": false
-}
-2025-07-12 03:56:52,460 - server - INFO - 🟢 [req_1752263812418] ====== 请求完成 ======
-2025-07-12 03:57:44,549 - server - INFO - 🔵 [req_1752263864549] ====== 收到新请求 ======
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] 时间: 2025-07-12 03:57:44
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] 方法: POST
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] URL: https://lovetapoversea.xyz/api/v1/users/get_user_exist
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] 路径: /api/v1/users/get_user_exist
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] 客户端IP: 5.34.216.10
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] ====== 请求头 ======
-2025-07-12 03:57:44,550 - server - INFO - 🔵 [req_1752263864549] connection: upgrade
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] host: lovetapoversea.xyz
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] x-real-ip: 5.34.216.10
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] x-forwarded-for: 5.34.216.10
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] x-forwarded-proto: https
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] content-length: 26
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] content-type: application/json
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] accept: application/json
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] sec-fetch-site: cross-site
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] accept-encoding: gzip, deflate, br
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] sec-fetch-mode: cors
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:57:44,551 - server - INFO - 🔵 [req_1752263864549] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:57:44,552 - server - INFO - 🔵 [req_1752263864549] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:57:44,553 - server - INFO - 🔵 [req_1752263864549] sec-fetch-dest: empty
-2025-07-12 03:57:44,554 - server - INFO - 🔵 [req_1752263864549] ====== 请求体 ======
-2025-07-12 03:57:44,554 - server - INFO - 🔵 [req_1752263864549] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:57:44,555 - server - INFO - 🔵 [req_1752263864549] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:57:44,557 - server - INFO - 🟢 [req_1752263864549] ====== 响应信息 ======
-2025-07-12 03:57:44,557 - server - INFO - 🟢 [req_1752263864549] 状态码: 200
-2025-07-12 03:57:44,558 - server - INFO - 🟢 [req_1752263864549] 处理时间: 0.002秒
-2025-07-12 03:57:44,558 - server - INFO - 🟢 [req_1752263864549] ====== 响应头 ======
-2025-07-12 03:57:44,559 - server - INFO - 🟢 [req_1752263864549] content-length: 17
-2025-07-12 03:57:44,559 - server - INFO - 🟢 [req_1752263864549] content-type: application/json
-2025-07-12 03:57:44,560 - server - INFO - 🟢 [req_1752263864549] ====== 响应体 ======
-2025-07-12 03:57:44,561 - server - INFO - 🟢 [req_1752263864549] JSON响应: {
-  "success": false
-}
-2025-07-12 03:57:44,561 - server - INFO - 🟢 [req_1752263864549] ====== 请求完成 ======
-2025-07-12 03:57:45,318 - server - INFO - 🔵 [req_1752263865318] ====== 收到新请求 ======
-2025-07-12 03:57:45,319 - server - INFO - 🔵 [req_1752263865318] 时间: 2025-07-12 03:57:45
-2025-07-12 03:57:45,320 - server - INFO - 🔵 [req_1752263865318] 方法: POST
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] URL: https://lovetapoversea.xyz/api/v1/users/get_user_from_telegram_session
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] 路径: /api/v1/users/get_user_from_telegram_session
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] 客户端IP: 5.34.216.10
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] ====== 请求头 ======
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] connection: upgrade
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] host: lovetapoversea.xyz
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] x-real-ip: 5.34.216.10
-2025-07-12 03:57:45,321 - server - INFO - 🔵 [req_1752263865318] x-forwarded-for: 5.34.216.10
-2025-07-12 03:57:45,322 - server - INFO - 🔵 [req_1752263865318] x-forwarded-proto: https
-2025-07-12 03:57:45,324 - server - INFO - 🔵 [req_1752263865318] content-length: 26
-2025-07-12 03:57:45,324 - server - INFO - 🔵 [req_1752263865318] content-type: application/json
-2025-07-12 03:57:45,325 - server - INFO - 🔵 [req_1752263865318] accept: application/json
-2025-07-12 03:57:45,325 - server - INFO - 🔵 [req_1752263865318] sec-fetch-site: cross-site
-2025-07-12 03:57:45,326 - server - INFO - 🔵 [req_1752263865318] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] accept-encoding: gzip, deflate, br
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] sec-fetch-mode: cors
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:57:45,327 - server - INFO - 🔵 [req_1752263865318] sec-fetch-dest: empty
-2025-07-12 03:57:45,328 - server - INFO - 🔵 [req_1752263865318] ====== 请求体 ======
-2025-07-12 03:57:45,330 - server - INFO - 🔵 [req_1752263865318] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:57:45,330 - server - INFO - 🔵 [req_1752263865318] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:57:45,333 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:57:45,336 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 2
-2025-07-12 03:57:45,337 - server - INFO - 🟢 [req_1752263865318] ====== 响应信息 ======
-2025-07-12 03:57:45,338 - server - INFO - 🟢 [req_1752263865318] 状态码: 200
-2025-07-12 03:57:45,338 - server - INFO - 🟢 [req_1752263865318] 处理时间: 0.007秒
-2025-07-12 03:57:45,338 - server - INFO - 🟢 [req_1752263865318] ====== 响应头 ======
-2025-07-12 03:57:45,338 - server - INFO - 🟢 [req_1752263865318] content-length: 12
-2025-07-12 03:57:45,338 - server - INFO - 🟢 [req_1752263865318] content-type: application/json
-2025-07-12 03:57:45,339 - server - INFO - 🟢 [req_1752263865318] ====== 响应体 ======
-2025-07-12 03:57:45,339 - server - INFO - 🟢 [req_1752263865318] JSON响应: {
-  "gender": 2
-}
-2025-07-12 03:57:45,339 - server - INFO - 🟢 [req_1752263865318] ====== 请求完成 ======
-2025-07-12 03:58:07,930 - server - INFO - 🔵 [req_1752263887930] ====== 收到新请求 ======
-2025-07-12 03:58:07,930 - server - INFO - 🔵 [req_1752263887930] 时间: 2025-07-12 03:58:07
-2025-07-12 03:58:07,931 - server - INFO - 🔵 [req_1752263887930] 方法: POST
-2025-07-12 03:58:07,931 - server - INFO - 🔵 [req_1752263887930] URL: https://lovetapoversea.xyz/api/v1/users/get_user_exist
-2025-07-12 03:58:07,931 - server - INFO - 🔵 [req_1752263887930] 路径: /api/v1/users/get_user_exist
-2025-07-12 03:58:07,931 - server - INFO - 🔵 [req_1752263887930] 客户端IP: 5.34.216.10
-2025-07-12 03:58:07,932 - server - INFO - 🔵 [req_1752263887930] ====== 请求头 ======
-2025-07-12 03:58:07,933 - server - INFO - 🔵 [req_1752263887930] connection: upgrade
-2025-07-12 03:58:07,933 - server - INFO - 🔵 [req_1752263887930] host: lovetapoversea.xyz
-2025-07-12 03:58:07,934 - server - INFO - 🔵 [req_1752263887930] x-real-ip: 5.34.216.10
-2025-07-12 03:58:07,935 - server - INFO - 🔵 [req_1752263887930] x-forwarded-for: 5.34.216.10
-2025-07-12 03:58:07,935 - server - INFO - 🔵 [req_1752263887930] x-forwarded-proto: https
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] content-length: 26
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] content-type: application/json
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] accept: application/json
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] sec-fetch-site: cross-site
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] accept-encoding: gzip, deflate, br
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] sec-fetch-mode: cors
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:58:07,936 - server - INFO - 🔵 [req_1752263887930] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:58:07,937 - server - INFO - 🔵 [req_1752263887930] sec-fetch-dest: empty
-2025-07-12 03:58:07,938 - server - INFO - 🔵 [req_1752263887930] ====== 请求体 ======
-2025-07-12 03:58:07,938 - server - INFO - 🔵 [req_1752263887930] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:58:07,939 - server - INFO - 🔵 [req_1752263887930] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:58:07,940 - server - INFO - 🟢 [req_1752263887930] ====== 响应信息 ======
-2025-07-12 03:58:07,940 - server - INFO - 🟢 [req_1752263887930] 状态码: 200
-2025-07-12 03:58:07,941 - server - INFO - 🟢 [req_1752263887930] 处理时间: 0.001秒
-2025-07-12 03:58:07,942 - server - INFO - 🟢 [req_1752263887930] ====== 响应头 ======
-2025-07-12 03:58:07,942 - server - INFO - 🟢 [req_1752263887930] content-length: 17
-2025-07-12 03:58:07,942 - server - INFO - 🟢 [req_1752263887930] content-type: application/json
-2025-07-12 03:58:07,943 - server - INFO - 🟢 [req_1752263887930] ====== 响应体 ======
-2025-07-12 03:58:07,944 - server - INFO - 🟢 [req_1752263887930] JSON响应: {
-  "success": false
-}
-2025-07-12 03:58:07,944 - server - INFO - 🟢 [req_1752263887930] ====== 请求完成 ======
-2025-07-12 03:58:08,683 - server - INFO - 🔵 [req_1752263888683] ====== 收到新请求 ======
-2025-07-12 03:58:08,684 - server - INFO - 🔵 [req_1752263888683] 时间: 2025-07-12 03:58:08
-2025-07-12 03:58:08,684 - server - INFO - 🔵 [req_1752263888683] 方法: POST
-2025-07-12 03:58:08,685 - server - INFO - 🔵 [req_1752263888683] URL: https://lovetapoversea.xyz/api/v1/users/get_user_from_telegram_session
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] 路径: /api/v1/users/get_user_from_telegram_session
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] 客户端IP: 5.34.216.10
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] ====== 请求头 ======
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] connection: upgrade
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] host: lovetapoversea.xyz
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] x-real-ip: 5.34.216.10
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] x-forwarded-for: 5.34.216.10
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] x-forwarded-proto: https
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] content-length: 26
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] content-type: application/json
-2025-07-12 03:58:08,686 - server - INFO - 🔵 [req_1752263888683] accept: application/json
-2025-07-12 03:58:08,687 - server - INFO - 🔵 [req_1752263888683] sec-fetch-site: cross-site
-2025-07-12 03:58:08,688 - server - INFO - 🔵 [req_1752263888683] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:58:08,688 - server - INFO - 🔵 [req_1752263888683] accept-encoding: gzip, deflate, br
-2025-07-12 03:58:08,688 - server - INFO - 🔵 [req_1752263888683] sec-fetch-mode: cors
-2025-07-12 03:58:08,688 - server - INFO - 🔵 [req_1752263888683] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] sec-fetch-dest: empty
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] ====== 请求体 ======
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:58:08,689 - server - INFO - 🔵 [req_1752263888683] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:58:08,691 - user_service - INFO - 尝试从telegram_sessions表获取telegram_id 7226798439 的性别
-2025-07-12 03:58:08,694 - user_service - INFO - 成功找到telegram_id 7226798439 的性别: 1
-2025-07-12 03:58:08,695 - server - INFO - 🟢 [req_1752263888683] ====== 响应信息 ======
-2025-07-12 03:58:08,695 - server - INFO - 🟢 [req_1752263888683] 状态码: 200
-2025-07-12 03:58:08,696 - server - INFO - 🟢 [req_1752263888683] 处理时间: 0.005秒
-2025-07-12 03:58:08,696 - server - INFO - 🟢 [req_1752263888683] ====== 响应头 ======
-2025-07-12 03:58:08,696 - server - INFO - 🟢 [req_1752263888683] content-length: 12
-2025-07-12 03:58:08,697 - server - INFO - 🟢 [req_1752263888683] content-type: application/json
-2025-07-12 03:58:08,697 - server - INFO - 🟢 [req_1752263888683] ====== 响应体 ======
-2025-07-12 03:58:08,698 - server - INFO - 🟢 [req_1752263888683] JSON响应: {
-  "gender": 1
-}
-2025-07-12 03:58:08,698 - server - INFO - 🟢 [req_1752263888683] ====== 请求完成 ======
-2025-07-12 03:58:09,420 - server - INFO - 🔵 [req_1752263889420] ====== 收到新请求 ======
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] 时间: 2025-07-12 03:58:09
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] 方法: POST
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] URL: https://lovetapoversea.xyz/api/v1/users/create_new_female_user
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] 路径: /api/v1/users/create_new_female_user
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] 客户端IP: 5.34.216.10
-2025-07-12 03:58:09,421 - server - INFO - 🔵 [req_1752263889420] ====== 请求头 ======
-2025-07-12 03:58:09,422 - server - INFO - 🔵 [req_1752263889420] connection: upgrade
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] host: lovetapoversea.xyz
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] x-real-ip: 5.34.216.10
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] x-forwarded-for: 5.34.216.10
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] x-forwarded-proto: https
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] content-length: 26
-2025-07-12 03:58:09,423 - server - INFO - 🔵 [req_1752263889420] content-type: application/json
-2025-07-12 03:58:09,424 - server - INFO - 🔵 [req_1752263889420] accept: application/json
-2025-07-12 03:58:09,424 - server - INFO - 🔵 [req_1752263889420] sec-fetch-site: cross-site
-2025-07-12 03:58:09,425 - server - INFO - 🔵 [req_1752263889420] accept-language: zh-CN,zh-Hans;q=0.9
-2025-07-12 03:58:09,425 - server - INFO - 🔵 [req_1752263889420] accept-encoding: gzip, deflate, br
-2025-07-12 03:58:09,425 - server - INFO - 🔵 [req_1752263889420] sec-fetch-mode: cors
-2025-07-12 03:58:09,426 - server - INFO - 🔵 [req_1752263889420] origin: https://cupid-yukio-frontend.vercel.app
-2025-07-12 03:58:09,426 - server - INFO - 🔵 [req_1752263889420] user-agent: Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
-2025-07-12 03:58:09,426 - server - INFO - 🔵 [req_1752263889420] referer: https://cupid-yukio-frontend.vercel.app/
-2025-07-12 03:58:09,426 - server - INFO - 🔵 [req_1752263889420] sec-fetch-dest: empty
-2025-07-12 03:58:09,427 - server - INFO - 🔵 [req_1752263889420] ====== 请求体 ======
-2025-07-12 03:58:09,427 - server - INFO - 🔵 [req_1752263889420] 原始数据: b'{"telegram_id":7226798439}'
-2025-07-12 03:58:09,428 - server - INFO - 🔵 [req_1752263889420] JSON数据: {
-  "telegram_id": 7226798439
-}
-2025-07-12 03:58:09,431 - user_service - INFO - 尝试创建女性用户，telegram_id: telegram_id=7226798439
-2025-07-12 03:58:09,433 - database - ERROR - Error finding document: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'/+vH ,A\x1a\xa3\xed<\xadk\xa8.l', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 03:58:09,433 - user_service - ERROR - 创建女性用户时发生未知错误: Invalid document {'find': 'telegram_sessions', 'filter': {'_id': CreateNewFemaleUserRequest(telegram_id=7226798439)}, 'limit': 1, 'singleBatch': True, 'lsid': {'id': Binary(b'/+vH ,A\x1a\xa3\xed<\xadk\xa8.l', 4)}, '$db': 'lovelush_db'} | cannot encode object: CreateNewFemaleUserRequest(telegram_id=7226798439), of type: <class 'app.schemas.users.CreateNewFemaleUserRequest'>
-2025-07-12 03:58:09,435 - server - INFO - 🟢 [req_1752263889420] ====== 响应信息 ======
-2025-07-12 03:58:09,435 - server - INFO - 🟢 [req_1752263889420] 状态码: 200
-2025-07-12 03:58:09,435 - server - INFO - 🟢 [req_1752263889420] 处理时间: 0.007秒
-2025-07-12 03:58:09,435 - server - INFO - 🟢 [req_1752263889420] ====== 响应头 ======
-2025-07-12 03:58:09,436 - server - INFO - 🟢 [req_1752263889420] content-length: 17
-2025-07-12 03:58:09,436 - server - INFO - 🟢 [req_1752263889420] content-type: application/json
-2025-07-12 03:58:09,437 - server - INFO - 🟢 [req_1752263889420] ====== 响应体 ======
-2025-07-12 03:58:09,438 - server - INFO - 🟢 [req_1752263889420] JSON响应: {
-  "success": false
-}
-2025-07-12 03:58:09,438 - server - INFO - 🟢 [req_1752263889420] ====== 请求完成 ======
+2025-07-11 23:06:34,468 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:06:34,471 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:06:34,471 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-11 23:06:34,509 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:06:34,513 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:06:34,513 - server - INFO - 正在连接数据库...
+2025-07-11 23:06:35,029 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:06:35,029 - server - INFO - 数据库连接成功
+2025-07-11 23:07:55,692 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:07:55,695 - database - INFO - Closed MongoDB connection
+2025-07-11 23:07:55,695 - server - INFO - 数据库连接已关闭
+2025-07-11 23:08:14,903 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:08:14,907 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:08:14,908 - server - INFO - 正在连接数据库...
+2025-07-11 23:08:15,407 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:08:15,407 - server - INFO - 数据库连接成功
+2025-07-11 23:08:41,787 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:08:41,789 - database - INFO - Closed MongoDB connection
+2025-07-11 23:08:41,790 - server - INFO - 数据库连接已关闭
+2025-07-11 23:08:47,888 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:08:47,891 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:08:47,891 - server - INFO - 正在连接数据库...
+2025-07-11 23:08:48,397 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:08:48,397 - server - INFO - 数据库连接成功
+2025-07-11 23:09:32,889 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:09:32,890 - database - INFO - Closed MongoDB connection
+2025-07-11 23:09:32,891 - server - INFO - 数据库连接已关闭
+2025-07-11 23:09:39,937 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:09:39,940 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:09:39,940 - server - INFO - 正在连接数据库...
+2025-07-11 23:09:40,408 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:09:40,408 - server - INFO - 数据库连接成功
+2025-07-11 23:09:51,156 - cardpoll_service - INFO - 用户 0 正在编辑答案 string...
+2025-07-11 23:09:51,158 - cardpoll_service - ERROR - 处理答案失败: 'string' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+2025-07-11 23:10:16,050 - cardpoll_service - INFO - 用户 1234567 正在编辑答案 string...
+2025-07-11 23:10:16,051 - cardpoll_service - ERROR - 处理答案失败: 'string' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+2025-07-11 23:38:35,141 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:38:35,145 - database - INFO - Closed MongoDB connection
+2025-07-11 23:38:35,145 - server - INFO - 数据库连接已关闭
+2025-07-11 23:38:35,641 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:38:35,645 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:38:35,645 - server - INFO - 正在连接数据库...
+2025-07-11 23:38:36,095 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:38:36,095 - server - INFO - 数据库连接成功
+2025-07-11 23:38:46,813 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:38:46,814 - database - INFO - Closed MongoDB connection
+2025-07-11 23:38:46,815 - server - INFO - 数据库连接已关闭
+2025-07-11 23:41:50,191 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:41:50,194 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:41:50,195 - server - INFO - 正在连接数据库...
+2025-07-11 23:41:50,660 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:41:50,660 - server - INFO - 数据库连接成功
+2025-07-11 23:43:27,359 - cardpoll_service - INFO - 用户 123456789 正在为问题 string 创建新答案...
+2025-07-11 23:43:27,360 - cardpoll_service - ERROR - 处理答案失败: 'string' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+2025-07-11 23:44:50,689 - server - INFO - 正在关闭数据库连接...
+2025-07-11 23:44:50,691 - database - INFO - Closed MongoDB connection
+2025-07-11 23:44:50,691 - server - INFO - 数据库连接已关闭
+2025-07-11 23:45:13,448 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:45:13,481 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:45:13,481 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-11 23:45:13,527 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-11 23:45:13,542 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-11 23:45:13,544 - server - INFO - 正在连接数据库...
+2025-07-11 23:45:14,185 - database - INFO - Connected to MongoDB successfully
+2025-07-11 23:45:14,186 - server - INFO - 数据库连接成功
+2025-07-12 00:05:05,871 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 00:05:05,875 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 00:05:05,876 - server - INFO - 正在连接数据库...
+2025-07-12 00:05:06,394 - database - INFO - Connected to MongoDB successfully
+2025-07-12 00:05:06,394 - server - INFO - 数据库连接成功
+2025-07-12 00:05:32,396 - cardpoll_service - INFO - 用户 123456789 正在为问题 686f8c06150966a492071644 创建新答案...
+2025-07-12 00:05:32,820 - database - INFO - Inserted document with id: 6871364ce978ca10032d9cbd
+2025-07-12 00:05:32,885 - database - INFO - Modified 1 document
+2025-07-12 00:05:32,948 - database - INFO - Modified 1 document
+2025-07-12 00:05:32,948 - cardpoll_service - INFO - 新答案创建成功，ID: 6871364ce978ca10032d9cbd
+2025-07-12 00:12:59,371 - cardpoll_service - INFO - 用户 123456789 正在为问题 686f8c06150966a492071644 创建新答案...
+2025-07-12 00:12:59,439 - database - ERROR - Error inserting document: 8.216.32.239:27017: [Errno 54] Connection reset by peer (configured timeouts: connectTimeoutMS: 20000.0ms)
+2025-07-12 00:12:59,439 - cardpoll_service - ERROR - 处理答案失败: 8.216.32.239:27017: [Errno 54] Connection reset by peer (configured timeouts: connectTimeoutMS: 20000.0ms)
+2025-07-12 00:14:38,564 - server - INFO - 正在关闭数据库连接...
+2025-07-12 00:14:38,566 - database - INFO - Closed MongoDB connection
+2025-07-12 00:14:38,566 - server - INFO - 数据库连接已关闭
+2025-07-12 00:18:28,958 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 00:18:28,962 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 00:18:28,962 - server - INFO - 正在连接数据库...
+2025-07-12 00:18:29,454 - database - INFO - Connected to MongoDB successfully
+2025-07-12 00:18:29,454 - server - INFO - 数据库连接成功
+2025-07-12 00:18:56,265 - cardpoll_service - INFO - 用户 123456789 正在为问题 686f8c06150966a492071644 创建新答案...
+2025-07-12 00:18:56,692 - database - INFO - Inserted document with id: 68713970269b89de7e4cda23
+2025-07-12 00:18:56,762 - database - INFO - Modified 1 document
+2025-07-12 00:18:56,825 - database - INFO - Modified 1 document
+2025-07-12 00:18:56,826 - cardpoll_service - INFO - 新答案创建成功，ID: 68713970269b89de7e4cda23
+2025-07-12 00:25:51,891 - cardpoll_service - INFO - 用户 123456789 正在编辑答案 6871364ce978ca10032d9cbd...
+2025-07-12 00:25:52,022 - database - INFO - Modified 1 document
+2025-07-12 00:25:52,022 - cardpoll_service - INFO - 答案 6871364ce978ca10032d9cbd 更新成功
+2025-07-12 00:36:55,522 - cardpoll_service - INFO - 用户 123456789 正在编辑答案 6871364ce978ca10032d9cbd...
+2025-07-12 00:36:55,677 - database - INFO - Modified 1 document
+2025-07-12 00:36:55,678 - cardpoll_service - INFO - 答案 6871364ce978ca10032d9cbd 更新成功
+2025-07-12 01:04:17,653 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:04:17,716 - database - INFO - Closed MongoDB connection
+2025-07-12 01:04:17,717 - server - INFO - 数据库连接已关闭
+2025-07-12 01:04:18,184 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:04:18,187 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:04:18,188 - server - INFO - 正在连接数据库...
+2025-07-12 01:04:18,647 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:04:18,647 - server - INFO - 数据库连接成功
+2025-07-12 01:04:28,352 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:04:28,352 - database - INFO - Closed MongoDB connection
+2025-07-12 01:04:28,353 - server - INFO - 数据库连接已关闭
+2025-07-12 01:04:28,743 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:04:28,747 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:04:28,747 - server - INFO - 正在连接数据库...
+2025-07-12 01:04:29,199 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:04:29,199 - server - INFO - 数据库连接成功
+2025-07-12 01:04:46,134 - cardpoll_service - INFO - 用户 123456789 正在编辑答案 6871364ce978ca10032d9cbd...
+2025-07-12 01:04:46,640 - database - INFO - Modified 0 document
+2025-07-12 01:04:46,641 - cardpoll_service - INFO - 答案 6871364ce978ca10032d9cbd 更新成功
+2025-07-12 01:04:59,095 - cardpoll_service - INFO - 用户 123456789 正在编辑答案 6871364ce978ca10032d9cbd...
+2025-07-12 01:04:59,221 - database - INFO - Modified 1 document
+2025-07-12 01:04:59,221 - cardpoll_service - INFO - 答案 6871364ce978ca10032d9cbd 更新成功
+2025-07-12 01:05:43,215 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:05:43,280 - database - INFO - Closed MongoDB connection
+2025-07-12 01:05:43,280 - server - INFO - 数据库连接已关闭
+2025-07-12 01:05:43,685 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:05:43,689 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:05:43,689 - server - INFO - 正在连接数据库...
+2025-07-12 01:05:44,151 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:05:44,152 - server - INFO - 数据库连接成功
+2025-07-12 01:05:48,497 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:05:48,497 - database - INFO - Closed MongoDB connection
+2025-07-12 01:05:48,497 - server - INFO - 数据库连接已关闭
+2025-07-12 01:05:48,833 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:05:48,836 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:05:48,837 - server - INFO - 正在连接数据库...
+2025-07-12 01:05:49,273 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:05:49,274 - server - INFO - 数据库连接成功
+2025-07-12 01:05:59,787 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:05:59,788 - database - INFO - Closed MongoDB connection
+2025-07-12 01:05:59,788 - server - INFO - 数据库连接已关闭
+2025-07-12 01:12:36,714 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:12:36,718 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:12:36,718 - server - INFO - 正在连接数据库...
+2025-07-12 01:12:37,169 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:12:37,169 - server - INFO - 数据库连接成功
+2025-07-12 01:12:59,227 - cardpoll_service - INFO - 用户 123456789 正在为问题 686f8c06150966a492071644 创建新答案...
+2025-07-12 01:12:59,590 - database - INFO - Inserted document with id: 6871461b67788cc9e4d44caa
+2025-07-12 01:12:59,650 - database - INFO - Modified 1 document
+2025-07-12 01:12:59,706 - database - INFO - Modified 1 document
+2025-07-12 01:12:59,707 - cardpoll_service - INFO - 新答案创建成功，ID: 6871461b67788cc9e4d44caa
+2025-07-12 01:15:53,967 - cardpoll_service - INFO - 用户 123456789 正在切换问题 686f8c06150966a492071644 的收藏状态...
+2025-07-12 01:15:54,085 - database - INFO - Modified 1 document
+2025-07-12 01:15:54,085 - cardpoll_service - INFO - 用户 123456789 收藏了问题 686f8c06150966a492071644
+2025-07-12 01:16:00,605 - cardpoll_service - INFO - 用户 123456789 正在切换问题 686f8c06150966a492071644 的收藏状态...
+2025-07-12 01:16:00,723 - database - INFO - Modified 1 document
+2025-07-12 01:16:00,723 - cardpoll_service - INFO - 用户 123456789 取消收藏问题 686f8c06150966a492071644
+2025-07-12 01:16:29,971 - cardpoll_service - INFO - 用户 999999999 正在切换问题 686f8c06150966a492071644 的收藏状态...
+2025-07-12 01:16:57,401 - cardpoll_service - INFO - 用户 123456789 正在切换问题 not-a-valid-object-id 的收藏状态...
+2025-07-12 01:18:11,847 - cardpoll_service - INFO - 用户 123456789 正在切换问题 686f8c06150966a492071644 的收藏状态...
+2025-07-12 01:18:11,962 - database - INFO - Modified 1 document
+2025-07-12 01:18:11,963 - cardpoll_service - INFO - 用户 123456789 收藏了问题 686f8c06150966a492071644
+2025-07-12 01:29:23,667 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:29:23,726 - database - INFO - Closed MongoDB connection
+2025-07-12 01:29:23,726 - server - INFO - 数据库连接已关闭
+2025-07-12 01:29:24,269 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:29:24,273 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:29:24,274 - server - INFO - 正在连接数据库...
+2025-07-12 01:29:24,733 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:29:24,733 - server - INFO - 数据库连接成功
+2025-07-12 01:30:22,345 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:30:22,346 - database - INFO - Closed MongoDB connection
+2025-07-12 01:30:22,346 - server - INFO - 数据库连接已关闭
+2025-07-12 01:30:22,842 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:30:22,846 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:30:22,846 - server - INFO - 正在连接数据库...
+2025-07-12 01:30:23,307 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:30:23,308 - server - INFO - 数据库连接成功
+2025-07-12 01:30:35,136 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:30:35,136 - database - INFO - Closed MongoDB connection
+2025-07-12 01:30:35,136 - server - INFO - 数据库连接已关闭
+2025-07-12 01:30:35,510 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:30:35,514 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:30:35,514 - server - INFO - 正在连接数据库...
+2025-07-12 01:30:36,003 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:30:36,004 - server - INFO - 数据库连接成功
+2025-07-12 01:30:53,996 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:30:53,997 - database - INFO - Closed MongoDB connection
+2025-07-12 01:30:53,997 - server - INFO - 数据库连接已关闭
+2025-07-12 01:30:54,369 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:30:54,373 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:30:54,373 - server - INFO - 正在连接数据库...
+2025-07-12 01:30:54,845 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:30:54,845 - server - INFO - 数据库连接成功
+2025-07-12 01:30:59,496 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:30:59,496 - database - INFO - Closed MongoDB connection
+2025-07-12 01:30:59,496 - server - INFO - 数据库连接已关闭
+2025-07-12 01:30:59,852 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:30:59,856 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:30:59,857 - server - INFO - 正在连接数据库...
+2025-07-12 01:31:00,281 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:31:00,281 - server - INFO - 数据库连接成功
+2025-07-12 01:31:15,841 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:31:15,842 - database - INFO - Closed MongoDB connection
+2025-07-12 01:31:15,842 - server - INFO - 数据库连接已关闭
+2025-07-12 01:31:16,263 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:31:16,267 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:31:16,267 - server - INFO - 正在连接数据库...
+2025-07-12 01:31:16,769 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:31:16,770 - server - INFO - 数据库连接成功
+2025-07-12 01:31:18,695 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:31:18,695 - database - INFO - Closed MongoDB connection
+2025-07-12 01:31:18,695 - server - INFO - 数据库连接已关闭
+2025-07-12 01:31:18,993 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:31:18,996 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:31:18,997 - server - INFO - 正在连接数据库...
+2025-07-12 01:31:19,442 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:31:19,442 - server - INFO - 数据库连接成功
+2025-07-12 01:31:24,901 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:31:24,902 - database - INFO - Closed MongoDB connection
+2025-07-12 01:31:24,902 - server - INFO - 数据库连接已关闭
+2025-07-12 01:31:25,190 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:31:25,195 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:31:25,196 - server - INFO - 正在连接数据库...
+2025-07-12 01:31:25,642 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:31:25,642 - server - INFO - 数据库连接成功
+2025-07-12 01:31:28,276 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:31:28,276 - database - INFO - Closed MongoDB connection
+2025-07-12 01:31:28,277 - server - INFO - 数据库连接已关闭
+2025-07-12 01:31:28,560 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:31:28,563 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:31:28,564 - server - INFO - 正在连接数据库...
+2025-07-12 01:31:29,025 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:31:29,026 - server - INFO - 数据库连接成功
+2025-07-12 01:32:41,897 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:32:41,899 - database - INFO - Closed MongoDB connection
+2025-07-12 01:32:41,899 - server - INFO - 数据库连接已关闭
+2025-07-12 01:32:42,330 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:32:42,334 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:32:42,334 - server - INFO - 正在连接数据库...
+2025-07-12 01:32:42,773 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:32:42,774 - server - INFO - 数据库连接成功
+2025-07-12 01:33:08,037 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:33:08,038 - database - INFO - Closed MongoDB connection
+2025-07-12 01:33:08,038 - server - INFO - 数据库连接已关闭
+2025-07-12 01:33:08,436 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:33:08,440 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:33:08,440 - server - INFO - 正在连接数据库...
+2025-07-12 01:33:08,840 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:33:08,841 - server - INFO - 数据库连接成功
+2025-07-12 01:38:13,787 - cardpoll_service - INFO - 用户 123456788 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 01:38:20,623 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 01:38:40,447 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 01:43:54,839 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:43:54,899 - database - INFO - Closed MongoDB connection
+2025-07-12 01:43:54,899 - server - INFO - 数据库连接已关闭
+2025-07-12 01:43:55,309 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:43:55,314 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:43:55,314 - server - INFO - 正在连接数据库...
+2025-07-12 01:43:55,767 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:43:55,767 - server - INFO - 数据库连接成功
+2025-07-12 01:46:03,008 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:46:03,009 - database - INFO - Closed MongoDB connection
+2025-07-12 01:46:03,009 - server - INFO - 数据库连接已关闭
+2025-07-12 01:46:03,414 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 01:46:03,418 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 01:46:03,418 - server - INFO - 正在连接数据库...
+2025-07-12 01:46:03,924 - database - INFO - Connected to MongoDB successfully
+2025-07-12 01:46:03,924 - server - INFO - 数据库连接成功
+2025-07-12 01:51:35,087 - server - INFO - 正在关闭数据库连接...
+2025-07-12 01:51:35,090 - database - INFO - Closed MongoDB connection
+2025-07-12 01:51:35,091 - server - INFO - 数据库连接已关闭
+2025-07-12 16:05:21,788 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:05:21,792 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:05:21,793 - server - INFO - 正在连接数据库...
+2025-07-12 16:05:22,373 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:05:22,373 - server - INFO - 数据库连接成功
+2025-07-12 16:08:22,661 - cardpoll_service - INFO - 用户 9168168168 正在为问题 6871d041c94ec9fc95dd99a7 创建新答案...
+2025-07-12 16:08:22,743 - database - INFO - Inserted document with id: 687217f6d8944c0144075464
+2025-07-12 16:08:22,831 - database - INFO - Modified 1 document
+2025-07-12 16:08:22,918 - database - INFO - Modified 1 document
+2025-07-12 16:08:22,919 - cardpoll_service - INFO - 新答案创建成功，ID: 687217f6d8944c0144075464
+2025-07-12 16:33:10,203 - cardpoll_service - INFO - 用户 9168168168 正在为问题 6871d041c94ec9fc95dd99a7 创建新答案...
+2025-07-12 16:33:10,287 - database - INFO - Inserted document with id: 68721dc6d8944c0144075465
+2025-07-12 16:33:10,371 - database - INFO - Modified 1 document
+2025-07-12 16:33:10,458 - database - INFO - Modified 1 document
+2025-07-12 16:33:10,459 - cardpoll_service - INFO - 新答案创建成功，ID: 68721dc6d8944c0144075465
+2025-07-12 16:37:29,742 - cardpoll_service - INFO - 用户 9168168168 正在切换问题 6871d041c94ec9fc95dd99a7 的收藏状态...
+2025-07-12 16:37:29,918 - database - INFO - Modified 1 document
+2025-07-12 16:37:29,918 - cardpoll_service - INFO - 用户 9168168168 收藏了问题 6871d041c94ec9fc95dd99a7
+2025-07-12 16:37:40,508 - cardpoll_service - INFO - 用户 9168168168 正在切换问题 6871d041c94ec9fc95dd99a7 的收藏状态...
+2025-07-12 16:37:40,687 - database - INFO - Modified 1 document
+2025-07-12 16:37:40,687 - cardpoll_service - INFO - 用户 9168168168 取消收藏问题 6871d041c94ec9fc95dd99a7
+2025-07-12 16:37:42,507 - cardpoll_service - INFO - 用户 9168168168 正在切换问题 6871d041c94ec9fc95dd99a7 的收藏状态...
+2025-07-12 16:37:42,680 - database - INFO - Modified 1 document
+2025-07-12 16:37:42,680 - cardpoll_service - INFO - 用户 9168168168 收藏了问题 6871d041c94ec9fc95dd99a7
+2025-07-12 16:39:11,971 - cardpoll_service - INFO - 用户 9168168168 正在切换问题 6871d041c94ec9fc95dd99a7 的收藏状态...
+2025-07-12 16:39:12,157 - database - INFO - Modified 1 document
+2025-07-12 16:39:12,158 - cardpoll_service - INFO - 用户 9168168168 取消收藏问题 6871d041c94ec9fc95dd99a7
+2025-07-12 16:40:51,726 - cardpoll_service - INFO - 用户 9168168168 正在获取问题...
+2025-07-12 16:40:55,930 - cardpoll_service - INFO - 用户 9168168168 正在获取问题...
+2025-07-12 16:41:02,102 - cardpoll_service - INFO - 用户 9168168168 正在获取问题...
+2025-07-12 16:44:01,464 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 16:44:53,330 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:44:53,413 - database - INFO - Closed MongoDB connection
+2025-07-12 16:44:53,413 - server - INFO - 数据库连接已关闭
+2025-07-12 16:44:54,144 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:44:54,148 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:44:54,148 - server - INFO - 正在连接数据库...
+2025-07-12 16:44:55,355 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:44:55,355 - server - INFO - 数据库连接成功
+2025-07-12 16:44:55,617 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:44:55,620 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:44:55,621 - server - INFO - 正在连接数据库...
+2025-07-12 16:44:56,223 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:44:56,223 - server - INFO - 数据库连接成功
+2025-07-12 16:45:00,171 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 16:45:03,657 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 16:45:40,302 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 16:46:51,887 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:46:51,964 - database - INFO - Closed MongoDB connection
+2025-07-12 16:46:51,964 - server - INFO - 数据库连接已关闭
+2025-07-12 16:46:53,192 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:46:53,196 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:46:53,196 - server - INFO - 正在连接数据库...
+2025-07-12 16:46:53,818 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:46:53,819 - server - INFO - 数据库连接成功
+2025-07-12 16:46:59,929 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 16:47:00,478 - database - INFO - Modified 1 document
+2025-07-12 16:47:00,478 - cardpoll_service - INFO - 用户 123456789 成功拉黑答案 687136f3e978ca10032d9cc5
+2025-07-12 16:54:11,949 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:12,024 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:12,024 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:12,508 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:12,512 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:12,513 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:13,069 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:13,069 - server - INFO - 数据库连接成功
+2025-07-12 16:54:13,777 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:13,777 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:13,777 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:14,097 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:14,101 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:14,101 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:14,663 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:14,663 - server - INFO - 数据库连接成功
+2025-07-12 16:54:15,977 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:15,977 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:15,977 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:16,261 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:16,265 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:16,265 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:17,128 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:17,129 - server - INFO - 数据库连接成功
+2025-07-12 16:54:17,939 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:17,939 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:17,939 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:18,209 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:18,212 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:18,213 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:18,774 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:18,774 - server - INFO - 数据库连接成功
+2025-07-12 16:54:26,858 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:26,858 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:26,858 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:27,163 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:27,166 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:27,166 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:27,742 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:27,743 - server - INFO - 数据库连接成功
+2025-07-12 16:54:28,350 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:28,350 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:28,350 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:28,640 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:28,644 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:28,645 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:29,188 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:29,189 - server - INFO - 数据库连接成功
+2025-07-12 16:54:29,897 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:29,898 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:29,898 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:30,177 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:30,180 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:30,181 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:30,756 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:30,757 - server - INFO - 数据库连接成功
+2025-07-12 16:54:43,890 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:43,891 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:43,891 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:44,183 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:44,186 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:44,187 - server - INFO - 正在连接数据库...
+2025-07-12 16:54:45,033 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:54:45,034 - server - INFO - 数据库连接成功
+2025-07-12 16:54:58,974 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:54:58,974 - database - INFO - Closed MongoDB connection
+2025-07-12 16:54:58,974 - server - INFO - 数据库连接已关闭
+2025-07-12 16:54:59,248 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:54:59,251 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:54:59,252 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:00,115 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:00,115 - server - INFO - 数据库连接成功
+2025-07-12 16:55:02,240 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:02,240 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:02,241 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:02,533 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:02,537 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:02,538 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:03,437 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:03,437 - server - INFO - 数据库连接成功
+2025-07-12 16:55:06,067 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:06,068 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:06,068 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:06,580 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:06,584 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:06,584 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:07,165 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:07,165 - server - INFO - 数据库连接成功
+2025-07-12 16:55:07,979 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:07,979 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:07,979 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:08,282 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:08,285 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:08,286 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:08,903 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:08,904 - server - INFO - 数据库连接成功
+2025-07-12 16:55:12,146 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:12,146 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:12,146 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:12,426 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:12,429 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:12,430 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:13,034 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:13,035 - server - INFO - 数据库连接成功
+2025-07-12 16:55:22,634 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:22,634 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:22,634 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:22,967 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:22,971 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:22,971 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:23,900 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:23,900 - server - INFO - 数据库连接成功
+2025-07-12 16:55:25,218 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:25,218 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:25,218 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:25,518 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:25,521 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:25,521 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:26,120 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:26,121 - server - INFO - 数据库连接成功
+2025-07-12 16:55:28,852 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:28,852 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:28,852 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:29,175 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:29,187 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:29,189 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:29,784 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:29,784 - server - INFO - 数据库连接成功
+2025-07-12 16:55:51,923 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:51,924 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:51,924 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:52,305 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:52,309 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:52,309 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:53,266 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:53,266 - server - INFO - 数据库连接成功
+2025-07-12 16:55:55,896 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:55:55,897 - database - INFO - Closed MongoDB connection
+2025-07-12 16:55:55,897 - server - INFO - 数据库连接已关闭
+2025-07-12 16:55:56,172 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:55:56,176 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:55:56,176 - server - INFO - 正在连接数据库...
+2025-07-12 16:55:56,805 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:55:56,806 - server - INFO - 数据库连接成功
+2025-07-12 16:56:08,525 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:56:08,525 - database - INFO - Closed MongoDB connection
+2025-07-12 16:56:08,526 - server - INFO - 数据库连接已关闭
+2025-07-12 16:56:08,818 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:56:08,821 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:56:08,821 - server - INFO - 正在连接数据库...
+2025-07-12 16:56:09,438 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:56:09,439 - server - INFO - 数据库连接成功
+2025-07-12 16:56:15,701 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:56:15,701 - database - INFO - Closed MongoDB connection
+2025-07-12 16:56:15,702 - server - INFO - 数据库连接已关闭
+2025-07-12 16:56:15,983 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:56:15,986 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:56:15,987 - server - INFO - 正在连接数据库...
+2025-07-12 16:56:16,553 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:56:16,553 - server - INFO - 数据库连接成功
+2025-07-12 16:56:20,398 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:56:20,398 - database - INFO - Closed MongoDB connection
+2025-07-12 16:56:20,398 - server - INFO - 数据库连接已关闭
+2025-07-12 16:56:20,767 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 16:56:20,771 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 16:56:20,771 - server - INFO - 正在连接数据库...
+2025-07-12 16:56:21,364 - database - INFO - Connected to MongoDB successfully
+2025-07-12 16:56:21,364 - server - INFO - 数据库连接成功
+2025-07-12 16:56:30,763 - server - INFO - 正在关闭数据库连接...
+2025-07-12 16:56:30,765 - database - INFO - Closed MongoDB connection
+2025-07-12 16:56:30,765 - server - INFO - 数据库连接已关闭
+2025-07-12 17:08:19,840 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:08:19,844 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:08:19,844 - server - INFO - 正在连接数据库...
+2025-07-12 17:08:20,413 - database - INFO - Connected to MongoDB successfully
+2025-07-12 17:08:20,413 - server - INFO - 数据库连接成功
+2025-07-12 17:08:36,251 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 17:17:51,116 - server - INFO - 正在关闭数据库连接...
+2025-07-12 17:17:51,201 - database - INFO - Closed MongoDB connection
+2025-07-12 17:17:51,201 - server - INFO - 数据库连接已关闭
+2025-07-12 17:17:51,688 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:17:51,692 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:17:51,692 - server - INFO - 正在连接数据库...
+2025-07-12 17:17:52,303 - database - INFO - Connected to MongoDB successfully
+2025-07-12 17:17:52,303 - server - INFO - 数据库连接成功
+2025-07-12 17:18:38,519 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 687136f3e978ca10032d9cc5...
+2025-07-12 17:19:00,615 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 68721dc6d8944c0144075465...
+2025-07-12 17:19:43,303 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 6871d041c94ec9fc95dd99b4...
+2025-07-12 17:20:08,602 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 6871d041c94ec9fc95dd99b4...
+2025-07-12 17:20:15,042 - server - INFO - 正在关闭数据库连接...
+2025-07-12 17:20:15,124 - database - INFO - Closed MongoDB connection
+2025-07-12 17:20:15,125 - server - INFO - 数据库连接已关闭
+2025-07-12 17:20:49,681 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:20:49,714 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:20:49,715 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 17:20:49,765 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:20:49,779 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:20:49,781 - server - INFO - 正在连接数据库...
+2025-07-12 17:20:50,704 - database - INFO - Connected to MongoDB successfully
+2025-07-12 17:20:50,705 - server - INFO - 数据库连接成功
+2025-07-12 17:20:56,374 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 6871d041c94ec9fc95dd99b4...
+2025-07-12 17:23:28,840 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:23:28,872 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:23:28,873 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 17:23:28,924 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:23:28,940 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:23:28,942 - server - INFO - 正在连接数据库...
+2025-07-12 17:23:30,432 - database - INFO - Connected to MongoDB successfully
+2025-07-12 17:23:30,433 - server - INFO - 数据库连接成功
+2025-07-12 17:23:31,886 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 6871d041c94ec9fc95dd99b4...
+2025-07-12 17:23:49,291 - database - INFO - Modified 1 document
+2025-07-12 17:23:49,292 - cardpoll_service - INFO - 用户 123456789 成功拉黑答案 6871d041c94ec9fc95dd99b4 (问题ID: 6871d041c94ec9fc95dd99a7)
+2025-07-12 17:24:25,544 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 17:24:25,548 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 17:24:25,548 - server - INFO - 正在连接数据库...
+2025-07-12 17:24:26,125 - database - INFO - Connected to MongoDB successfully
+2025-07-12 17:24:26,125 - server - INFO - 数据库连接成功
+2025-07-12 17:24:29,127 - cardpoll_service - INFO - 用户 123456789 正在拉黑答案 6871d041c94ec9fc95dd99b4...
+2025-07-12 17:24:29,863 - database - INFO - Modified 0 document
+2025-07-12 17:24:29,863 - cardpoll_service - INFO - 用户 123456789 成功拉黑答案 6871d041c94ec9fc95dd99b4 (问题ID: 6871d041c94ec9fc95dd99a7)
+2025-07-12 19:27:34,873 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:27:35,806 - database - INFO - Closed MongoDB connection
+2025-07-12 19:27:35,807 - server - INFO - 数据库连接已关闭
+2025-07-12 19:27:36,289 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:27:36,293 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:27:36,293 - server - INFO - 正在连接数据库...
+2025-07-12 19:27:36,902 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:27:36,903 - server - INFO - 数据库连接成功
+2025-07-12 19:27:54,295 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:27:54,295 - database - INFO - Closed MongoDB connection
+2025-07-12 19:27:54,295 - server - INFO - 数据库连接已关闭
+2025-07-12 19:27:54,707 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:27:54,710 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:27:54,711 - server - INFO - 正在连接数据库...
+2025-07-12 19:27:55,297 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:27:55,297 - server - INFO - 数据库连接成功
+2025-07-12 19:27:57,326 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:27:57,326 - database - INFO - Closed MongoDB connection
+2025-07-12 19:27:57,326 - server - INFO - 数据库连接已关闭
+2025-07-12 19:27:57,583 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:27:57,587 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:27:57,587 - server - INFO - 正在连接数据库...
+2025-07-12 19:27:58,169 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:27:58,169 - server - INFO - 数据库连接成功
+2025-07-12 19:30:41,993 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:41,993 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:41,993 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:42,439 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:42,445 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:42,446 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:43,028 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:43,029 - server - INFO - 数据库连接成功
+2025-07-12 19:30:43,332 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:43,333 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:43,333 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:43,606 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:43,611 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:43,611 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:44,193 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:44,193 - server - INFO - 数据库连接成功
+2025-07-12 19:30:44,901 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:44,901 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:44,901 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:45,172 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:45,175 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:45,176 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:45,748 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:45,748 - server - INFO - 数据库连接成功
+2025-07-12 19:30:48,074 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:48,074 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:48,074 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:48,332 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:48,335 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:48,336 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:49,222 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:49,222 - server - INFO - 数据库连接成功
+2025-07-12 19:30:50,537 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:50,537 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:50,537 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:50,919 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:50,923 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:50,923 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:51,500 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:51,500 - server - INFO - 数据库连接成功
+2025-07-12 19:30:51,804 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:30:51,804 - database - INFO - Closed MongoDB connection
+2025-07-12 19:30:51,804 - server - INFO - 数据库连接已关闭
+2025-07-12 19:30:52,078 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:30:52,081 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:30:52,081 - server - INFO - 正在连接数据库...
+2025-07-12 19:30:53,248 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:30:53,248 - server - INFO - 数据库连接成功
+2025-07-12 19:31:13,455 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:13,455 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:13,455 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:13,834 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:13,837 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:13,837 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:14,403 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:14,403 - server - INFO - 数据库连接成功
+2025-07-12 19:31:16,933 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:16,934 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:16,934 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:17,208 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:17,211 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:17,212 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:18,081 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:18,081 - server - INFO - 数据库连接成功
+2025-07-12 19:31:27,491 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:27,491 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:27,492 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:27,859 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:27,862 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:27,863 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:28,461 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:28,461 - server - INFO - 数据库连接成功
+2025-07-12 19:31:33,718 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:33,718 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:33,718 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:33,988 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:33,992 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:33,992 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:34,558 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:34,559 - server - INFO - 数据库连接成功
+2025-07-12 19:31:35,368 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:35,368 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:35,369 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:35,651 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:35,655 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:35,655 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:36,215 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:36,216 - server - INFO - 数据库连接成功
+2025-07-12 19:31:42,277 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:42,277 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:42,277 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:42,554 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:42,558 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:42,558 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:43,131 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:43,131 - server - INFO - 数据库连接成功
+2025-07-12 19:31:45,761 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:45,762 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:45,762 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:46,047 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:46,052 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:46,052 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:46,625 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:46,626 - server - INFO - 数据库连接成功
+2025-07-12 19:31:50,868 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:50,869 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:50,869 - server - INFO - 数据库连接已关闭
+2025-07-12 19:31:51,143 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 19:31:51,147 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 19:31:51,147 - server - INFO - 正在连接数据库...
+2025-07-12 19:31:51,728 - database - INFO - Connected to MongoDB successfully
+2025-07-12 19:31:51,729 - server - INFO - 数据库连接成功
+2025-07-12 19:31:52,942 - server - INFO - 正在关闭数据库连接...
+2025-07-12 19:31:52,943 - database - INFO - Closed MongoDB connection
+2025-07-12 19:31:52,943 - server - INFO - 数据库连接已关闭
+2025-07-12 20:01:11,021 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 20:01:11,024 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 20:01:11,025 - server - INFO - 正在连接数据库...
+2025-07-12 20:01:11,603 - database - INFO - Connected to MongoDB successfully
+2025-07-12 20:01:11,603 - server - INFO - 数据库连接成功
+2025-07-12 20:02:55,119 - cardpoll_service - INFO - 用户 9168168168 正在获取问题 (滑动方向: 左)...
+2025-07-12 20:02:55,705 - cardpoll_service - INFO - 用户 9168168168 初始或重置问题指针为: 64b4a111a111a111a111a111
+2025-07-12 20:29:45,352 - server - INFO - 正在关闭数据库连接...
+2025-07-12 20:29:45,435 - database - INFO - Closed MongoDB connection
+2025-07-12 20:29:45,435 - server - INFO - 数据库连接已关闭
+2025-07-12 20:29:45,924 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 20:29:45,928 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 20:29:45,928 - server - INFO - 正在连接数据库...
+2025-07-12 20:29:46,529 - database - INFO - Connected to MongoDB successfully
+2025-07-12 20:29:46,530 - server - INFO - 数据库连接成功
+2025-07-12 20:30:10,590 - server - INFO - 正在关闭数据库连接...
+2025-07-12 20:30:10,591 - database - INFO - Closed MongoDB connection
+2025-07-12 20:30:10,591 - server - INFO - 数据库连接已关闭
+2025-07-12 20:30:10,977 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 20:30:10,981 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 20:30:10,981 - server - INFO - 正在连接数据库...
+2025-07-12 20:30:11,585 - database - INFO - Connected to MongoDB successfully
+2025-07-12 20:30:11,585 - server - INFO - 数据库连接成功
+2025-07-12 20:30:13,402 - server - INFO - 正在关闭数据库连接...
+2025-07-12 20:30:13,402 - database - INFO - Closed MongoDB connection
+2025-07-12 20:30:13,402 - server - INFO - 数据库连接已关闭
+2025-07-12 20:30:13,679 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 20:30:13,683 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 20:30:13,683 - server - INFO - 正在连接数据库...
+2025-07-12 20:30:14,247 - database - INFO - Connected to MongoDB successfully
+2025-07-12 20:30:14,247 - server - INFO - 数据库连接成功
+2025-07-12 20:32:07,358 - server - INFO - 正在关闭数据库连接...
+2025-07-12 20:32:07,361 - database - INFO - Closed MongoDB connection
+2025-07-12 20:32:07,361 - server - INFO - 数据库连接已关闭
+2025-07-12 20:32:07,759 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 20:32:07,762 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 20:32:07,763 - server - INFO - 正在连接数据库...
+2025-07-12 20:32:08,662 - database - INFO - Connected to MongoDB successfully
+2025-07-12 20:32:08,662 - server - INFO - 数据库连接成功
+2025-07-12 20:40:48,704 - server - INFO - 正在关闭数据库连接...
+2025-07-12 20:40:48,706 - database - INFO - Closed MongoDB connection
+2025-07-12 20:40:48,707 - server - INFO - 数据库连接已关闭
+2025-07-12 21:16:27,198 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 21:16:27,204 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 21:16:27,205 - server - INFO - 启动服务器: NewLoveLushUserService v1.0.0
+2025-07-12 21:16:27,243 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-12 21:16:27,254 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-12 21:16:27,254 - server - INFO - 正在连接数据库...
+2025-07-12 21:16:28,143 - database - INFO - Connected to MongoDB successfully
+2025-07-12 21:16:28,143 - server - INFO - 数据库连接成功
+2025-07-12 21:16:32,898 - server - INFO - 正在关闭数据库连接...
+2025-07-12 21:16:32,899 - database - INFO - Closed MongoDB connection
+2025-07-12 21:16:32,899 - server - INFO - 数据库连接已关闭
+2025-07-13 12:30:35,908 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:30:35,912 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:30:35,913 - server - INFO - 正在连接数据库...
+2025-07-13 12:30:36,836 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:30:36,836 - server - INFO - 数据库连接成功
+2025-07-13 12:31:16,758 - server - INFO - 正在关闭数据库连接...
+2025-07-13 12:31:16,758 - database - INFO - Closed MongoDB connection
+2025-07-13 12:31:16,759 - server - INFO - 数据库连接已关闭
+2025-07-13 12:31:17,188 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:31:17,193 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:31:17,193 - server - INFO - 正在连接数据库...
+2025-07-13 12:31:18,052 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:31:18,052 - server - INFO - 数据库连接成功
+2025-07-13 12:31:44,335 - server - INFO - 正在关闭数据库连接...
+2025-07-13 12:31:44,336 - database - INFO - Closed MongoDB connection
+2025-07-13 12:31:44,336 - server - INFO - 数据库连接已关闭
+2025-07-13 12:31:44,736 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:31:44,740 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:31:44,741 - server - INFO - 正在连接数据库...
+2025-07-13 12:31:45,363 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:31:45,363 - server - INFO - 数据库连接成功
+2025-07-13 12:31:54,763 - server - INFO - 正在关闭数据库连接...
+2025-07-13 12:31:54,763 - database - INFO - Closed MongoDB connection
+2025-07-13 12:31:54,763 - server - INFO - 数据库连接已关闭
+2025-07-13 12:31:55,137 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:31:55,140 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:31:55,141 - server - INFO - 正在连接数据库...
+2025-07-13 12:31:55,756 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:31:55,756 - server - INFO - 数据库连接成功
+2025-07-13 12:32:28,621 - server - INFO - 正在关闭数据库连接...
+2025-07-13 12:32:28,624 - database - INFO - Closed MongoDB connection
+2025-07-13 12:32:28,624 - server - INFO - 数据库连接已关闭
+2025-07-13 12:32:29,086 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:32:29,090 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:32:29,090 - server - INFO - 正在连接数据库...
+2025-07-13 12:32:29,960 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:32:29,961 - server - INFO - 数据库连接成功
+2025-07-13 12:32:30,245 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:32:30,248 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:32:30,249 - server - INFO - 正在连接数据库...
+2025-07-13 12:32:30,803 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:32:30,803 - server - INFO - 数据库连接成功
+2025-07-13 12:32:32,220 - server - INFO - 正在关闭数据库连接...
+2025-07-13 12:32:32,221 - database - INFO - Closed MongoDB connection
+2025-07-13 12:32:32,221 - server - INFO - 数据库连接已关闭
+2025-07-13 12:55:07,088 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 12:55:07,092 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 12:55:07,092 - server - INFO - 正在连接数据库...
+2025-07-13 12:55:07,992 - database - INFO - Connected to MongoDB successfully
+2025-07-13 12:55:07,992 - server - INFO - 数据库连接成功
+2025-07-13 13:03:56,559 - server - INFO - 正在关闭数据库连接...
+2025-07-13 13:03:56,560 - database - INFO - Closed MongoDB connection
+2025-07-13 13:03:56,560 - server - INFO - 数据库连接已关闭
+2025-07-13 13:03:57,064 - server - INFO - CORS允许的域名: ['https://cupid-yukio-frontend.vercel.app', 'https://cupid-yukio-frontend-test.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173']
+2025-07-13 13:03:57,067 - server - INFO - API路由已注册，前缀: /api/v1
+2025-07-13 13:03:57,067 - server - INFO - 正在连接数据库...
+2025-07-13 13:03:57,685 - database - INFO - Connected to MongoDB successfully
+2025-07-13 13:03:57,685 - server - INFO - 数据库连接成功
+2025-07-13 13:05:19,288 - user_service - INFO - 尝试创建女性用户，telegram_id: 600004
+2025-07-13 13:05:20,078 - user_service - INFO - 成功提取到 5 个问题。
+2025-07-13 13:05:20,160 - database - INFO - Inserted document with id: 68733e90cb2e4b86f6990c50
+2025-07-13 13:05:20,240 - database - INFO - Inserted document with id: 68733e90cb2e4b86f6990c51
+2025-07-13 13:05:20,322 - database - INFO - Inserted document with id: 68733e90cb2e4b86f6990c52
+2025-07-13 13:05:20,401 - database - INFO - Inserted document with id: 68733e90cb2e4b86f6990c53
+2025-07-13 13:05:20,480 - database - INFO - Inserted document with id: 68733e90cb2e4b86f6990c54
+2025-07-13 13:05:20,559 - database - INFO - Inserted document with id: 600004
+2025-07-13 13:05:20,559 - user_service - INFO - 女性用户创建成功，telegram_id: 600004, User集合ID: 600004
+2025-07-13 13:06:37,052 - database - INFO - Inserted document with id: 111111
+2025-07-13 13:06:37,054 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 111111
+2025-07-13 13:08:19,749 - cardpoll_service - INFO - 用户 111111 正在为问题 68733e90cb2e4b86f6990c52 创建新答案...
+2025-07-13 13:08:19,831 - database - INFO - Inserted document with id: 68733f43cb2e4b86f6990c55
+2025-07-13 13:08:19,911 - database - INFO - Modified 1 document
+2025-07-13 13:08:19,990 - database - INFO - Modified 1 document
+2025-07-13 13:08:19,991 - cardpoll_service - INFO - 新答案创建成功，ID: 68733f43cb2e4b86f6990c55
+2025-07-13 13:08:51,325 - cardpoll_service - INFO - 用户 0 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:05,553 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:05,717 - cardpoll_service - INFO - 用户 111111 初始或重置问题指针为: 68733e90cb2e4b86f6990c50
+2025-07-13 13:09:07,993 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:09,016 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:09,741 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:10,417 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:11,132 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:11,782 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:12,402 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:13,015 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:13,682 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:14,458 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:15,176 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:16,032 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:22,898 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:23,899 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:36,015 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:36,825 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:09:37,850 - cardpoll_service - INFO - 用户 111111 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:05,012 - database - INFO - Inserted document with id: 111112
+2025-07-13 13:10:05,013 - user_service - INFO - 男用户数据已插入 MongoDB User集合，ID: 111112
+2025-07-13 13:10:12,231 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:12,390 - cardpoll_service - INFO - 用户 111112 初始或重置问题指针为: 68733e90cb2e4b86f6990c52
+2025-07-13 13:10:15,378 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:16,206 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:16,899 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:17,552 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:18,186 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:18,829 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:10:19,446 - cardpoll_service - INFO - 用户 111112 正在获取问题 (滑动方向: 左)...
+2025-07-13 13:19:39,223 - user_service - INFO - 尝试创建女性用户，telegram_id: 600006
+2025-07-13 13:19:39,367 - user_service - INFO - 成功提取到 4 个问题。
+2025-07-13 13:19:39,508 - database - INFO - Inserted document with id: 687341ebcb2e4b86f6990c56
+2025-07-13 13:19:39,642 - database - INFO - Inserted document with id: 687341ebcb2e4b86f6990c57
+2025-07-13 13:19:39,778 - database - INFO - Inserted document with id: 687341ebcb2e4b86f6990c58
+2025-07-13 13:19:39,913 - database - INFO - Inserted document with id: 687341ebcb2e4b86f6990c59
+2025-07-13 13:19:40,048 - database - INFO - Inserted document with id: 600006
+2025-07-13 13:19:40,048 - user_service - INFO - 女性用户创建成功，telegram_id: 600006, User集合ID: 600006
+2025-07-13 13:22:16,135 - server - INFO - 正在关闭数据库连接...
+2025-07-13 13:22:16,274 - database - INFO - Closed MongoDB connection
+2025-07-13 13:22:16,275 - server - INFO - 数据库连接已关闭

@@ -22,11 +22,8 @@ async def edit_answer(request: EditAnswerRequest): # 暂时不需要用户认证
     - 如果未提供 answer_id，则为创建新答案模式。
     """
     try:
-        # 将请求模型转换为字典以便传递给服务层
-        request_data = request.dict()
-        # updated_answer = await ServiceCardpoll.edit_answer(request_data=request_data, user_id=current_user['_id'])
-        response_data = await ServiceCardpoll.edit_answer(request_data=request_data)   # 暂时不需要用户认证
-        return response_data
+        response = await ServiceCardpoll.edit_answer(request=request)   # 暂时不需要用户认证
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -37,10 +34,10 @@ async def edit_answer(request: EditAnswerRequest): # 暂时不需要用户认证
 async def toggle_question_save(request: ToggleQuestionSaveRequest): # 暂时不需要用户认证
     """收藏或取消收藏一个问题。"""
     try:
-        request_data = request.dict()
+        # request_data = request.dict()
         # response_data = await ServiceCardpoll.toggle_question_save(request_data=request_data, user_id=current_user['_id'])
-        response_data = await ServiceCardpoll.toggle_question_save(request_data=request_data)   # 暂时不需要用户认证
-        return response_data
+        response = await ServiceCardpoll.toggle_question_save(request=request)   # 暂时不需要用户认证
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -50,9 +47,9 @@ async def toggle_question_save(request: ToggleQuestionSaveRequest): # 暂时不�
 async def get_question(request: GetQuestionRequest):
     """获取一个随机或推荐的问题以供回答。"""
     try:
-        request_data = request.dict()
-        response_data = await ServiceCardpoll.get_question(request_data=request_data)
-        return response_data
+        # request_data = request.dict()
+        response = await ServiceCardpoll.get_question(request=request)
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -62,9 +59,9 @@ async def get_question(request: GetQuestionRequest):
 async def block_answer(request: BlockAnswerRequest):
     """拉黑一个答案，使其不再出现。"""
     try:
-        request_data = request.dict()
-        response_data = await ServiceCardpoll.block_answer(request_data=request_data)
-        return response_data
+        # request_data = request.dict()
+        response = await ServiceCardpoll.block_answer(request=request)
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -74,9 +71,9 @@ async def block_answer(request: BlockAnswerRequest):
 async def like_answer(request: LikeAnswerRequest):
     """点赞或取消点赞一个答案。"""
     try:
-        request_data = request.dict()
-        response_data = await ServiceCardpoll.like_answer(request_data=request_data)
-        return response_data
+        # request_data = request.dict()
+        response = await ServiceCardpoll.like_answer(request=request)
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:
@@ -86,9 +83,9 @@ async def like_answer(request: LikeAnswerRequest):
 async def get_answer(request: GetCardPollAnswerRequest):
     """根据滑动方向获取一个答案的详细信息。"""
     try:
-        request_data = request.dict()
-        response_data = await ServiceCardpoll.get_answer(request_data=request_data)
-        return response_data
+        # request_data = request.dict()
+        response = await ServiceCardpoll.get_answer(request=request)
+        return response
     except HTTPException as e:
         raise e
     except Exception as e:

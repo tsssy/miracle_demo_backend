@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel, Field
 
 class NewQuestionRequest(BaseModel):
@@ -6,9 +6,11 @@ class NewQuestionRequest(BaseModel):
     新建问题请求体
     - telegram_id: Telegram用户ID
     - question_string: 问题内容
+    - is_draft: 是否为草稿，默认False
     """
     telegram_id: int = Field(..., description="Telegram用户ID", example=10001)
     question_string: str = Field(..., description="问题内容", example="你喜欢什么颜色？")
+    is_draft: Optional[bool] = Field(False, description="是否为草稿", example=False)
 
 class NewQuestionResponse(BaseModel):
     """

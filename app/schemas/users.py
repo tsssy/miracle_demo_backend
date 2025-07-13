@@ -21,8 +21,10 @@ class CreateNewFemaleUserRequest(BaseModel):
     """
     新建女用户的请求体schema
     - telegram_id: 用户的 Telegram ID，整数类型
+    - mode: 用户关系模式，1=friends, 2=long-term_compinionship, 3=short-term_compinionship，可选
     """
     telegram_id: int = Field(..., description="用户的 Telegram ID", example=123456789)
+    mode: Optional[int] = Field(None, description="用户关系模式: 1=friends, 2=long-term_compinionship, 3=short-term_compinionship", ge=1, le=3, example=1)
 
 
 class CreateNewFemaleUserResponse(BaseModel):

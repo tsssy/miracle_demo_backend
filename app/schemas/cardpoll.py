@@ -63,4 +63,3 @@ class GetCardPollAnswerResponse(BaseModel):
     answer_content: str = Field(..., description="答案内容")
     question_string: str = Field(..., description="对应的问题内容")
     is_liked: bool = Field(..., description="当前是否为点赞状态")
-

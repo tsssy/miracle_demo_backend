@@ -14,7 +14,7 @@ router = APIRouter()
 async def new_question(request: NewQuestionRequest):
     """
     新建问题接口
-    - 入参: NewQuestionRequest（telegram_id, question_string）
+    - 入参: NewQuestionRequest（telegram_id, question_string, is_draft）
     - 出参: NewQuestionResponse（success）
     """
     return await QuestionAnswerManagementService.new_question(request)

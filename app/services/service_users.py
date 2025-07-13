@@ -57,7 +57,7 @@ class UserService:
     async def create_new_female_user(request: CreateNewFemaleUserRequest) -> CreateNewFemaleUserResponse:
         """
         新建女用户业务逻辑
-        - 参数: request（CreateNewFemaleUserRequest对象，包含telegram_id）
+        - 参数: request（CreateNewFemaleUserRequest对象，包含telegram_id和可选mode）
         - 返回: CreateNewFemaleUserResponse模型，包含是否成功创建的状态
         - 流程: 在telegram_sessions表中查找telegram_id，如果找到则创建用户和问题
         """
@@ -71,40 +71,32 @@ class UserService:
             if "final_string" not in session:
                 logger.warning(f"telegram_sessions记录中缺少final_string字段: telegram_id={request.telegram_id}")
                 return CreateNewFemaleUserResponse(success=False)
-            # 解析final_string中的问题内容
+            # 用正则提取所有“问题X: ...”内容，不限制数量
             import re
             from datetime import datetime
             string_content = session["final_string"]
+
+            # 新的通用正则表达式，可以匹配多种格式（“问题1:”, “1.”, “Q1:”, "Question 1:")
+            # 并且可以匹配任意数量的问题
+            pattern = re.compile(
+                r"(?:问题|Question|Q)\s*\d+[:：\.]\s*(.*?)(?=\n(?:问题|Question|Q)\s*\d+[:：\.]|$)",
+                re.DOTALL
+            )
             
-            # 支持多种格式的正则表达式
-            patterns = [
-                # 英文格式: "Question 1: ...\nQuestion 2: ...\nQuestion 3: ..."
-                r"Question 1: (.*?)\nQuestion 2: (.*?)\nQuestion 3: (.*?)(?:\n|$)",
-                # 中文格式: "问题1: ...\n\n问题2: ...\n\n问题3: ..."
-                r"问题1: (.*?)\n\n问题2: (.*?)\n\n问题3: (.*?)\n",
-                # 其他可能的格式
-                r"Q1: (.*?)\nQ2: (.*?)\nQ3: (.*?)(?:\n|$)",
-                r"1\. (.*?)\n2\. (.*?)\n3\. (.*?)(?:\n|$)"
-            ]
+            question_contents = pattern.findall(string_content)
             
-            match = None
-            for pattern in patterns:
-                match = re.search(pattern, string_content, re.DOTALL)
-                if match:
-                    logger.info(f"使用正则表达式匹配成功: {pattern}")
-                    break
-            
-            if not match:
+            if not question_contents:
                 logger.warning(f"final_string字段格式不正确，无法提取问题内容: {string_content}")
                 return CreateNewFemaleUserResponse(success=False)
             
-            # 提取问题内容
-            question_contents = [match.group(1).strip(), match.group(2).strip(), match.group(3).strip()]
-            # 创建问题记录
+            # 清理每个问题的首尾空白
+            question_contents = [q.strip() for q in question_contents]
+            logger.info(f"成功提取到 {len(question_contents)} 个问题。")
+            
+            # 创建问题记录，并收集MongoDB自动生成的_id作为question_id
             question_id_list = []
-            for idx, content in enumerate(question_contents):
+            for content in question_contents:
                 question_doc = {
-                    "question_id": idx,
                     "content": content,
                     "telegram_id": request.telegram_id,
                     "is_draft": False,
@@ -114,15 +106,15 @@ class UserService:
                     "liked_answer_list": [],
                     "is_active": True
                 }
-                qid = await Database.insert_one("Question", question_doc)
+                qid = await Database.insert_one("Question", question_doc)  # qid为MongoDB自动生成的_id
                 question_id_list.append(qid)
-            # 创建用户记录
+            # 创建用户记录，question_list只存question_id
             user_document = {
                 "_id": request.telegram_id,  # 用telegram_id作为_id
                 "telegram_id": request.telegram_id,
                 "gender": 1,  # 女性为1
-                "mode": None,
-                "question_list": question_id_list,
+                "mode": request.mode,  # 新增mode字段
+                "question_list": question_id_list,  # 只存question_id
                 "answer_list": [],
                 "paired_user": [],
                 "profile_photo": None,
@@ -170,9 +162,15 @@ class UserService:
     @staticmethod
     async def get_user_exist(request: GetUserExistRequest) -> GetUserExistResponse:
         """
-        查询用户是否存在（返回默认值）
+        查询用户是否存在
         - 参数: request（GetUserExistRequest对象，包含telegram_id）
         - 返回: GetUserExistResponse模型
         """
-        # 返回一个默认的存在性结果（假设存在）
-        return GetUserExistResponse(success=False) 
+        try:
+            # 根据telegram_id在User表查找用户
+            user = await Database.find_one("User", {"_id": request.telegram_id})
+            success = user is not None
+            return GetUserExistResponse(success=success)
+        except Exception as e:
+            # 异常处理，默认返回不存在
+            return GetUserExistResponse(success=False) 
