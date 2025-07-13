@@ -10,7 +10,9 @@ from app.schemas.users import (
     CreateMaleUserRequest,
     CreateMaleUserResponse,
     GetUserExistRequest,
-    GetUserExistResponse
+    GetUserExistResponse,
+    GetUserInfoRequest,
+    GetUserInfoResponse,
 )
 from pydantic import BaseModel, Field
 
@@ -174,3 +176,37 @@ class UserService:
         except Exception as e:
             # 异常处理，默认返回不存在
             return GetUserExistResponse(success=False) 
+
+    @staticmethod
+    async def get_user_info(request: GetUserInfoRequest) -> GetUserInfoResponse:
+        """
+        根据 telegram_id 获取用户的详细信息
+        - 参数: request (GetUserInfoRequest 对象, 包含 telegram_id)
+        - 返回: GetUserInfoResponse 模型, 包含用户详细信息
+        """
+        try:
+            user_document = await Database.find_one("User", {"_id": request.telegram_id})
+            if not user_document:
+                logger.warning(f"未找到用户, telegram_id: {request.telegram_id}")
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+            # 将 list[ObjectId] 转换为 list[str]
+            for key in ['question_list', 'answer_list', 'paired_user', 'saved_list_question', 'saved_list_answer']:
+                if key in user_document and user_document[key]:
+                    user_document[key] = [str(item) for item in user_document[key]]
+
+            return GetUserInfoResponse(
+                gender=user_document.get("gender"),
+                question_list=user_document.get("question_list", []),
+                answer_list=user_document.get("answer_list", []),
+                paired_user=user_document.get("paired_user", []),
+                profile_photo=user_document.get("profile_photo"),
+                mode=user_document.get("mode"),
+                saved_list_question=user_document.get("saved_list_question", []),
+                saved_list_answer=user_document.get("saved_list_answer", [])
+            )
+        except HTTPException as e:
+            raise e
+        except Exception as e:
+            logger.error(f"获取用户信息时发生错误, telegram_id: {request.telegram_id}, error: {e}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to get user info") 

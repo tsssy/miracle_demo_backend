@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field
 
 
@@ -64,4 +64,25 @@ class GetUserExistResponse(BaseModel):
     查询用户是否存在的响应体schema
     - success: 用户是否存在，布尔类型
     """
-    success: bool = Field(..., description="用户是否存在", example=True) 
+    success: bool = Field(..., description="用户是否存在", example=True)
+
+
+class GetUserInfoRequest(BaseModel):
+    """
+    获取用户信息的请求体schema
+    - telegram_id: Telegram用户ID，整数类型
+    """
+    telegram_id: int = Field(..., description="Telegram用户ID", example=123456789)
+
+class GetUserInfoResponse(BaseModel):
+    """
+    获取用户信息的响应体schema
+    """
+    gender: int = Field(..., description="用户性别")
+    question_list: List[str] = Field(..., description="用户回答过的问题ID列表")
+    answer_list: List[str] = Field(..., description="用户回答过的答案ID列表")
+    paired_user: List[str] = Field(..., description="配对用户的ID列表")
+    profile_photo: Optional[int] = Field(None, description="用户头像")
+    mode: int = Field(..., description="用户模式")
+    saved_list_question: List[str] = Field(..., description="用户收藏的问题ID列表")
+    saved_list_answer: List[str] = Field(..., description="用户收藏的答案ID列表") 

@@ -14,7 +14,9 @@ from app.schemas.users import (
     CreateMaleUserRequest,
     CreateMaleUserResponse,
     GetUserExistRequest,
-    GetUserExistResponse
+    GetUserExistResponse,
+    GetUserInfoRequest,
+    GetUserInfoResponse,
 )
 from app.utils.my_logger import MyLogger
 
@@ -73,4 +75,19 @@ async def user_exist(request: GetUserExistRequest) -> GetUserExistResponse:
     """
     return await UserService.get_user_exist(request)
     #TODO: 实现用户存在性查询逻辑
-    #raise NotImplementedError("get_user_exist功能未实现") 
+    #raise NotImplementedError("get_user_exist功能未实现")
+
+@router.post("/get_user_info", response_model=GetUserInfoResponse)
+async def get_user_info(request: GetUserInfoRequest) -> GetUserInfoResponse:
+    """
+    获取用户的详细信息
+    - 参数: request (包含 telegram_id 的请求体)
+    - 返回: 用户的详细信息
+    """
+    try:
+        return await UserService.get_user_info(request)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logger.error(f"获取用户信息时端点发生错误: {e}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error") 
