@@ -195,6 +195,11 @@ class UserService:
                 if key in user_document and user_document[key]:
                     user_document[key] = [str(item) for item in user_document[key]]
 
+            # 单独处理 model_id，如果存在则转换为字符串
+            model_id = user_document.get("model_id")
+            if model_id:
+                model_id = str(model_id)
+
             return GetUserInfoResponse(
                 gender=user_document.get("gender"),
                 question_list=user_document.get("question_list", []),
@@ -202,6 +207,8 @@ class UserService:
                 paired_user=user_document.get("paired_user", []),
                 profile_photo=user_document.get("profile_photo"),
                 mode=user_document.get("mode"),
+                profile=user_document.get("profile", {}),
+                model_id=model_id,
                 saved_list_question=user_document.get("saved_list_question", []),
                 saved_list_answer=user_document.get("saved_list_answer", [])
             )

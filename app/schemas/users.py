@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 from pydantic import BaseModel, Field
 
 
@@ -84,5 +84,7 @@ class GetUserInfoResponse(BaseModel):
     paired_user: List[str] = Field(..., description="配对用户的ID列表")
     profile_photo: Optional[int] = Field(None, description="用户头像")
     mode: int = Field(..., description="用户模式")
+    profile: Dict = Field(..., description="用户的详细资料")
+    model_id: Optional[str] = Field(None, description="用户的模型ID")
     saved_list_question: List[str] = Field(..., description="用户收藏的问题ID列表")
     saved_list_answer: List[str] = Field(..., description="用户收藏的答案ID列表") 
