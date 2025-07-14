@@ -21,9 +21,11 @@ class CreateNewFemaleUserRequest(BaseModel):
     """
     新建女用户的请求体schema
     - telegram_id: 用户的 Telegram ID，整数类型
+    - telegram_user_name: 用户的 Telegram 用户名，字符串类型
     - mode: 用户关系模式，1=friends, 2=long-term_compinionship, 3=short-term_compinionship，可选
     """
     telegram_id: int = Field(..., description="用户的 Telegram ID", example=123456789)
+    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名", example="alice_123")
     mode: Optional[int] = Field(None, description="用户关系模式: 1=friends, 2=long-term_compinionship, 3=short-term_compinionship", ge=1, le=3, example=1)
 
 
@@ -39,9 +41,11 @@ class CreateMaleUserRequest(BaseModel):
     """
     新建男用户的请求体schema
     - telegram_id: 用户的 Telegram ID，整数类型
+    - telegram_user_name: 用户的 Telegram 用户名，字符串类型
     - mode: 用户关系模式，1=friends, 2=long-term_compinionship, 3=short-term_compinionship，可选
     """
     telegram_id: int = Field(..., description="用户的 Telegram ID", example=123456789)
+    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名", example="bob_456")
     mode: Optional[int] = Field(None, description="用户关系模式: 1=friends, 2=long-term_compinionship, 3=short-term_compinionship", ge=1, le=3, example=1)
 
 class CreateMaleUserResponse(BaseModel):
@@ -78,6 +82,7 @@ class GetUserInfoResponse(BaseModel):
     """
     获取用户信息的响应体schema
     """
+    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
     gender: int = Field(..., description="用户性别")
     question_list: List[str] = Field(..., description="用户回答过的问题ID列表")
     answer_list: List[str] = Field(..., description="用户回答过的答案ID列表")

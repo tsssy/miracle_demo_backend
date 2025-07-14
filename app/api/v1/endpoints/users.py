@@ -28,7 +28,7 @@ router = APIRouter()
 async def users_create_male_user(request: CreateMaleUserRequest) -> Any:
     """
     新建男用户API接口
-    - 参数: request（包含telegram_id和可选mode的请求体，类型为int）
+    - 参数: request（包含telegram_id、telegram_user_name和可选mode的请求体，类型为CreateMaleUserRequest）
     - 返回: 是否成功创建男用户的状态
     """
     try:
@@ -42,7 +42,7 @@ async def users_create_male_user(request: CreateMaleUserRequest) -> Any:
 async def users_create_female_user(request: CreateNewFemaleUserRequest) -> Any:
     """
     新建女用户API接口
-    - 参数: request（包含telegram_id和可选mode的请求体，类型为int）
+    - 参数: request（包含telegram_id、telegram_user_name和可选mode的请求体，类型为CreateNewFemaleUserRequest）
     - 返回: 是否成功创建女用户的状态
     """
     try:

@@ -24,7 +24,7 @@ class UserService:
     async def create_new_male_user(user_data: CreateMaleUserRequest) -> CreateMaleUserResponse:
         """
         新建男用户业务逻辑
-        - 参数: user_data（CreateMaleUserRequest对象，包含telegram_id和可选mode）
+        - 参数: user_data（CreateMaleUserRequest对象，包含telegram_id、telegram_user_name和可选mode）
         - 返回: CreateMaleUserResponse模型，表示是否成功创建
         """
         valid_modes = [1, 2, 3]
@@ -37,6 +37,7 @@ class UserService:
             user_document = {
                 "_id": telegram_id,  # 用telegram_id作为_id
                 "telegram_id": telegram_id,
+                "telegram_user_name": user_data.telegram_user_name,
                 "gender": 2,  # 男性为2
                 "mode": user_data.mode,
                 "question_list": [],
@@ -59,7 +60,7 @@ class UserService:
     async def create_new_female_user(request: CreateNewFemaleUserRequest) -> CreateNewFemaleUserResponse:
         """
         新建女用户业务逻辑
-        - 参数: request（CreateNewFemaleUserRequest对象，包含telegram_id和可选mode）
+        - 参数: request（CreateNewFemaleUserRequest对象，包含telegram_id、telegram_user_name和可选mode）
         - 返回: CreateNewFemaleUserResponse模型，包含是否成功创建的状态
         - 流程: 在telegram_sessions表中查找telegram_id，如果找到则创建用户和问题
         """
@@ -114,6 +115,7 @@ class UserService:
             user_document = {
                 "_id": request.telegram_id,  # 用telegram_id作为_id
                 "telegram_id": request.telegram_id,
+                "telegram_user_name": request.telegram_user_name,
                 "gender": 1,  # 女性为1
                 "mode": request.mode,  # 新增mode字段
                 "question_list": question_id_list,  # 只存question_id
@@ -201,6 +203,7 @@ class UserService:
                 model_id = str(model_id)
 
             return GetUserInfoResponse(
+                telegram_user_name=user_document.get("telegram_user_name", ""),
                 gender=user_document.get("gender"),
                 question_list=user_document.get("question_list", []),
                 answer_list=user_document.get("answer_list", []),
