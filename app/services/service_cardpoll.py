@@ -73,7 +73,7 @@ class ServiceCardpoll:
                     {"$push": {"answer_list": ObjectId(new_answer_id)}}
                 )
 
-                # 3. 在 Question 集合中更新问题信息 
+                # 3. 在 Question 集合中更新问题信息
                 await Database.update_one(
                     "Question",
                     {"_id": ObjectId(question_id_str)},
@@ -139,7 +139,7 @@ class ServiceCardpoll:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
 
             # 2. 检查问题是否已保存
-            saved_questions = user.get("saved_question_ids", [])
+            saved_questions = user.get("saved_list_question", [])
             is_currently_saved = question_oid in saved_questions
 
             # 3. 更新用户文档
@@ -148,7 +148,7 @@ class ServiceCardpoll:
                 await Database.update_one(
                     "User",
                     {"_id": telegram_id},
-                    {"$pull": {"saved_question_ids": question_oid}}
+                    {"$pull": {"saved_list_question": question_oid}}
                 )
                 new_saved_status = False
                 logger.info(f"用户 {telegram_id} 取消收藏问题 {question_id_str}")
@@ -157,7 +157,7 @@ class ServiceCardpoll:
                 await Database.update_one(
                     "User",
                     {"_id": telegram_id},
-                    {"$addToSet": {"saved_question_ids": question_oid}}
+                    {"$addToSet": {"saved_list_question": question_oid}}
                 )
                 new_saved_status = True
                 logger.info(f"用户 {telegram_id} 收藏了问题 {question_id_str}")
@@ -295,7 +295,7 @@ class ServiceCardpoll:
             question_content = new_question_doc.get("content")
 
             # 4. 检查问题是否已收藏
-            is_saved = ObjectId(question_id) in user.get("saved_question_ids", [])
+            is_saved = ObjectId(question_id) in user.get("saved_list_question", [])
 
             # 5. 检查用户是否已回答该问题
             user_answer = await Database.find_one(
@@ -426,9 +426,9 @@ class ServiceCardpoll:
                     # 从答案的喜欢列表中移除
                     Database.update_one("Answer", {"_id": answer_oid}, {"$pull": {"liked_user_ids": liker_telegram_id}}),
                     # 从女方的配对列表中移除男方
-                    Database.update_one("User", {"_id": liker_telegram_id}, {"$pull": {"paired_user_ids": likee_telegram_id}}),
+                    Database.update_one("User", {"_id": liker_telegram_id}, {"$pull": {"paired_user": likee_telegram_id}}),
                     # 从男方的配对列表中移除女方
-                    Database.update_one("User", {"_id": likee_telegram_id}, {"$pull": {"paired_user_ids": liker_telegram_id}})
+                    Database.update_one("User", {"_id": likee_telegram_id}, {"$pull": {"paired_user": liker_telegram_id}})
                 )
                 return LikeAnswerResponse(paired_telegram_id=likee_telegram_id, is_liked=False)
             else:
@@ -438,9 +438,9 @@ class ServiceCardpoll:
                     # 添加到答案的喜欢列表
                     Database.update_one("Answer", {"_id": answer_oid}, {"$addToSet": {"liked_user_ids": liker_telegram_id}}),
                     # 为女方添加配对的男方
-                    Database.update_one("User", {"_id": liker_telegram_id}, {"$addToSet": {"paired_user_ids": likee_telegram_id}}),
+                    Database.update_one("User", {"_id": liker_telegram_id}, {"$addToSet": {"paired_user": likee_telegram_id}}),
                     # 为男方添加配对的女方
-                    Database.update_one("User", {"_id": likee_telegram_id}, {"$addToSet": {"paired_user_ids": liker_telegram_id}})
+                    Database.update_one("User", {"_id": likee_telegram_id}, {"$addToSet": {"paired_user": likee_telegram_id}})
                 )
                 return LikeAnswerResponse(paired_telegram_id=likee_telegram_id, is_liked=True)
 
@@ -470,64 +470,60 @@ class ServiceCardpoll:
                 raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="只有女性用户才能浏览答案")
 
             user_question_ids = user.get("question_list", [])
-
             if not user_question_ids:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="您尚未创建任何问题，无法查看答案")
 
-            # 2. 获取女性用户创建的活跃问题
-            # 为了简化，我们暂时随机选择一个活跃的、由该女性用户创建的问题
-            # 实际应用中可以根据 is_swiping_toward_left 实现更复杂的遍历或推荐逻辑
-            random_question = await Database.find_one(
-                "Question",
-                {
-                    "_id": {"$in": [ObjectId(qid) for qid in user_question_ids]},
-                    "is_active": True
-                }
-            )
-            if not random_question:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="您已创建的问题目前没有活跃状态或没有答案")
+            # 将用户的问题列表随机打乱，以增加多样性
+            random.shuffle(user_question_ids)
 
-            question_oid = random_question.get("_id")
-            question_string = random_question.get("content")
-            # 获取该问题下的拉黑答案列表
-            blocked_answer_ids = random_question.get("blocked_answer_list", [])
+            # 遍历所有问题，直到找到一个有合格答案的问题
+            for question_id_str in user_question_ids:
+                question_oid = ObjectId(question_id_str)
+                
+                # 获取问题文档以检查其状态和屏蔽列表
+                question_doc = await Database.find_one("Question", {"_id": question_oid, "is_active": True})
+                if not question_doc:
+                    continue  # 如果问题不存在或不活跃，跳到下一个
 
-            # 3. 寻找符合条件的男性答案
-            # 筛选：非草稿，未被拉黑，作者是男性
-            pipeline = [
-                {"$match": {"question_id": question_oid, "is_draft": False}},
-                {"$match": {"_id": {"$nin": [ObjectId(aid) for aid in blocked_answer_ids]}}},
-                {
-                    "$lookup": {
-                        "from": "User",
-                        "localField": "telegram_id",
-                        "foreignField": "_id",
-                        "as": "author_info"
-                    }
-                },
-                {"$unwind": "$author_info"},
-                {"$match": {"author_info.gender": 2}}, # 2 代表男性
-                {"$sample": {"size": 1}} # 随机选择一个答案
-            ]
-            
-            random_answer_list = await Database.aggregate("Answer", pipeline)
-            random_answer = random_answer_list[0] if random_answer_list else None
+                question_string = question_doc.get("content")
+                blocked_answer_ids = question_doc.get("blocked_answer_list", [])
 
-            if not random_answer:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="该问题下没有更多男性答案可供浏览")
+                # 为当前问题构建聚合管道
+                pipeline = [
+                    {"$match": {"question_id": question_oid, "is_draft": False}},
+                    {"$match": {"_id": {"$nin": [ObjectId(aid) for aid in blocked_answer_ids]}}},
+                    {
+                        "$lookup": {
+                            "from": "User",
+                            "localField": "telegram_id",
+                            "foreignField": "_id",
+                            "as": "author_info"
+                        }
+                    },
+                    {"$unwind": "$author_info"},
+                    {"$match": {"author_info.gender": 2}},
+                    {"$sample": {"size": 1}}
+                ]
+                
+                answer_collection = Database.get_collection("Answer")
+                random_answer_list = await answer_collection.aggregate(pipeline).to_list(length=None)
 
-            answer_id = str(random_answer.get("_id"))
-            answer_content = random_answer.get("content")
-            
-            # 4. 判断当前女性用户是否已点赞该答案
-            is_liked = telegram_id in random_answer.get("liked_user_ids", [])
+                # 如果找到了答案，立即处理并返回
+                if random_answer_list:
+                    random_answer = random_answer_list[0]
+                    answer_id = str(random_answer.get("_id"))
+                    answer_content = random_answer.get("content")
+                    is_liked = telegram_id in random_answer.get("liked_user_ids", [])
 
-            return GetCardPollAnswerResponse(
-                answer_id=answer_id,
-                answer_content=answer_content,
-                question_string=question_string,
-                is_liked=is_liked
-            )
+                    return GetCardPollAnswerResponse(
+                        answer_id=answer_id,
+                        answer_content=answer_content,
+                        question_string=question_string,
+                        is_liked=is_liked
+                    )
+
+            # 如果遍历完所有问题都没有找到答案，则报告无更多答案
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="没有更多可供浏览的答案")
 
         except HTTPException as e:
             raise e
