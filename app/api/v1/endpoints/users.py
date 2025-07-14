@@ -60,7 +60,7 @@ async def get_user_from_telegram_session(request: GetTelegramSessionGenderReques
     - 返回: 用户性别信息
     """
     try:
-        result = await UserService.get_user_gender_from_telegram_session(request)
+        result = await UserService.get_user_from_telegram_session(request)
         return result
     except Exception as e:
         logger.error(f"获取用户性别失败: {e}")
