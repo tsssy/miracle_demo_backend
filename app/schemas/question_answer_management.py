@@ -98,3 +98,17 @@ class GetAnswerInfoResponse(BaseModel):
     created_at: datetime
     liked_user_ids: List[str]
     is_active: bool 
+
+class GetQuestionInfoRequest(BaseModel):
+    question_id: str
+
+class GetQuestionInfoResponse(BaseModel):
+    question_id: str
+    content: str
+    telegram_id: str
+    is_draft: bool
+    created_at: datetime
+    answer_list: List[str]
+    blocked_answer_list: List[str]
+    liked_answer_list: List[str]
+    is_active: bool 

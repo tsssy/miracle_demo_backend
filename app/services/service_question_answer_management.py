@@ -4,7 +4,8 @@ from app.schemas.question_answer_management import (
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
     GetQAMAnswerRequest, GetQAMAnswerResponse,
-    GetAnswerInfoRequest, GetAnswerInfoResponse
+    GetAnswerInfoRequest, GetAnswerInfoResponse,
+    GetQuestionInfoRequest, GetQuestionInfoResponse
 )
 from app.core.database import Database
 from datetime import datetime
@@ -194,15 +195,48 @@ class QuestionAnswerManagementService:
             answer = await Database.find_one("Answer", {"_id": ObjectId(request.answer_id)})
             if not answer:
                 return None
+            # question_id、telegram_id、liked_user_ids 都用 ObjectId 查询
+            qid = answer.get("question_id", None)
+            question = None
+            if qid:
+                question = await Database.find_one("Question", {"_id": ObjectId(qid)})
+            liked_user_ids = [str(uid) for uid in answer.get("liked_user_ids", [])]
             return GetAnswerInfoResponse(
                 answer_id=str(answer["_id"]),
                 content=answer.get("content", ""),
-                question_id=str(answer.get("question_id", "")),
-                telegram_id=answer.get("telegram_id", ""),
+                question_id=str(qid) if qid else "",
+                telegram_id=str(answer.get("telegram_id", "")),
                 is_draft=answer.get("is_draft", False),
                 created_at=answer.get("created_at"),
-                liked_user_ids=[str(uid) for uid in answer.get("liked_user_ids", [])],
+                liked_user_ids=liked_user_ids,
                 is_active=answer.get("is_active", True)
+            )
+        except Exception as e:
+            return None
+
+    @staticmethod
+    async def get_question_info(request: GetQuestionInfoRequest) -> GetQuestionInfoResponse:
+        """
+        获取单个问题的详细信息
+        """
+        try:
+            question = await Database.find_one("Question", {"_id": ObjectId(request.question_id)})
+            if not question:
+                return None
+            # answer_list、blocked_answer_list、liked_answer_list 都用 ObjectId 查询
+            answer_list = [str(aid) for aid in question.get("answer_list", [])]
+            blocked_answer_list = [str(aid) for aid in question.get("blocked_answer_list", [])]
+            liked_answer_list = [str(aid) for aid in question.get("liked_answer_list", [])]
+            return GetQuestionInfoResponse(
+                question_id=str(question["_id"]),
+                content=question.get("content", ""),
+                telegram_id=str(question.get("telegram_id", "")),
+                is_draft=question.get("is_draft", False),
+                created_at=question.get("created_at"),
+                answer_list=answer_list,
+                blocked_answer_list=blocked_answer_list,
+                liked_answer_list=liked_answer_list,
+                is_active=question.get("is_active", True)
             )
         except Exception as e:
             return None 

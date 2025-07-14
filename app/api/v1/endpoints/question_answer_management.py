@@ -5,7 +5,8 @@ from app.schemas.question_answer_management import (
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
     GetQAMAnswerRequest, GetQAMAnswerResponse,
-    GetAnswerInfoRequest, GetAnswerInfoResponse
+    GetAnswerInfoRequest, GetAnswerInfoResponse,
+    GetQuestionInfoRequest, GetQuestionInfoResponse
 )
 from app.services.service_question_answer_management import QuestionAnswerManagementService
 
@@ -61,4 +62,11 @@ async def get_answer_info(request: GetAnswerInfoRequest):
     result = await QuestionAnswerManagementService.get_answer_info(request)
     if not result:
         raise HTTPException(status_code=404, detail="Answer not found")
+    return result
+
+@router.post("/get_question_info", response_model=GetQuestionInfoResponse)
+async def get_question_info(request: GetQuestionInfoRequest):
+    result = await QuestionAnswerManagementService.get_question_info(request)
+    if not result:
+        raise HTTPException(status_code=404, detail="Question not found")
     return result 
