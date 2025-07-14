@@ -1,4 +1,5 @@
 from typing import List, Optional
+from datetime import datetime
 from pydantic import BaseModel, Field
 
 class NewQuestionRequest(BaseModel):
@@ -84,3 +85,16 @@ class GetQAMAnswerResponse(BaseModel):
     question_id_list: List[str] = Field(..., description="问题ID列表", example=["q1", "q2"])
     answer_content: List[str] = Field(..., description="答案内容列表", example=["蓝色", "足球"])
     question_content: List[str] = Field(..., description="问题内容列表", example=["你喜欢什么颜色？", "你喜欢什么运动？"]) 
+
+class GetAnswerInfoRequest(BaseModel):
+    answer_id: str
+
+class GetAnswerInfoResponse(BaseModel):
+    answer_id: str
+    content: str
+    question_id: str
+    telegram_id: str
+    is_draft: bool
+    created_at: datetime
+    liked_user_ids: List[str]
+    is_active: bool 

@@ -3,7 +3,8 @@ from app.schemas.question_answer_management import (
     ToggleQuestionActiveRequest, ToggleQuestionActiveResponse,
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
-    GetQAMAnswerRequest, GetQAMAnswerResponse
+    GetQAMAnswerRequest, GetQAMAnswerResponse,
+    GetAnswerInfoRequest, GetAnswerInfoResponse
 )
 from app.core.database import Database
 from datetime import datetime
@@ -182,4 +183,26 @@ class QuestionAnswerManagementService:
             )
         except Exception as e:
             # 异常处理，返回空列表
-            return GetQAMAnswerResponse(answer_id_list=[], question_id_list=[], answer_content=[], question_content=[]) 
+            return GetQAMAnswerResponse(answer_id_list=[], question_id_list=[], answer_content=[], question_content=[])
+
+    @staticmethod
+    async def get_answer_info(request: GetAnswerInfoRequest) -> GetAnswerInfoResponse:
+        """
+        获取单个答案的详细信息
+        """
+        try:
+            answer = await Database.find_one("Answer", {"_id": ObjectId(request.answer_id)})
+            if not answer:
+                return None
+            return GetAnswerInfoResponse(
+                answer_id=str(answer["_id"]),
+                content=answer.get("content", ""),
+                question_id=str(answer.get("question_id", "")),
+                telegram_id=answer.get("telegram_id", ""),
+                is_draft=answer.get("is_draft", False),
+                created_at=answer.get("created_at"),
+                liked_user_ids=[str(uid) for uid in answer.get("liked_user_ids", [])],
+                is_active=answer.get("is_active", True)
+            )
+        except Exception as e:
+            return None 

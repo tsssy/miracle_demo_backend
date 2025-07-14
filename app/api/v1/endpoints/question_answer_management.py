@@ -4,7 +4,8 @@ from app.schemas.question_answer_management import (
     ToggleQuestionActiveRequest, ToggleQuestionActiveResponse,
     GetAnswerListRequest, GetAnswerListResponse,
     GetQuestionListRequest, GetQuestionListResponse,
-    GetQAMAnswerRequest, GetQAMAnswerResponse
+    GetQAMAnswerRequest, GetQAMAnswerResponse,
+    GetAnswerInfoRequest, GetAnswerInfoResponse
 )
 from app.services.service_question_answer_management import QuestionAnswerManagementService
 
@@ -53,4 +54,11 @@ async def get_qa_answer(request: GetQAMAnswerRequest):
     - 入参: GetQAMAnswerRequest（telegram_id）
     - 出参: GetQAMAnswerResponse（answer_id_list, question_id_list, answer_content, question_content）
     """
-    return await QuestionAnswerManagementService.get_qa_answer(request) 
+    return await QuestionAnswerManagementService.get_qa_answer(request)
+
+@router.post("/get_answer_info", response_model=GetAnswerInfoResponse)
+async def get_answer_info(request: GetAnswerInfoRequest):
+    result = await QuestionAnswerManagementService.get_answer_info(request)
+    if not result:
+        raise HTTPException(status_code=404, detail="Answer not found")
+    return result 
