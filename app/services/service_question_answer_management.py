@@ -126,8 +126,8 @@ class QuestionAnswerManagementService:
             question_strings = []
             # 遍历用户的问题ID列表，查找每个问题内容
             for qid in question_id_list:
-                # 直接用ObjectId查找
-                question = await Database.find_one("Question", {"_id": qid})
+                # 用ObjectId查找，保证类型一致
+                question = await Database.find_one("Question", {"_id": ObjectId(qid)})
                 if question:
                     question_list.append(str(question["_id"]))  # 返回给前端转为str
                     question_strings.append(question.get("content", ""))
