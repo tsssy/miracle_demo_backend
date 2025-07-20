@@ -184,8 +184,9 @@ if __name__ == "__main__":
         "app": "app.server_run:app",
         "host": "0.0.0.0",
         "port": 8000,
-        "reload": False,  # Disable reload to prevent duplicate middleware
-        "workers": 1
+        "reload": False,
+        "workers": 1,
+        "ws": "none"  # Disable WebSocket support
     }
     
     try:
