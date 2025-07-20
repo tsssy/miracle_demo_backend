@@ -7,7 +7,7 @@ class Chatroom:
     def __init__(self, user1=None, user2=None, chatroom_id=None):
         self.chatroom_id = chatroom_id
         self.message_ids = []
-        self.messages = []  # type: list[Message]
+        self.messages = []  
         self.user1 = user1
         self.user2 = user2
 

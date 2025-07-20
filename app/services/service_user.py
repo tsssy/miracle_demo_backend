@@ -1,4 +1,6 @@
+from fastapi import HTTPException, status
 from app.config import settings
+from app.core.database import Database
 
 class User:
     """
@@ -80,35 +82,74 @@ class UserManagement:
     # 编辑用户年龄
     def edit_user_age(self, user_id, age):
         user = self.user_list.get(user_id)
-        if user:
-            user.edit_data(age=age)
-            return True
-        return False
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
+        user.edit_data(age=age)
+        return True
 
     # 编辑用户目标性别
     def edit_target_gender(self, user_id, target_gender):
         user = self.user_list.get(user_id)
-        if user:
-            user.edit_data(target_gender=target_gender)
-            return True
-        return False
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
+        user.edit_data(target_gender=target_gender)
+        return True
 
     # 编辑用户总结
     def edit_summary(self, user_id, summary):
         user = self.user_list.get(user_id)
-        if user:
-            user.edit_data(user_personality_summary=summary)
-            return True
-        return False
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
+        user.edit_data(user_personality_summary=summary)
+        return True
 
-    def save_to_database(self, user_id=None):
-        pass
+    async def save_to_database(self, user_id=None):
+        """
+        保存指定user_id的用户到MongoDB，并使用user_id作为文档的_id。
+        如果用户在数据库中已存在，则更新；否则，创建新记录。
+        """
+        if user_id is None:
+            return False
+
+        user = self.user_list.get(user_id)
+        if not user:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="要保存的用户在内存中不存在")
+
+        # 使用 user_id 作为 MongoDB 的 _id
+        user_dict = {
+            "_id": user.user_id,
+            "telegram_user_name": user.telegram_user_name,
+            "gender": user.gender,
+            "age": user.age,
+            "target_gender": user.target_gender,
+            "user_personality_summary": user.user_personality_summary,
+            "match_ids": user.match_ids,
+            "blocked_user_ids": user.blocked_user_ids,
+        }
+
+        # 检查用户是否已在数据库中
+        existing_user_in_db = await Database.find_one("users", {"_id": user.user_id})
+
+        if existing_user_in_db:
+            # 如果存在，则更新。$set 的内容不能包含 _id
+            update_payload = user_dict.copy()
+            del update_payload["_id"]
+            await Database.update_one(
+                "users",
+                {"_id": user.user_id},
+                {"$set": update_payload}
+            )
+        else:
+            # 如果不存在，则插入 (包含 _id)
+            await Database.insert_one("users", user_dict)
+
+        return True
 
     # 根据id获取用户信息
     def get_user_info_with_user_id(self, user_id):
         user = self.user_list.get(user_id)
         if not user:
-            return None
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
         return {
             "telegram_user_name": user.telegram_user_name,
             "telegram_id": user.user_id,

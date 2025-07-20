@@ -4,6 +4,7 @@ from app.schemas.UserManagement import (
     EditUserAgeRequest, EditUserAgeResponse,
     EditTargetGenderRequest, EditTargetGenderResponse,
     EditSummaryRequest, EditSummaryResponse,
+    SaveUserInfoToDatabaseRequest, SaveUserInfoToDatabaseResponse,
     GetUserInfoWithUserIdRequest, GetUserInfoWithUserIdResponse
 )
 from app.services.service_user import UserManagement
@@ -54,12 +55,22 @@ async def edit_summary(request: EditSummaryRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) 
 
+# 保存用户信息到数据库
+@router.post("/save_to_database", response_model=SaveUserInfoToDatabaseResponse)
+async def save_to_database(request: SaveUserInfoToDatabaseRequest):
+    user_manager = UserManagement()
+    try:
+        success = await user_manager.save_to_database(request.user_id)
+        return SaveUserInfoToDatabaseResponse(success=success)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e)) 
+
 # 根据用户id获取用户信息
 @router.post("/get_user_info_with_user_id", response_model=GetUserInfoWithUserIdResponse)
 async def get_user_info_with_user_id(request: GetUserInfoWithUserIdRequest):
     user_manager = UserManagement()
     try:
         user_info = user_manager.get_user_info_with_user_id(request.user_id)
-        return GetUserInfoWithUserIdResponse(user_info=user_info)
+        return GetUserInfoWithUserIdResponse(**user_info)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) 

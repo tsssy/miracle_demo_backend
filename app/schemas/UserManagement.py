@@ -36,6 +36,13 @@ class EditSummaryRequest(BaseModel):
 class EditSummaryResponse(BaseModel):
     success: bool = Field(..., description="是否编辑成功")
 
+# 保存用户信息到数据库
+class SaveUserInfoToDatabaseRequest(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+
+class SaveUserInfoToDatabaseResponse(BaseModel):
+    success: bool = Field(..., description="是否保存成功")
+
 # 根据用户id获取用户信息
 class GetUserInfoWithUserIdRequest(BaseModel):
     user_id: int = Field(..., description="用户ID")
