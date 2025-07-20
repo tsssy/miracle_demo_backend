@@ -27,13 +27,12 @@ class User:
             self.user_personality_summary = user_personality_summary
 
     def get_user_id(self):
-        pass
-
-    def save_to_database(self):
-        pass
+        return self.user_id
 
     def block_user(self, blocked_user_id):
-        pass
+        if blocked_user_id not in self.blocked_user_ids:
+            self.blocked_user_ids.append(blocked_user_id)
 
     def like_match(self, match_id):
-        pass
+        if match_id not in self.match_ids:
+            self.match_ids.append(match_id)
