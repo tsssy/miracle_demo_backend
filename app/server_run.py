@@ -8,6 +8,7 @@ from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware # 导入 CORS 中间件
 import json
 import time
+import asyncio
 
 ROOT_PATH = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT_PATH))
@@ -18,11 +19,64 @@ from app.core.database import Database
 from app.utils.my_logger import MyLogger
 from app.utils.singleton_status import SingletonStatusReporter
 from app.services.https.UserManagement import UserManagement
+from app.services.https.MatchManager import MatchManager
 
 logger = MyLogger("server")
 
+# 全局变量用于控制自动保存任务
+auto_save_task = None
+
+async def auto_save_to_database():
+    """
+    每10秒自动保存所有单例实例到数据库的后台任务
+    """
+    global auto_save_task
+    logger.info("启动自动保存任务，每10秒保存一次所有单例数据到数据库")
+    
+    while True:
+        try:
+            await asyncio.sleep(10)  # 等待10秒
+            
+            logger.info("🔄 开始执行自动保存...")
+            start_time = time.time()
+            
+            # 保存UserManagement数据
+            try:
+                user_manager = UserManagement()
+                user_save_success = await user_manager.save_to_database()  # 保存所有用户
+                if user_save_success:
+                    logger.info("✅ UserManagement数据保存成功")
+                else:
+                    logger.warning("⚠️ UserManagement数据保存部分失败")
+            except Exception as e:
+                logger.error(f"❌ UserManagement数据保存失败: {e}")
+            
+            # 保存MatchManager数据
+            try:
+                match_manager = MatchManager()
+                match_save_success = await match_manager.save_to_database()  # 保存所有匹配
+                if match_save_success:
+                    logger.info("✅ MatchManager数据保存成功")
+                else:
+                    logger.warning("⚠️ MatchManager数据保存部分失败")
+            except Exception as e:
+                logger.error(f"❌ MatchManager数据保存失败: {e}")
+            
+            elapsed_time = time.time() - start_time
+            logger.info(f"🔄 自动保存完成，耗时: {elapsed_time:.3f}秒")
+            
+        except asyncio.CancelledError:
+            logger.info("自动保存任务被取消")
+            break
+        except Exception as e:
+            logger.error(f"自动保存任务发生错误: {e}")
+            # 发生错误时等待一段时间再继续
+            await asyncio.sleep(5)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    global auto_save_task
+    
     # 启动时连接数据库
     logger.info("正在连接数据库...")
     try:
@@ -35,11 +89,49 @@ async def lifespan(app: FastAPI):
         await user_manager.initialize_from_database()
         logger.info("UserManagement缓存初始化完成")
         
+        # 初始化MatchManager缓存
+        logger.info("正在初始化MatchManager缓存...")
+        match_manager = MatchManager()
+        await match_manager.load_from_database()
+        logger.info("MatchManager缓存初始化完成")
+        
+        # 启动自动保存任务
+        logger.info("正在启动自动保存后台任务...")
+        auto_save_task = asyncio.create_task(auto_save_to_database())
+        logger.info("自动保存后台任务已启动")
+        
     except Exception as e:
         logger.error(f"数据库连接或初始化失败: {str(e)}")
         raise
+    
     yield
-    # 关闭时断开数据库连接
+    
+    # 关闭时的清理工作
+    logger.info("正在关闭服务...")
+    
+    # 取消自动保存任务
+    if auto_save_task and not auto_save_task.done():
+        logger.info("正在停止自动保存任务...")
+        auto_save_task.cancel()
+        try:
+            await auto_save_task
+        except asyncio.CancelledError:
+            logger.info("自动保存任务已停止")
+    
+    # 执行最后一次保存
+    logger.info("执行最后一次数据保存...")
+    try:
+        user_manager = UserManagement()
+        await user_manager.save_to_database()
+        logger.info("最终用户数据保存完成")
+        
+        match_manager = MatchManager()
+        await match_manager.save_to_database()
+        logger.info("最终匹配数据保存完成")
+    except Exception as e:
+        logger.error(f"最终数据保存失败: {e}")
+    
+    # 断开数据库连接
     logger.info("正在关闭数据库连接...")
     await Database.close()  # 恢复数据库关闭
     logger.info("数据库连接已关闭")
@@ -54,6 +146,10 @@ app = FastAPI(
         {
             "name": "users",
             "description": "用户相关操作",
+        },
+        {
+            "name": "matches",
+            "description": "匹配相关操作",
         }
     ]
 )

@@ -51,7 +51,7 @@ class EditSummaryResponse(BaseModel):
 
 # 保存用户信息到数据库
 class SaveUserInfoToDatabaseRequest(BaseModel):
-    user_id: int = Field(..., description="用户ID")
+    user_id: Optional[int] = Field(None, description="用户ID，如果不提供则保存所有用户")
 
 class SaveUserInfoToDatabaseResponse(BaseModel):
     success: bool = Field(..., description="是否保存成功")
