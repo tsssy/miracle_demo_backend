@@ -38,6 +38,27 @@ class MatchManager:
             # Store in memory
             self.match_list[new_match.match_id] = new_match
             
+            # Add match_id to corresponding user instances
+            from app.services.https.UserManagement import UserManagement
+            user_manager = UserManagement()
+            
+            user_1 = user_manager.get_user_instance(user_id_1)
+            user_2 = user_manager.get_user_instance(user_id_2)
+            
+            if user_1:
+                if new_match.match_id not in user_1.match_ids:
+                    user_1.match_ids.append(new_match.match_id)
+                    logger.info(f"Added match {new_match.match_id} to user {user_id_1} match_ids")
+            else:
+                logger.warning(f"User {user_id_1} not found in UserManagement")
+            
+            if user_2:
+                if new_match.match_id not in user_2.match_ids:
+                    user_2.match_ids.append(new_match.match_id)
+                    logger.info(f"Added match {new_match.match_id} to user {user_id_2} match_ids")
+            else:
+                logger.warning(f"User {user_id_2} not found in UserManagement")
+            
             logger.info(f"Created match {new_match.match_id} between users {user_id_1} and {user_id_2}")
             return new_match
             
