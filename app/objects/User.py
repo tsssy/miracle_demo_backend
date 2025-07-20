@@ -4,14 +4,14 @@ class User:
     """
     def __init__(self, telegram_user_name: str = None, gender: int = None, user_id: int = None):
         # 用户基本信息
+        self.user_id = user_id
         self.telegram_user_name = telegram_user_name
         self.gender = gender
         self.age = None
         self.target_gender = None
         self.user_personality_summary = None
-        self.user_id = user_id
         self.match_ids = []  # type: list[int]
-        self.blocked_user_ids = []  # type: list[str]
+        self.blocked_user_ids = []  # type: list[int]
 
     def edit_data(self, telegram_user_name=None, gender=None, age=None, target_gender=None, user_personality_summary=None):
         """编辑用户数据"""
