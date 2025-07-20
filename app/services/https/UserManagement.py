@@ -27,7 +27,7 @@ class UserManagement:
         return cls._instance
 
     async def initialize_from_database(self):
-        """从数据库初始化用户缓存"""
+        """从数据库初始化用户缓存 [内部方法，非API调用]"""
         if UserManagement._initialized:
             return
         
@@ -61,7 +61,7 @@ class UserManagement:
         self.user_counter = len(self.user_list)
         UserManagement._initialized = True
 
-    # 创建新用户
+    # 创建新用户 [API调用]
     def create_new_user(self, telegram_user_name, telegram_user_id, gender):
         user_id = int(telegram_user_id) # 用户id就是tg_id
         user = User(telegram_user_name=telegram_user_name, gender=gender, user_id=user_id)
@@ -75,10 +75,7 @@ class UserManagement:
         self.user_counter = len(self.user_list)
         return user_id
 
-    def get_user_by_session_id(self, user_id):
-        pass
-
-    # 编辑用户年龄
+    # 编辑用户年龄 [API调用]
     def edit_user_age(self, user_id, age):
         user = self.user_list.get(user_id)
         if not user:
@@ -86,7 +83,7 @@ class UserManagement:
         user.edit_data(age=age)
         return True
 
-    # 编辑用户目标性别
+    # 编辑用户目标性别 [API调用]
     def edit_target_gender(self, user_id, target_gender):
         user = self.user_list.get(user_id)
         if not user:
@@ -94,7 +91,7 @@ class UserManagement:
         user.edit_data(target_gender=target_gender)
         return True
 
-    # 编辑用户总结
+    # 编辑用户总结 [API调用]
     def edit_summary(self, user_id, summary):
         user = self.user_list.get(user_id)
         if not user:
@@ -102,10 +99,12 @@ class UserManagement:
         user.edit_data(user_personality_summary=summary)
         return True
 
+    # 保存用户信息到数据库 [API调用]
     async def save_to_database(self, user_id=None):
         """
         保存指定user_id的用户到MongoDB，并使用user_id作为文档的_id。
         如果用户在数据库中已存在，则更新；否则，创建新记录。
+        [API调用]
         """
         if user_id is None:
             return False
@@ -144,7 +143,7 @@ class UserManagement:
 
         return True
 
-    # 根据id获取用户信息
+    # 根据id获取用户信息 [API调用]
     def get_user_info_with_user_id(self, user_id):
         # Check if input is string and all numbers, convert to int if so
         if isinstance(user_id, str) and user_id.isdigit():
@@ -163,12 +162,28 @@ class UserManagement:
             "user_id": user.user_id
         }
 
-    # 获取用户统计信息
+    # 获取用户统计信息 [内部方法，非API调用]
     def get_user_statistics(self):
-        """获取用户统计信息"""
+        """获取用户统计信息 [内部方法，非API调用]"""
         return {
             "total_users": self.user_counter,
             "male_users": len(self.male_user_list),
             "female_users": len(self.female_user_list),
             "user_list_size": len(self.user_list)
         }
+
+    # 获得用户列表 [内部方法，非API调用]
+    def get_user_list(self):
+        return self.user_list
+
+    # 获得男性用户列表 [内部方法，非API调用]
+    def get_male_user_list(self):
+        return self.male_user_list
+
+    # 获得女性用户列表 [内部方法，非API调用]
+    def get_female_user_list(self):
+        return self.female_user_list
+
+    # 获得用户实例 [内部方法，非API调用]
+    def get_user_instance(self, user_id):
+        return self.user_list.get(user_id)

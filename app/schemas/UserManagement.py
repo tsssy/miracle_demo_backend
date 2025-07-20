@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from typing import Optional
 
 # 创建新用户
@@ -6,6 +6,13 @@ class CreateNewUserRequest(BaseModel):
     telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
     telegram_user_id: int = Field(..., description="用户的 Telegram ID")
     gender: int = Field(..., description="用户性别 1/2/3")
+    
+    @validator('gender')
+    def validate_gender(cls, v):
+        """验证性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('性别必须是 1、2、3 中的一个值')
+        return v
 
 class CreateNewUserResponse(BaseModel):
     success: bool = Field(..., description="是否创建成功")
@@ -23,6 +30,13 @@ class EditUserAgeResponse(BaseModel):
 class EditTargetGenderRequest(BaseModel):
     user_id: int = Field(..., description="用户ID")
     target_gender: int = Field(..., description="用户目标性别 1/2/3")
+    
+    @validator('target_gender')
+    def validate_target_gender(cls, v):
+        """验证目标性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('目标性别必须是 1、2、3 中的一个值')
+        return v
 
 class EditTargetGenderResponse(BaseModel):
     success: bool = Field(..., description="是否编辑成功")
@@ -54,3 +68,17 @@ class GetUserInfoWithUserIdResponse(BaseModel):
     age: Optional[int] = Field(None, description="用户年龄")
     target_gender: Optional[int] = Field(None, description="用户目标性别 1/2/3")
     user_personality_trait: Optional[str] = Field(None, description="用户简介")
+    
+    @validator('gender')
+    def validate_gender(cls, v):
+        """验证性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('性别必须是 1、2、3 中的一个值')
+        return v
+    
+    @validator('target_gender')
+    def validate_target_gender(cls, v):
+        """验证目标性别字段只能是 1、2、3"""
+        if v is not None and v not in [1, 2, 3]:
+            raise ValueError('目标性别必须是 1、2、3 中的一个值')
+        return v
