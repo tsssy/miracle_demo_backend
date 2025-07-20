@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 
 # 创建新用户
 class CreateNewUserRequest(BaseModel):
@@ -13,8 +14,6 @@ class CreateNewUserResponse(BaseModel):
 # 编辑用户年龄
 class EditUserAgeRequest(BaseModel):
     user_id: int = Field(..., description="用户ID")
-    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
-    telegram_user_id: int = Field(..., description="用户的 Telegram ID")
     age: int = Field(..., description="用户年龄")
 
 class EditUserAgeResponse(BaseModel):
@@ -52,6 +51,6 @@ class GetUserInfoWithUserIdResponse(BaseModel):
     telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
     telegram_id: int = Field(..., description="用户的 Telegram ID")
     gender: int = Field(..., description="用户性别 1/2/3")
-    age: int = Field(..., description="用户年龄")
-    target_gender: int = Field(..., description="用户目标性别 1/2/3")
-    user_personality_trait: str = Field(..., description="用户简介")
+    age: Optional[int] = Field(None, description="用户年龄")
+    target_gender: Optional[int] = Field(None, description="用户目标性别 1/2/3")
+    user_personality_trait: Optional[str] = Field(None, description="用户简介")

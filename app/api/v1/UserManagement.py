@@ -7,7 +7,7 @@ from app.schemas.UserManagement import (
     SaveUserInfoToDatabaseRequest, SaveUserInfoToDatabaseResponse,
     GetUserInfoWithUserIdRequest, GetUserInfoWithUserIdResponse
 )
-from app.services.service_user import UserManagement
+from app.services.https.UserManagement import UserManagement
 
 router = APIRouter()
 

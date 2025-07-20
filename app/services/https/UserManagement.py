@@ -1,46 +1,7 @@
 from fastapi import HTTPException, status
 from app.config import settings
 from app.core.database import Database
-
-class User:
-    """
-    用户类，管理单一用户的数据
-    """
-    def __init__(self, telegram_user_name: str = None, gender: int = None, user_id: int = None):
-        # 用户基本信息
-        self.telegram_user_name = telegram_user_name
-        self.gender = gender
-        self.age = None
-        self.target_gender = None
-        self.user_personality_summary = None
-        self.user_id = user_id
-        self.match_ids = []  # type: list[int]
-        self.blocked_user_ids = []  # type: list[str]
-
-    def edit_data(self, telegram_user_name=None, gender=None, age=None, target_gender=None, user_personality_summary=None):
-        """编辑用户数据"""
-        if telegram_user_name is not None:
-            self.telegram_user_name = telegram_user_name
-        if gender is not None:
-            self.gender = gender
-        if age is not None:
-            self.age = age
-        if target_gender is not None:
-            self.target_gender = target_gender
-        if user_personality_summary is not None:
-            self.user_personality_summary = user_personality_summary
-
-    def get_user_id(self):
-        pass
-
-    def save_to_database(self):
-        pass
-
-    def block_user(self, blocked_user_id):
-        pass
-
-    def like_match(self, match_id):
-        pass 
+from app.objects.User import User
 
 
 class UserManagement:
@@ -53,6 +14,7 @@ class UserManagement:
         database_address: str
     """
     _instance = None
+    _initialized = False
     database_address = settings.MONGODB_URL
 
     def __new__(cls):
@@ -61,19 +23,56 @@ class UserManagement:
             cls._instance.user_list = {}
             cls._instance.male_user_list = {}
             cls._instance.female_user_list = {}
-            cls._instance._user_id_counter = 1
+            cls._instance.user_counter = 0  # 用户计数器
         return cls._instance
+
+    async def initialize_from_database(self):
+        """从数据库初始化用户缓存"""
+        if UserManagement._initialized:
+            return
+        
+        # 从数据库获取所有用户
+        users_from_db = await Database.find("users", {})
+        
+        for user_data in users_from_db:
+            # 创建User对象
+            user = User(
+                telegram_user_name=user_data.get("telegram_user_name"),
+                gender=user_data.get("gender"),
+                user_id=user_data.get("_id")
+            )
+            user.age = user_data.get("age")
+            user.target_gender = user_data.get("target_gender")
+            user.user_personality_summary = user_data.get("user_personality_summary")
+            user.match_ids = user_data.get("match_ids", [])
+            user.blocked_user_ids = user_data.get("blocked_user_ids", [])
+            
+            # 添加到缓存列表
+            user_id = user.user_id
+            self.user_list[user_id] = user
+            
+            # 根据性别分类
+            if user.gender == 1:
+                self.male_user_list[user_id] = user
+            elif user.gender == 2:
+                self.female_user_list[user_id] = user
+        
+        # 更新用户计数器
+        self.user_counter = len(self.user_list)
+        UserManagement._initialized = True
 
     # 创建新用户
     def create_new_user(self, telegram_user_name, telegram_user_id, gender):
         user_id = int(telegram_user_id) # 用户id就是tg_id
-        self._user_id_counter += 1
         user = User(telegram_user_name=telegram_user_name, gender=gender, user_id=user_id)
         self.user_list[user_id] = user
         if gender == 1:
             self.male_user_list[user_id] = user
         elif gender == 2:
             self.female_user_list[user_id] = user
+        
+        # 更新用户计数器
+        self.user_counter = len(self.user_list)
         return user_id
 
     def get_user_by_session_id(self, user_id):
@@ -147,6 +146,10 @@ class UserManagement:
 
     # 根据id获取用户信息
     def get_user_info_with_user_id(self, user_id):
+        # Check if input is string and all numbers, convert to int if so
+        if isinstance(user_id, str) and user_id.isdigit():
+            user_id = int(user_id)
+        
         user = self.user_list.get(user_id)
         if not user:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
@@ -158,4 +161,14 @@ class UserManagement:
             "target_gender": user.target_gender,
             "user_personality_trait": user.user_personality_summary,
             "user_id": user.user_id
-        } 
+        }
+
+    # 获取用户统计信息
+    def get_user_statistics(self):
+        """获取用户统计信息"""
+        return {
+            "total_users": self.user_counter,
+            "male_users": len(self.male_user_list),
+            "female_users": len(self.female_user_list),
+            "user_list_size": len(self.user_list)
+        }
