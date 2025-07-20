@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1 import UserManagement, MatchManager
+from app.api.v1 import UserManagement, MatchManager, ChatroomManager
 
 api_router = APIRouter()
 
@@ -7,4 +7,7 @@ api_router = APIRouter()
 api_router.include_router(UserManagement.router, prefix="/users", tags=["users"])
 
 # 注册匹配相关路由
-api_router.include_router(MatchManager.router, prefix="/MatchManager", tags=["matches"]) 
+api_router.include_router(MatchManager.router, prefix="/MatchManager", tags=["matches"])
+
+# 注册聊天室相关路由
+api_router.include_router(ChatroomManager.router, prefix="/chatrooms", tags=["chatrooms"]) 
