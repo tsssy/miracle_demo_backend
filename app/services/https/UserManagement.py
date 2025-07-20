@@ -108,6 +108,10 @@ class UserManagement:
 
     # 根据id获取用户信息
     def get_user_info_with_user_id(self, user_id):
+        # Check if input is string and all numbers, convert to int if so
+        if isinstance(user_id, str) and user_id.isdigit():
+            user_id = int(user_id)
+        
         user = self.user_list.get(user_id)
         if not user:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")

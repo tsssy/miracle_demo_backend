@@ -16,6 +16,7 @@ from app.api.v1.api import api_router
 from app.config import settings
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
+from app.utils.singleton_status import SingletonStatusReporter
 
 logger = MyLogger("server")
 
@@ -62,6 +63,14 @@ async def log_requests_and_responses(request: Request, call_next):
     logger.info(f"🔵 [{request_id}] URL: {request.url}")
     logger.info(f"🔵 [{request_id}] 路径: {request.url.path}")
     logger.info(f"🔵 [{request_id}] 客户端IP: {request.client.host if request.client else 'Unknown'}")
+    
+    # 记录请求前单例状态
+    try:
+        singleton_status_before = SingletonStatusReporter.get_status_summary()
+        logger.info(f"🔵 [{request_id}] ====== 请求前单例状态 ======")
+        logger.info(f"🔵 [{request_id}] {singleton_status_before}")
+    except Exception as e:
+        logger.error(f"🔵 [{request_id}] 获取单例状态失败: {e}")
     
     # 记录请求头
     logger.info(f"🔵 [{request_id}] ====== 请求头 ======")
@@ -133,11 +142,28 @@ async def log_requests_and_responses(request: Request, call_next):
             else:
                 logger.info(f"🟢 [{request_id}] ====== 响应体: 空 ======")
             
+            # 记录响应后单例状态
+            try:
+                singleton_status_after = SingletonStatusReporter.get_status_summary()
+                logger.info(f"🟢 [{request_id}] ====== 响应后单例状态 ======")
+                logger.info(f"🟢 [{request_id}] {singleton_status_after}")
+            except Exception as e:
+                logger.error(f"🟢 [{request_id}] 获取响应后单例状态失败: {e}")
+            
             logger.info(f"🟢 [{request_id}] ====== 请求完成 ======")
             return new_response
             
         except Exception as e:
             logger.error(f"🟢 [{request_id}] 读取响应体失败: {e}")
+            
+            # 记录响应后单例状态 (错误情况)
+            try:
+                singleton_status_after = SingletonStatusReporter.get_status_summary()
+                logger.info(f"🟢 [{request_id}] ====== 响应后单例状态 (异常) ======")
+                logger.info(f"🟢 [{request_id}] {singleton_status_after}")
+            except Exception as status_e:
+                logger.error(f"🟢 [{request_id}] 获取响应后单例状态失败: {status_e}")
+                
             logger.info(f"🟢 [{request_id}] ====== 请求完成 ======")
             return response
             
