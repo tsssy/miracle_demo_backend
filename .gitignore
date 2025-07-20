@@ -207,6 +207,9 @@ logs/
 *.swo
 *~ 
 
+# PyCharm
+.idea
+
 #自定义
 .zbr/
 测试记录汇总.md
