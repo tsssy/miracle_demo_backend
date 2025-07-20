@@ -9,15 +9,15 @@ load_dotenv()
 
 class Settings:
     # 项目基本信息
-    PROJECT_NAME: str = "NewLoveLushUserService"
+    PROJECT_NAME: str = "MiracleDemoService"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
 
     # MongoDB配置
     MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
-    MONGODB_DB_NAME: str = os.getenv("MONGODB_DB_NAME", "lovelush_users")
+    MONGODB_DB_NAME: str = os.getenv("MONGODB_DB_NAME", "miracle_demo_service")
     MONGODB_USERNAME: str = os.getenv("MONGODB_USERNAME", "root")
-    MONGODB_PASSWORD: str = os.getenv("MONGODB_PASSWORD", "Entropyai.mongodb.9999")
+    MONGODB_PASSWORD: str = os.getenv("MONGODB_PASSWORD", "Awr20020311")
     MONGODB_AUTH_SOURCE: str = os.getenv("MONGODB_AUTH_SOURCE", "admin")
 
     # JWT配置 (为了保持结构完整性，即使当前未使用)

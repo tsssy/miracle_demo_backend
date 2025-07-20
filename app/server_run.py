@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="New LoveLush User Service API",
+    description="Miracle Demo Service API",
     version=settings.VERSION,
     lifespan=lifespan,
     openapi_tags=[
@@ -152,10 +152,7 @@ async def log_requests_and_responses(request: Request, call_next):
 
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
-    "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
-    "https://cupid-yukio-frontend-test.vercel.app",
-    "http://localhost:5173",  # 本地开发环境前端地址
-    "http://127.0.0.1:5173",  # 本地IP地址
+    "*"
 ]
 
 logger.info(f"CORS允许的域名: {cors_origins}")
@@ -175,7 +172,7 @@ logger.info(f"API路由已注册，前缀: {settings.API_V1_STR}")
 @app.get("/")
 async def root():
     logger.debug("访问根路径")
-    return {"message": "Welcome to New LoveLush User Service API"}
+    return {"message": "Welcome to Miracle Demo Service API"}
 
 if __name__ == "__main__":
     logger.info(f"启动服务器: {settings.PROJECT_NAME} v{settings.VERSION}")
