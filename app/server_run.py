@@ -18,6 +18,7 @@ from app.core.database import Database
 from app.utils.my_logger import MyLogger
 from app.utils.singleton_status import SingletonStatusReporter
 from app.services.https.UserManagement import UserManagement
+from app.services.https.MatchManager import MatchManager
 
 logger = MyLogger("server")
 
@@ -34,6 +35,12 @@ async def lifespan(app: FastAPI):
         user_manager = UserManagement()
         await user_manager.initialize_from_database()
         logger.info("UserManagement缓存初始化完成")
+        
+        # 初始化MatchManager缓存
+        logger.info("正在初始化MatchManager缓存...")
+        match_manager = MatchManager()
+        await match_manager.load_from_database()
+        logger.info("MatchManager缓存初始化完成")
         
     except Exception as e:
         logger.error(f"数据库连接或初始化失败: {str(e)}")
@@ -54,6 +61,10 @@ app = FastAPI(
         {
             "name": "users",
             "description": "用户相关操作",
+        },
+        {
+            "name": "matches",
+            "description": "匹配相关操作",
         }
     ]
 )
