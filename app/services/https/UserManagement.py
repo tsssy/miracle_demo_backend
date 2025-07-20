@@ -14,6 +14,7 @@ class UserManagement:
         database_address: str
     """
     _instance = None
+    _initialized = False
     database_address = settings.MONGODB_URL
 
     def __new__(cls):
@@ -22,19 +23,56 @@ class UserManagement:
             cls._instance.user_list = {}
             cls._instance.male_user_list = {}
             cls._instance.female_user_list = {}
-            cls._instance._user_id_counter = 1
+            cls._instance.user_counter = 0  # 用户计数器
         return cls._instance
+
+    async def initialize_from_database(self):
+        """从数据库初始化用户缓存"""
+        if UserManagement._initialized:
+            return
+        
+        # 从数据库获取所有用户
+        users_from_db = await Database.find("users", {})
+        
+        for user_data in users_from_db:
+            # 创建User对象
+            user = User(
+                telegram_user_name=user_data.get("telegram_user_name"),
+                gender=user_data.get("gender"),
+                user_id=user_data.get("_id")
+            )
+            user.age = user_data.get("age")
+            user.target_gender = user_data.get("target_gender")
+            user.user_personality_summary = user_data.get("user_personality_summary")
+            user.match_ids = user_data.get("match_ids", [])
+            user.blocked_user_ids = user_data.get("blocked_user_ids", [])
+            
+            # 添加到缓存列表
+            user_id = user.user_id
+            self.user_list[user_id] = user
+            
+            # 根据性别分类
+            if user.gender == 1:
+                self.male_user_list[user_id] = user
+            elif user.gender == 2:
+                self.female_user_list[user_id] = user
+        
+        # 更新用户计数器
+        self.user_counter = len(self.user_list)
+        UserManagement._initialized = True
 
     # 创建新用户
     def create_new_user(self, telegram_user_name, telegram_user_id, gender):
         user_id = int(telegram_user_id) # 用户id就是tg_id
-        self._user_id_counter += 1
         user = User(telegram_user_name=telegram_user_name, gender=gender, user_id=user_id)
         self.user_list[user_id] = user
         if gender == 1:
             self.male_user_list[user_id] = user
         elif gender == 2:
             self.female_user_list[user_id] = user
+        
+        # 更新用户计数器
+        self.user_counter = len(self.user_list)
         return user_id
 
     def get_user_by_session_id(self, user_id):
@@ -123,4 +161,14 @@ class UserManagement:
             "target_gender": user.target_gender,
             "user_personality_trait": user.user_personality_summary,
             "user_id": user.user_id
+        }
+
+    # 获取用户统计信息
+    def get_user_statistics(self):
+        """获取用户统计信息"""
+        return {
+            "total_users": self.user_counter,
+            "male_users": len(self.male_user_list),
+            "female_users": len(self.female_user_list),
+            "user_list_size": len(self.user_list)
         }

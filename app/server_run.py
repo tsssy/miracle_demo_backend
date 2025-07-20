@@ -17,6 +17,7 @@ from app.config import settings
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
 from app.utils.singleton_status import SingletonStatusReporter
+from app.services.https.UserManagement import UserManagement
 
 logger = MyLogger("server")
 
@@ -27,8 +28,15 @@ async def lifespan(app: FastAPI):
     try:
         await Database.connect()  # 恢复数据库连接
         logger.info("数据库连接成功")
+        
+        # 初始化UserManagement缓存
+        logger.info("正在初始化UserManagement缓存...")
+        user_manager = UserManagement()
+        await user_manager.initialize_from_database()
+        logger.info("UserManagement缓存初始化完成")
+        
     except Exception as e:
-        logger.error(f"数据库连接失败: {str(e)}")
+        logger.error(f"数据库连接或初始化失败: {str(e)}")
         raise
     yield
     # 关闭时断开数据库连接
