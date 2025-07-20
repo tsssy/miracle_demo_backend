@@ -33,6 +33,7 @@ class UserManagement:
         
         # 从数据库获取所有用户
         users_from_db = await Database.find("users", {})
+        loaded_count = 0
         
         for user_data in users_from_db:
             # 创建User对象
@@ -56,10 +57,16 @@ class UserManagement:
                 self.male_user_list[user_id] = user
             elif user.gender == 2:
                 self.female_user_list[user_id] = user
+            
+            loaded_count += 1
         
         # 更新用户计数器
         self.user_counter = len(self.user_list)
         UserManagement._initialized = True
+        
+        # 打印加载统计信息
+        print(f"UserManagement: 成功从数据库加载 {loaded_count} 个用户到内存")
+        print(f"UserManagement: 男性用户: {len(self.male_user_list)}, 女性用户: {len(self.female_user_list)}")
 
     # 创建新用户 [API调用]
     def create_new_user(self, telegram_user_name, telegram_user_id, gender):

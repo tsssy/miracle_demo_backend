@@ -31,3 +31,10 @@ class ToggleLikeRequest(BaseModel):
 
 class ToggleLikeResponse(BaseModel):
     success: bool = Field(..., description="操作是否成功")
+
+# 保存匹配到数据库
+class SaveMatchToDatabaseRequest(BaseModel):
+    match_id: Optional[int] = Field(None, description="匹配ID，如果不提供则保存所有匹配")
+
+class SaveMatchToDatabaseResponse(BaseModel):
+    success: bool = Field(..., description="保存是否成功")

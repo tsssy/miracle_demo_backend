@@ -2,7 +2,8 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.MatchManager import (
     CreateMatchRequest, CreateMatchResponse,
     GetMatchInfoRequest, GetMatchInfoResponse,
-    ToggleLikeRequest, ToggleLikeResponse
+    ToggleLikeRequest, ToggleLikeResponse,
+    SaveMatchToDatabaseRequest, SaveMatchToDatabaseResponse
 )
 from app.services.https.MatchManager import MatchManager
 
@@ -44,5 +45,14 @@ async def toggle_like(request: ToggleLikeRequest):
     try:
         success = match_manager.toggle_like(match_id=request.match_id)
         return ToggleLikeResponse(success=success)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/save_to_database", response_model=SaveMatchToDatabaseResponse)
+async def save_to_database(request: SaveMatchToDatabaseRequest):
+    match_manager = MatchManager()
+    try:
+        success = await match_manager.save_to_database(match_id=request.match_id)
+        return SaveMatchToDatabaseResponse(success=success)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
