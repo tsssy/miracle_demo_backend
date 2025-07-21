@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test Suite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 3px; cursor: pointer; }
+        .test-base { background-color: #e3f2fd; }
+        .test-message { background-color: #e8f5e8; }
+        .test-match { background-color: #fff3e0; }
+        #console { background-color: #f5f5f5; padding: 15px; margin-top: 20px; max-height: 400px; overflow-y: auto; font-family: monospace; white-space: pre-wrap; }
+        button:hover { opacity: 0.8; }
+        .test-button { background-color: #4CAF50; color: white; }
+        .stop-button { background-color: #f44336; color: white; }
+        .clear-button { background-color: #2196F3; color: white; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Test Suite</h1>
+    <p>Test the three WebSocket handlers: Base, Message, and Match</p>
+
+    <div class="test-section test-base">
+        <h3>Base Handler Test (/ws/base)</h3>
+        <p>Basic WebSocket connection with authentication and message broadcasting</p>
+        <button class="test-button" onclick="testBase()">Test Base Handler</button>
+        <button class="stop-button" onclick="stopBase()">Stop Base Test</button>
+    </div>
+
+    <div class="test-section test-message">
+        <h3>Message Handler Test (/ws/message)</h3>
+        <p>Private messaging and broadcast functionality</p>
+        <button class="test-button" onclick="testMessage()">Test Message Handler</button>
+        <button class="stop-button" onclick="stopMessage()">Stop Message Test</button>
+    </div>
+
+    <div class="test-section test-match">
+        <h3>Match Handler Test (/ws/match)</h3>
+        <p>User matching system with match sessions</p>
+        <button class="test-button" onclick="testMatch()">Test Match Handler</button>
+        <button class="stop-button" onclick="stopMatch()">Stop Match Test</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button class="clear-button" onclick="clearConsole()">Clear Console</button>
+        <button class="test-button" onclick="testAll()">Test All Handlers</button>
+        <button class="stop-button" onclick="stopAll()">Stop All Tests</button>
+    </div>
+
+    <div id="console"></div>
+
+    <script>
+        let baseWs = null;
+        let messageWs = null;
+        let matchWs = null;
+
+        function log(message) {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            console.textContent += `[${timestamp}] ${message}\n`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('console').textContent = '';
+        }
+
+        function testBase() {
+            if (baseWs) {
+                log('Base WebSocket already connected');
+                return;
+            }
+
+            log('🔵 Testing /ws/base WebSocket connection...');
+            baseWs = new WebSocket('ws://localhost:8000/ws/base');
+
+            baseWs.onopen = function() {
+                log('✅ Connected to /ws/base');
+                
+                const authMessage = {
+                    user_id: "test_user_base_" + Date.now()
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                baseWs.send(JSON.stringify(authMessage));
+            };
+
+            baseWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Base received: ' + JSON.stringify(data));
+                
+                if (data.status === 'authenticated') {
+                    setTimeout(() => {
+                        const testMessage = {
+                            content: "Hello from base test client!",
+                            timestamp: new Date().toISOString()
+                        };
+                        log('📤 Sending base test message: ' + JSON.stringify(testMessage));
+                        baseWs.send(JSON.stringify(testMessage));
+                    }, 1000);
+                }
+            };
+
+            baseWs.onclose = function() {
+                log('❌ /ws/base connection closed');
+                baseWs = null;
+            };
+
+            baseWs.onerror = function(error) {
+                log('⚠️ /ws/base error: ' + error);
+                baseWs = null;
+            };
+        }
+
+        function stopBase() {
+            if (baseWs) {
+                baseWs.close();
+                baseWs = null;
+                log('🛑 Base WebSocket connection stopped');
+            }
+        }
+
+        function testMessage() {
+            if (messageWs) {
+                log('Message WebSocket already connected');
+                return;
+            }
+
+            log('🟢 Testing /ws/message WebSocket connection...');
+            messageWs = new WebSocket('ws://localhost:8000/ws/message');
+
+            messageWs.onopen = function() {
+                log('✅ Connected to /ws/message');
+                
+                const authMessage = {
+                    user_id: "test_user_message_" + Date.now()
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                messageWs.send(JSON.stringify(authMessage));
+            };
+
+            messageWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Message received: ' + JSON.stringify(data));
+                
+                if (data.status === 'authenticated') {
+                    setTimeout(() => {
+                        const broadcastMessage = {
+                            type: "broadcast",
+                            content: "Hello everyone from message test!",
+                            timestamp: new Date().toISOString()
+                        };
+                        log('📤 Sending broadcast: ' + JSON.stringify(broadcastMessage));
+                        messageWs.send(JSON.stringify(broadcastMessage));
+                    }, 1000);
+                    
+                    setTimeout(() => {
+                        const privateMessage = {
+                            type: "private",
+                            target_user_id: "another_user",
+                            content: "This is a private message",
+                            timestamp: new Date().toISOString()
+                        };
+                        log('📤 Sending private message: ' + JSON.stringify(privateMessage));
+                        messageWs.send(JSON.stringify(privateMessage));
+                    }, 3000);
+                }
+            };
+
+            messageWs.onclose = function() {
+                log('❌ /ws/message connection closed');
+                messageWs = null;
+            };
+
+            messageWs.onerror = function(error) {
+                log('⚠️ /ws/message error: ' + error);
+                messageWs = null;
+            };
+        }
+
+        function stopMessage() {
+            if (messageWs) {
+                messageWs.close();
+                messageWs = null;
+                log('🛑 Message WebSocket connection stopped');
+            }
+        }
+
+        function testMatch() {
+            if (matchWs) {
+                log('Match WebSocket already connected');
+                return;
+            }
+
+            log('🟠 Testing /ws/match WebSocket connection...');
+            matchWs = new WebSocket('ws://localhost:8000/ws/match');
+
+            matchWs.onopen = function() {
+                log('✅ Connected to /ws/match');
+                
+                const authMessage = {
+                    user_id: "test_user_match_" + Date.now()
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                matchWs.send(JSON.stringify(authMessage));
+            };
+
+            matchWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Match received: ' + JSON.stringify(data));
+                
+                if (data.status === 'authenticated') {
+                    setTimeout(() => {
+                        const startMatchMessage = {
+                            type: "start_matching"
+                        };
+                        log('🔍 Starting matching: ' + JSON.stringify(startMatchMessage));
+                        matchWs.send(JSON.stringify(startMatchMessage));
+                    }, 1000);
+                }
+                
+                if (data.type === 'match_status' && data.status === 'waiting_for_match') {
+                    log('⏳ Waiting for match... Will stop in 5 seconds');
+                    setTimeout(() => {
+                        const stopMatchMessage = {
+                            type: "stop_matching"
+                        };
+                        log('🛑 Stopping matching: ' + JSON.stringify(stopMatchMessage));
+                        matchWs.send(JSON.stringify(stopMatchMessage));
+                    }, 5000);
+                }
+            };
+
+            matchWs.onclose = function() {
+                log('❌ /ws/match connection closed');
+                matchWs = null;
+            };
+
+            matchWs.onerror = function(error) {
+                log('⚠️ /ws/match error: ' + error);
+                matchWs = null;
+            };
+        }
+
+        function stopMatch() {
+            if (matchWs) {
+                matchWs.close();
+                matchWs = null;
+                log('🛑 Match WebSocket connection stopped');
+            }
+        }
+
+        function testAll() {
+            log('🚀 Starting all WebSocket tests...');
+            testBase();
+            setTimeout(() => testMessage(), 1000);
+            setTimeout(() => testMatch(), 2000);
+        }
+
+        function stopAll() {
+            log('🛑 Stopping all WebSocket connections...');
+            stopBase();
+            stopMessage();
+            stopMatch();
+        }
+    </script>
+</body>
+</html>

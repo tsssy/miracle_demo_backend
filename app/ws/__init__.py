@@ -1,5 +1,9 @@
-from .echo import router as echo_router
-from .upper import router as upper_router
-from .reverse import router as reverse_router
+from .base import router as base_router
+from .message import router as message_router
+from .match import router as match_router
 
-all_ws_routers = [echo_router, upper_router, reverse_router] 
+all_ws_routers = [
+    base_router,
+    message_router,
+    match_router
+] 
