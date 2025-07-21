@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, validator
-from typing import Optional
+from typing import Optional, List
 
 # 创建新用户
 class CreateNewUserRequest(BaseModel):
@@ -68,6 +68,7 @@ class GetUserInfoWithUserIdResponse(BaseModel):
     age: Optional[int] = Field(None, description="用户年龄")
     target_gender: Optional[int] = Field(None, description="用户目标性别 1/2/3")
     user_personality_trait: Optional[str] = Field(None, description="用户简介")
+    match_ids: List[int] = Field(default_factory=list, description="用户的匹配ID列表")
     
     @validator('gender')
     def validate_gender(cls, v):

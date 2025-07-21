@@ -209,7 +209,8 @@ class UserManagement:
             "age": user.age,
             "target_gender": user.target_gender,
             "user_personality_trait": user.user_personality_summary,
-            "user_id": user.user_id
+            "user_id": user.user_id,
+            "match_ids": user.match_ids
         }
 
     # 获取用户统计信息 [内部方法，非API调用]

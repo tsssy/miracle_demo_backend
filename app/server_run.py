@@ -309,7 +309,7 @@ async def log_requests_and_responses(request: Request, call_next):
         raise
 
 # 注册HTTP API路由
-app.include_router(api_router)
+app.include_router(api_router, prefix="/api/v1")
 logger.info(f"HTTP API路由已注册")
 
 # 批量注册WebSocket路由
@@ -329,7 +329,7 @@ logger.info(f"CORS允许的域名: {cors_origins}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=["*"],  # 允许所有源头
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有 HTTP 方法
     allow_headers=["*"],  # 允许所有请求头

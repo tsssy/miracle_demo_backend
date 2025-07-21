@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私信流程测试页面</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #007bff;
+        }
+        .section h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0,123,255,0.3);
+        }
+        button {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .messages {
+            max-height: 400px;
+            overflow-y: auto;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+        }
+        .message .timestamp {
+            font-size: 12px;
+            color: #666;
+            float: right;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 8px;
+            background: #e9ecef;
+            color: #6c757d;
+            font-weight: bold;
+        }
+        .step.active {
+            background: #007bff;
+            color: white;
+        }
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+        .chat-history {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .chat-message {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 15px;
+            max-width: 70%;
+        }
+        .chat-message.self {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .chat-message.other {
+            background: #e9ecef;
+            color: #333;
+        }
+        .chat-message .sender {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        .chat-message .time {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        .match-list {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .match-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        .match-item:hover {
+            background: #e3f2fd;
+            border-color: #007bff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,123,255,0.2);
+        }
+        .match-item.selected {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .match-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .match-score {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        .match-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .match-item.selected .match-description {
+            color: #e9ecef;
+        }
+        .match-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        .match-status {
+            display: flex;
+            gap: 10px;
+        }
+        .status-badge {
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+        .status-badge.liked {
+            background: #dc3545;
+            color: white;
+        }
+        .status-badge.chatroom {
+            background: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 私信流程测试页面</h1>
+        
+        <!-- 连接状态 -->
+        <div class="section">
+            <h2>📡 WebSocket 连接</h2>
+            <div class="form-group">
+                <label>用户ID:</label>
+                <input type="number" id="userIdInput" placeholder="输入你的用户ID" value="1">
+            </div>
+            <button id="connectBtn" onclick="connect()">连接 WebSocket</button>
+            <div id="connectionStatus" class="status info" style="display:none;">准备连接...</div>
+        </div>
+
+        <!-- 步骤指示器 -->
+        <div class="section">
+            <h2>📋 私信流程步骤</h2>
+            <div class="step-indicator">
+                <div class="step" id="step1">步骤1: 获取/创建聊天室</div>
+                <div class="step" id="step2">步骤2: 获取聊天历史</div>
+                <div class="step" id="step3">步骤3: 完成初始化</div>
+            </div>
+        </div>
+
+        <!-- 匹配列表显示 -->
+        <div class="section" id="matchListSection" style="display:none;">
+            <h2>💕 可用的匹配列表</h2>
+            <div id="matchList" class="match-list">
+                <!-- 匹配列表将在这里显示 -->
+            </div>
+        </div>
+            <div class="form-group">
+                <label>目标用户ID:</label>
+                <input type="number" id="targetUserIdInput" placeholder="输入目标用户ID" value="2">
+            </div>
+            <div class="form-group">
+                <label>匹配ID:</label>
+                <input type="number" id="matchIdInput" placeholder="输入匹配ID" value="1">
+            </div>
+            <button id="startPrivateChatBtn" onclick="startPrivateChat()" disabled>启动私信流程</button>
+        </div>
+
+        <!-- 实时消息显示 -->
+        <div class="section">
+            <h2>📨 实时消息 (后端日志同步显示)</h2>
+            <div id="messages" class="messages">
+                <div class="message">等待连接...</div>
+            </div>
+        </div>
+
+        <!-- 聊天历史显示 -->
+        <div class="section" id="chatHistorySection" style="display:none;">
+            <h2>💭 聊天历史记录</h2>
+            <div id="chatHistory" class="chat-history">
+                <!-- 聊天记录将在这里显示 -->
+            </div>
+        </div>
+
+        <!-- 测试结果 -->
+        <div class="section">
+            <h2>✅ 测试结果汇总</h2>
+            <div id="testResults">
+                <div class="status info">等待测试开始...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let websocket = null;
+        let userId = null;
+        let currentStep = 0;
+        let testResults = [];
+
+        function connect() {
+            userId = parseInt(document.getElementById('userIdInput').value);
+            if (!userId) {
+                alert('请输入用户ID');
+                return;
+            }
+
+            const wsUrl = `ws://localhost:8000/ws/message?user_id=${userId}`;
+            websocket = new WebSocket(wsUrl);
+
+            document.getElementById('connectBtn').disabled = true;
+            document.getElementById('connectionStatus').style.display = 'block';
+            document.getElementById('connectionStatus').textContent = '正在连接...';
+            document.getElementById('connectionStatus').className = 'status info';
+
+            websocket.onopen = function(event) {
+                console.log('WebSocket连接已建立，发送认证消息...');
+                document.getElementById('connectionStatus').textContent = '🔐 正在认证...';
+                document.getElementById('connectionStatus').className = 'status info';
+                
+                // 发送认证消息
+                const authMessage = {
+                    user_id: userId
+                };
+                websocket.send(JSON.stringify(authMessage));
+                addMessage('系统', `🔐 发送认证消息: 用户ID ${userId}`, 'info');
+            };
+
+            websocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log('收到消息:', data);
+                handleMessage(data);
+            };
+
+            websocket.onclose = function(event) {
+                console.log('WebSocket连接已关闭');
+                document.getElementById('connectionStatus').textContent = '❌ 连接已断开';
+                document.getElementById('connectionStatus').className = 'status error';
+                document.getElementById('connectBtn').disabled = false;
+                document.getElementById('startPrivateChatBtn').disabled = true;
+                
+                addMessage('系统', '❌ WebSocket连接已断开', 'error');
+                resetSteps();
+            };
+
+            websocket.onerror = function(error) {
+                console.error('WebSocket错误:', error);
+                document.getElementById('connectionStatus').textContent = '❌ 连接错误';
+                document.getElementById('connectionStatus').className = 'status error';
+                document.getElementById('connectBtn').disabled = false;
+                
+                addMessage('系统', '❌ WebSocket连接出错', 'error');
+            };
+        }
+
+        function startPrivateChat() {
+            const targetUserId = parseInt(document.getElementById('targetUserIdInput').value);
+            const matchId = parseInt(document.getElementById('matchIdInput').value);
+
+            if (!targetUserId || !matchId) {
+                alert('请输入目标用户ID和匹配ID');
+                return;
+            }
+
+            if (!websocket || websocket.readyState !== WebSocket.OPEN) {
+                alert('WebSocket未连接');
+                return;
+            }
+
+            // 重置状态
+            resetSteps();
+            testResults = [];
+            document.getElementById('chatHistorySection').style.display = 'none';
+            document.getElementById('startPrivateChatBtn').disabled = true;
+
+            // 发送私信流程初始化消息
+            const message = {
+                type: 'private_chat_init',
+                target_user_id: targetUserId,
+                match_id: matchId
+            };
+
+            websocket.send(JSON.stringify(message));
+            addMessage('发送', `🚀 启动私信流程: 用户${targetUserId}, 匹配${matchId}`, 'info');
+        }
+
+        function handleMessage(data) {
+            const type = data.type;
+            const timestamp = new Date().toLocaleTimeString();
+
+            switch(type) {
+                case 'authenticated':
+                    // 认证成功
+                    document.getElementById('connectionStatus').textContent = `✅ 认证成功 (用户ID: ${data.user_id})`;
+                    document.getElementById('connectionStatus').className = 'status success';
+                    document.getElementById('startPrivateChatBtn').disabled = false;
+                    addMessage('系统', `✅ 认证成功！用户ID: ${data.user_id}，可以开始测试私信流程。`, 'success');
+                    break;
+
+                case undefined:
+                    // 处理没有type字段的消息（如认证响应）
+                    if (data.status === 'authenticated') {
+                        document.getElementById('connectionStatus').textContent = `✅ 认证成功 (用户ID: ${data.user_id})`;
+                        document.getElementById('connectionStatus').className = 'status success';
+                        document.getElementById('startPrivateChatBtn').disabled = false;
+                        addMessage('系统', `✅ 认证成功！用户ID: ${data.user_id}，可以开始测试私信流程。`, 'success');
+                        // 加载匹配列表
+                        loadMatchList(data.user_id);
+                    }
+                    break;
+
+                case 'private_chat_progress':
+                    handleProgress(data);
+                    break;
+                
+                case 'private_chat_init_complete':
+                    handleComplete(data);
+                    break;
+                
+                case 'private_chat_error':
+                    handleError(data);
+                    break;
+
+                case 'error':
+                    addMessage('错误', `❌ ${data.error}`, 'error');
+                    break;
+                
+                default:
+                    addMessage('其他', `📩 ${type}: ${JSON.stringify(data)}`, 'info');
+                    break;
+            }
+        }
+
+        function handleProgress(data) {
+            const step = data.step;
+            const message = data.message;
+            const status = data.status;
+
+            if (status === 'completed') {
+                // 标记步骤完成
+                document.getElementById(`step${step}`).className = 'step completed';
+                addMessage(`步骤${step}`, `✅ ${message}`, 'success');
+                
+                // 记录测试结果
+                testResults.push({
+                    step: step,
+                    status: '成功',
+                    message: message,
+                    data: data
+                });
+
+                if (step === 1) {
+                    addMessage('详情', `🏠 聊天室ID: ${data.chatroom_id}`, 'info');
+                } else if (step === 2) {
+                    addMessage('详情', `💬 聊天记录: ${data.chat_history ? data.chat_history.length : 0} 条`, 'info');
+                }
+            } else {
+                // 标记步骤进行中
+                document.getElementById(`step${step}`).className = 'step active';
+                addMessage(`步骤${step}`, `⏳ ${message}`, 'info');
+            }
+        }
+
+        function handleComplete(data) {
+            // 标记第3步完成
+            document.getElementById('step3').className = 'step completed';
+            addMessage('完成', `🎉 ${data.message}`, 'success');
+            
+            // 显示聊天历史
+            if (data.chat_history && data.chat_history.length > 0) {
+                displayChatHistory(data.chat_history);
+            }
+
+            // 显示测试结果汇总
+            displayTestResults();
+
+            // 重新启用按钮
+            document.getElementById('startPrivateChatBtn').disabled = false;
+        }
+
+        function handleError(data) {
+            const step = data.step || '未知';
+            const error = data.error;
+            
+            addMessage('错误', `❌ 步骤${step}: ${error}`, 'error');
+            
+            // 记录错误
+            testResults.push({
+                step: step,
+                status: '失败',
+                message: error,
+                data: data
+            });
+
+            // 重新启用按钮
+            document.getElementById('startPrivateChatBtn').disabled = false;
+            
+            // 显示测试结果
+            displayTestResults();
+        }
+
+        function displayChatHistory(chatHistory) {
+            const chatHistoryDiv = document.getElementById('chatHistory');
+            chatHistoryDiv.innerHTML = '';
+            
+            if (chatHistory.length === 0) {
+                chatHistoryDiv.innerHTML = '<div class="status info">暂无聊天记录</div>';
+            } else {
+                chatHistory.forEach(msg => {
+                    const [message, datetime, senderId, senderName] = msg;
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `chat-message ${senderName === 'I' ? 'self' : 'other'}`;
+                    
+                    messageDiv.innerHTML = `
+                        <div class="sender">${senderName} (ID: ${senderId})</div>
+                        <div>${message}</div>
+                        <div class="time">${datetime}</div>
+                    `;
+                    
+                    chatHistoryDiv.appendChild(messageDiv);
+                });
+            }
+            
+            document.getElementById('chatHistorySection').style.display = 'block';
+        }
+
+        function displayTestResults() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '';
+
+            if (testResults.length === 0) {
+                resultsDiv.innerHTML = '<div class="status info">暂无测试结果</div>';
+                return;
+            }
+
+            testResults.forEach((result, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `status ${result.status === '成功' ? 'success' : 'error'}`;
+                resultDiv.innerHTML = `
+                    <strong>步骤${result.step}:</strong> ${result.status} - ${result.message}
+                `;
+                resultsDiv.appendChild(resultDiv);
+            });
+
+            // 添加总结
+            const successCount = testResults.filter(r => r.status === '成功').length;
+            const totalCount = testResults.length;
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = `status ${successCount === totalCount ? 'success' : 'error'}`;
+            summaryDiv.innerHTML = `
+                <strong>测试总结:</strong> ${successCount}/${totalCount} 个步骤成功完成
+            `;
+            resultsDiv.appendChild(summaryDiv);
+        }
+
+        async function loadMatchList(userId) {
+            try {
+                addMessage('系统', '🔄 正在从数据库加载真实匹配列表...', 'info');
+                
+                // 首先需要获取用户的match_ids，然后逐一获取匹配信息
+                // 由于没有直接的获取用户匹配列表的API，我们需要通过用户信息获取match_ids
+                const userInfoResponse = await fetch('http://localhost:8000/api/v1/UserManagement/get_user_info_with_user_id', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: userId
+                    })
+                });
+                
+                if (!userInfoResponse.ok) {
+                    throw new Error('获取用户信息失败');
+                }
+                
+                const userInfo = await userInfoResponse.json();
+                addMessage('系统', `📋 用户信息获取成功，match_ids: ${JSON.stringify(userInfo.match_ids)}`, 'info');
+                
+                const matchIds = userInfo.match_ids || [];
+                if (matchIds.length === 0) {
+                    displayMatchList([]);
+                    addMessage('系统', '⚠️ 该用户暂无匹配记录', 'info');
+                    return;
+                }
+                
+                // 逐一获取每个匹配的详细信息
+                const matches = [];
+                for (const matchId of matchIds) {
+                    try {
+                        const matchInfoResponse = await fetch('http://localhost:8000/api/v1/MatchManager/get_match_info', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                user_id: userId,
+                                match_id: matchId
+                            })
+                        });
+                        
+                        if (matchInfoResponse.ok) {
+                            const matchInfo = await matchInfoResponse.json();
+                            
+                            // 获取目标用户的名称
+                            const targetUserResponse = await fetch('http://localhost:8000/api/v1/UserManagement/get_user_info_with_user_id', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    user_id: matchInfo.target_user_id
+                                })
+                            });
+                            
+                            let targetUserName = `用户${matchInfo.target_user_id}`;
+                            if (targetUserResponse.ok) {
+                                const targetUserInfo = await targetUserResponse.json();
+                                targetUserName = targetUserInfo.telegram_user_name || targetUserName;
+                            }
+                            
+                            matches.push({
+                                match_id: matchId,
+                                target_user_id: matchInfo.target_user_id,
+                                target_user_name: targetUserName,
+                                description_for_target: matchInfo.description_for_target,
+                                is_liked: matchInfo.is_liked,
+                                match_score: matchInfo.match_score,
+                                chatroom_id: matchInfo.chatroom_id
+                            });
+                            
+                            addMessage('系统', `✅ 匹配 ${matchId} 信息加载成功`, 'info');
+                        } else {
+                            addMessage('系统', `⚠️ 匹配 ${matchId} 信息加载失败`, 'error');
+                        }
+                    } catch (error) {
+                        addMessage('系统', `❌ 匹配 ${matchId} 加载出错: ${error.message}`, 'error');
+                    }
+                }
+                
+                displayMatchList(matches);
+                addMessage('系统', `✅ 已从数据库加载 ${matches.length} 个真实匹配`, 'success');
+                
+            } catch (error) {
+                console.error('加载匹配列表失败:', error);
+                addMessage('系统', `❌ 加载匹配列表失败: ${error.message}`, 'error');
+                
+                // 显示错误信息但不阻塞测试
+                document.getElementById('matchListSection').style.display = 'block';
+                document.getElementById('matchList').innerHTML = `
+                    <div class="status error">
+                        加载失败，请手动输入匹配信息进行测试<br>
+                        错误信息: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function displayMatchList(matches) {
+            const matchListDiv = document.getElementById('matchList');
+            const matchListSection = document.getElementById('matchListSection');
+            
+            matchListDiv.innerHTML = '';
+            
+            if (matches.length === 0) {
+                matchListDiv.innerHTML = '<div class="status info">暂无可用匹配</div>';
+            } else {
+                matches.forEach(match => {
+                    const matchDiv = document.createElement('div');
+                    matchDiv.className = 'match-item';
+                    matchDiv.dataset.matchId = match.match_id;
+                    matchDiv.dataset.targetUserId = match.target_user_id;
+                    
+                    matchDiv.innerHTML = `
+                        <div class="match-header">
+                            <div class="match-title">${match.target_user_name}</div>
+                            <div class="match-score">匹配度: ${match.match_score}%</div>
+                        </div>
+                        <div class="match-description">${match.description_for_target}</div>
+                        <div class="match-info">
+                            <div>匹配ID: ${match.match_id}</div>
+                            <div class="match-status">
+                                ${match.is_liked ? '<span class="status-badge liked">已点赞</span>' : ''}
+                                ${match.chatroom_id ? '<span class="status-badge chatroom">有聊天室</span>' : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    matchDiv.onclick = function() {
+                        selectMatch(match);
+                    };
+                    
+                    matchListDiv.appendChild(matchDiv);
+                });
+            }
+            
+            matchListSection.style.display = 'block';
+        }
+        
+        function selectMatch(match) {
+            // 清除之前的选择
+            document.querySelectorAll('.match-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // 选择当前匹配
+            const matchElement = document.querySelector(`[data-match-id="${match.match_id}"]`);
+            if (matchElement) {
+                matchElement.classList.add('selected');
+            }
+            
+            // 自动填充表单
+            document.getElementById('targetUserIdInput').value = match.target_user_id;
+            document.getElementById('matchIdInput').value = match.match_id;
+            
+            addMessage('选择', `✅ 已选择匹配: ${match.target_user_name} (匹配ID: ${match.match_id})`, 'success');
+        }
+
+        function addMessage(sender, content, type = 'info') {
+            const messagesDiv = document.getElementById('messages');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `
+                <span class="timestamp">${timestamp}</span>
+                <strong>[${sender}]</strong> ${content}
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function resetSteps() {
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`step${i}`).className = 'step';
+            }
+        }
+
+        // 页面加载时的提示
+        window.onload = function() {
+            addMessage('系统', '👋 欢迎使用私信流程测试页面！请先连接WebSocket。', 'info');
+        };
+    </script>
+</body>
+</html>

@@ -65,70 +65,82 @@ class ChatroomManager:
             logger.error(f"Error constructing ChatroomManager: {e}")
             return False
 
-    async def get_or_create_chatroom(self, user_id_1: int, user_id_2: int, match_id: int) -> Optional[int]:
+    async def get_or_create_chatroom(self, user_id_1: int, user_id_2: int, match_id: int) -> int:
         """
         Get existing chatroom or create new one for the match
         Returns chatroom_id
         """
         try:
+            logger.info(f"STEP 1.1: Getting match {match_id} from MatchManager")
             # Get match from MatchManager
             match_manager = MatchManager()
             match = match_manager.get_match(match_id)
             
             if not match:
-                logger.error(f"Match {match_id} not found")
+                logger.error(f"STEP 1.1 FAILED: Match {match_id} not found")
                 return None
             
+            logger.info(f"STEP 1.2: Checking if match {match_id} already has chatroom_id")
             # Check if match already has a chatroom_id
             if match.chatroom_id:
-                logger.info(f"Match {match_id} already has chatroom {match.chatroom_id}")
+                logger.info(f"STEP 1.2 SUCCESS: Match {match_id} already has chatroom {match.chatroom_id}")
                 return match.chatroom_id
             
+            logger.info(f"STEP 1.3: Getting user instances for users {user_id_1} and {user_id_2}")
             # Get user instances
             user_manager = UserManagement()
             user1 = user_manager.get_user_instance(user_id_1)
             user2 = user_manager.get_user_instance(user_id_2)
             
             if not user1 or not user2:
-                logger.error(f"Users {user_id_1} or {user_id_2} not found")
+                logger.error(f"STEP 1.3 FAILED: Users {user_id_1} or {user_id_2} not found")
                 return None
             
+            logger.info(f"STEP 1.4: Creating new chatroom for users {user_id_1} and {user_id_2}")
             # Create new chatroom
             chatroom = Chatroom(user1, user2, match_id)
             
+            logger.info(f"STEP 1.5: Storing chatroom {chatroom.chatroom_id} in memory")
             # Store in memory
             self.chatrooms[chatroom.chatroom_id] = chatroom
             
+            logger.info(f"STEP 1.6: Updating match {match_id} with chatroom_id {chatroom.chatroom_id}")
             # Update match with chatroom_id
             match.chatroom_id = chatroom.chatroom_id
             
+            logger.info(f"STEP 1.7: Saving chatroom {chatroom.chatroom_id} to database")
             # Save chatroom to database
             await chatroom.save_to_database()
             
+            logger.info(f"STEP 1.8: Saving updated match {match_id} to database")
             # Save match to database with updated chatroom_id
             await match.save_to_database()
             
-            logger.info(f"Created chatroom {chatroom.chatroom_id} for match {match_id}")
+            logger.info(f"STEP 1 SUCCESS: Created chatroom {chatroom.chatroom_id} for match {match_id}")
             return chatroom.chatroom_id
             
         except Exception as e:
-            logger.error(f"Error getting or creating chatroom for match {match_id}: {e}")
+            logger.error(f"STEP 1 FAILED: Error getting or creating chatroom for match {match_id}: {e}")
             return None
 
-    def get_chat_history(self, chatroom_id: int, user_id: int) -> List[Tuple[str, str, str]]:
+    def get_chatroom_history(self, chatroom_id: int, user_id: int) -> List[Tuple[str, str, int, str]]:
         """
         Get chat history for a chatroom, replacing user's own name with "I"
-        Returns list of (user_name, message, datetime)
+        Returns list of (message, datetime, sender_id, sender_name)
         """
         try:
+            logger.info(f"STEP 2.1: Getting chatroom {chatroom_id} from memory")
             chatroom = self.chatrooms.get(chatroom_id)
             if not chatroom:
-                logger.error(f"Chatroom {chatroom_id} not found")
+                logger.error(f"STEP 2.1 FAILED: Chatroom {chatroom_id} not found in memory")
                 return []
             
+            logger.info(f"STEP 2.2: Getting messages from chatroom {chatroom_id}")
             # Get messages from chatroom
             messages = chatroom.get_messages()
+            logger.info(f"STEP 2.2: Found {len(messages)} messages in chatroom")
             
+            logger.info(f"STEP 2.3: Transforming messages for user {user_id}")
             # Transform messages for the requesting user
             chat_history = []
             for message_content, datetime_utc, sender_id, sender_name in messages:
@@ -136,16 +148,17 @@ class ChatroomManager:
                 display_name = "I" if sender_id == user_id else sender_name
                 
                 chat_history.append((
-                    display_name,
                     message_content,
-                    datetime_utc.isoformat() if hasattr(datetime_utc, 'isoformat') else str(datetime_utc)
+                    datetime_utc.isoformat() if hasattr(datetime_utc, 'isoformat') else str(datetime_utc),
+                    sender_id,
+                    display_name
                 ))
             
-            logger.info(f"Retrieved {len(chat_history)} messages for chatroom {chatroom_id}")
+            logger.info(f"STEP 2.3 SUCCESS: Retrieved {len(chat_history)} messages for chatroom {chatroom_id}, user {user_id}")
             return chat_history
             
         except Exception as e:
-            logger.error(f"Error getting chat history for chatroom {chatroom_id}: {e}")
+            logger.error(f"STEP 2 FAILED: Error getting chat history for chatroom {chatroom_id}: {e}")
             return []
 
     async def save_chatroom_history(self, chatroom_id: Optional[int] = None) -> bool:
