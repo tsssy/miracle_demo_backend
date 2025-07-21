@@ -9,7 +9,7 @@ class GetOrCreateChatroomRequest(BaseModel):
 
 class GetOrCreateChatroomResponse(BaseModel):
     success: bool = Field(..., description="是否操作成功")
-    chatroom_id: Optional[int] = Field(None, description="聊天室ID")
+    chatroom_id: int = Field(..., description="聊天室ID")
 
 # Get chat history
 class GetChatHistoryRequest(BaseModel):
