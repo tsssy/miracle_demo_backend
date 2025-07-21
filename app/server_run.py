@@ -1,7 +1,7 @@
 #Daniel 到此一游
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from contextlib import asynccontextmanager
 import sys
 from pathlib import Path
@@ -306,6 +306,39 @@ async def log_requests_and_responses(request: Request, call_next):
         logger.error(f"🔴 [{request_id}] ====== 请求失败 ======")
         raise
 
+# Websocket测试
+# WebSocket 路由1：回显消息
+@app.websocket("/ws/echo")
+async def websocket_echo(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        logger.info(f"[ECHO] 收到消息: {data}")
+        await websocket.send_text(f"echo: {data}")
+        logger.info(f"[ECHO] 已回显消息: {data}")
+
+# WebSocket 路由2：将消息转为大写
+@app.websocket("/ws/upper")
+async def websocket_upper(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        logger.info(f"[UPPER] 收到消息: {data}")
+        upper_data = data.upper()
+        await websocket.send_text(f"upper: {upper_data}")
+        logger.info(f"[UPPER] 已发送大写消息: {upper_data}")
+
+# WebSocket 路由3：将消息反转
+@app.websocket("/ws/reverse")
+async def websocket_reverse(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        logger.info(f"[REVERSE] 收到消息: {data}")
+        reversed_data = data[::-1]
+        await websocket.send_text(f"reverse: {reversed_data}")
+        logger.info(f"[REVERSE] 已发送反转消息: {reversed_data}")
+
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
     "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
@@ -341,8 +374,7 @@ if __name__ == "__main__":
         "host": "0.0.0.0",
         "port": 8000,
         "reload": False,
-        "workers": 1,
-        "ws": "none"  # Disable WebSocket support
+        "workers": 1
     }
     
     try:
