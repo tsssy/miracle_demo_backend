@@ -98,34 +98,58 @@ class ConnectionHandler:
         """
         认证逻辑，检查用户是否在UserManagement缓存中存在
         """
+        print(f"🔍 [DEBUG] Starting authentication process...")
+        print(f"🔍 [DEBUG] Received auth_data: {auth_data}")
+        
         if "user_id" not in auth_data:
+            print(f"❌ [DEBUG] No user_id found in auth_data")
             logging.warning("Authentication failed: no user_id provided")
             return False
         
         user_id_input = auth_data["user_id"]
+        print(f"🔍 [DEBUG] Extracted user_id_input: '{user_id_input}' (type: {type(user_id_input)})")
         
         # 获取UserManagement实例并检查用户是否存在
         try:
+            print(f"🔍 [DEBUG] Getting UserManagement instance...")
             user_manager = UserManagement()
+            print(f"🔍 [DEBUG] UserManagement instance created: {user_manager}")
             
-            # 尝试转换为整数类型，因为缓存中的user_id是int类型
+            # 检查UserManagement是否已初始化
+            print(f"🔍 [DEBUG] UserManagement._initialized: {UserManagement._initialized}")
+            print(f"🔍 [DEBUG] UserManagement user_list length: {len(user_manager.user_list)}")
+            print(f"🔍 [DEBUG] UserManagement user_list keys (first 5): {list(user_manager.user_list.keys())[:5]}")
+            
+            # 转换用户ID为int类型进行查找（因为缓存中的键是int）
             try:
-                user_id_int = int(user_id_input)
-                user_instance = user_manager.get_user_instance(user_id_int)
-            except (ValueError, TypeError):
-                # 如果无法转换为整数，尝试直接使用原值
-                user_instance = user_manager.get_user_instance(user_id_input)
+                user_id_for_lookup = int(user_id_input)
+                print(f"🔍 [DEBUG] Successfully converted '{user_id_input}' to int: {user_id_for_lookup}")
+            except (ValueError, TypeError) as e:
+                print(f"❌ [DEBUG] Failed to convert '{user_id_input}' to int: {e}")
+                logging.warning(f"Authentication failed: user_id '{user_id_input}' cannot be converted to int")
+                return False
+            
+            print(f"🔍 [DEBUG] Looking up user with ID: {user_id_for_lookup} (type: {type(user_id_for_lookup)})")
+            user_instance = user_manager.get_user_instance(user_id_for_lookup)
+            print(f"🔍 [DEBUG] get_user_instance returned: {user_instance}")
             
             if user_instance is None:
+                print(f"❌ [DEBUG] User not found in cache")
+                print(f"🔍 [DEBUG] Available user IDs in cache: {sorted(list(user_manager.user_list.keys()))}")
                 logging.warning(f"Authentication failed: user_id '{user_id_input}' not found in UserManagement cache")
                 return False
             
             # 保存用户ID为字符串格式（用于WebSocket会话管理）
             self.user_id = str(user_id_input)
-            logging.info(f"Authentication successful for user_id: {user_id_input} (found as {user_id_int if 'user_id_int' in locals() else user_id_input})")
+            print(f"✅ [DEBUG] Authentication successful! User: {user_instance.telegram_user_name}")
+            logging.info(f"Authentication successful for user_id: {user_id_input} (looked up as {user_id_for_lookup})")
             return True
             
         except Exception as e:
+            print(f"❌ [DEBUG] Exception during authentication: {e}")
+            print(f"❌ [DEBUG] Exception type: {type(e)}")
+            import traceback
+            print(f"❌ [DEBUG] Traceback: {traceback.format_exc()}")
             logging.error(f"Authentication error for user_id '{user_id_input}': {e}")
             return False
 
