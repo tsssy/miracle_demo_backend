@@ -112,7 +112,15 @@ async def lifespan(app: FastAPI):
         # 初始化ChatroomManager缓存
         logger.info("正在初始化ChatroomManager缓存...")
         chatroom_manager = ChatroomManager()
-        await chatroom_manager.construct()  # 从数据库加载聊天室数据
+        construct_success = await chatroom_manager.construct()  # 从数据库加载聊天室数据
+        
+        # 检查初始化状态
+        if construct_success:
+            logger.info(f"ChatroomManager缓存初始化完成 - 加载了 {len(chatroom_manager.chatrooms)} 个聊天室")
+            logger.info(f"ChatroomManager可用的聊天室ID: {list(chatroom_manager.chatrooms.keys())}")
+        else:
+            logger.error("ChatroomManager缓存初始化失败")
+            
         logger.info("ChatroomManager缓存初始化完成")
         
         # 启动自动保存任务

@@ -66,11 +66,14 @@ class MatchManager:
             logger.error(f"Error creating match between users {user_id_1} and {user_id_2}: {e}")
             raise
 
-    def get_match(self, match_id: int) -> Optional[Match]:
+    def get_match(self, match_id) -> Optional[Match]:
         """
         根据match_id获取匹配
         """
         try:
+            # 统一转换为int类型
+            match_id = int(match_id)
+            
             match = self.match_list.get(match_id)
             if match:
                 logger.info(f"Retrieved match {match_id}")

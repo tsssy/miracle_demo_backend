@@ -34,10 +34,19 @@ class MessageConnectionHandler(ConnectionHandler):
                 }))
                 return
             
+            # 统一转换为int类型
+            try:
+                target_user_id = int(target_user_id)
+            except (ValueError, TypeError) as e:
+                await self.websocket.send_text(json.dumps({
+                    "error": f"Invalid target_user_id format: {str(e)}"
+                }))
+                return
+            
             # 发送私聊消息
-            success = await self.send_to_user(target_user_id, json.dumps({
+            success = await self.send_to_user(str(target_user_id), json.dumps({
                 "type": "private_message",
-                "from": self.user_id,
+                "from": int(self.user_id),
                 "content": content,
                 "timestamp": message.get("timestamp")
             }))
@@ -72,7 +81,7 @@ class MessageConnectionHandler(ConnectionHandler):
         步骤2: 获取聊天历史记录
         """
         try:
-            # 获取参数
+            # 获取参数并统一转换为int类型
             target_user_id = message.get("target_user_id")
             match_id = message.get("match_id")
             
@@ -83,7 +92,19 @@ class MessageConnectionHandler(ConnectionHandler):
                 }))
                 return
             
-            logger.info(f"私信流程开始 - 用户 {self.user_id} 发起与用户 {target_user_id} 的私信 (match_id: {match_id})")
+            # 统一转换为int类型
+            try:
+                current_user_id = int(self.user_id)
+                target_user_id = int(target_user_id)
+                match_id = int(match_id)
+            except (ValueError, TypeError) as e:
+                await self.websocket.send_text(json.dumps({
+                    "type": "private_chat_error",
+                    "error": f"Invalid ID format: {str(e)}"
+                }))
+                return
+            
+            logger.info(f"私信流程开始 - 用户 {current_user_id} 发起与用户 {target_user_id} 的私信 (match_id: {match_id})")
             
             # 步骤1: 获取或创建聊天室
             await self.websocket.send_text(json.dumps({
@@ -94,7 +115,7 @@ class MessageConnectionHandler(ConnectionHandler):
             
             chatroom_manager = ChatroomManager()
             chatroom_id = await chatroom_manager.get_or_create_chatroom(
-                self.user_id, target_user_id, match_id
+                current_user_id, target_user_id, match_id
             )
             
             if not chatroom_id:
@@ -121,7 +142,7 @@ class MessageConnectionHandler(ConnectionHandler):
                 "message": f"正在获取聊天历史记录... (chatroom_id: {chatroom_id})"
             }))
             
-            chat_history = chatroom_manager.get_chatroom_history(chatroom_id, self.user_id)
+            chat_history = chatroom_manager.get_chatroom_history(chatroom_id, current_user_id)
             
             # 步骤2完成通知
             await self.websocket.send_text(json.dumps({
