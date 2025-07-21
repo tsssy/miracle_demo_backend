@@ -20,6 +20,7 @@ from app.utils.my_logger import MyLogger
 from app.utils.singleton_status import SingletonStatusReporter
 from app.services.https.UserManagement import UserManagement
 from app.services.https.MatchManager import MatchManager
+from app.services.https.ChatroomManager import ChatroomManager
 
 logger = MyLogger("server")
 
@@ -62,6 +63,17 @@ async def auto_save_to_database():
             except Exception as e:
                 logger.error(f"❌ MatchManager数据保存失败: {e}")
             
+            # 保存ChatroomManager数据
+            try:
+                chatroom_manager = ChatroomManager()
+                chatroom_save_success = await chatroom_manager.save_chatroom_history()  # 保存所有聊天室历史
+                if chatroom_save_success:
+                    logger.info("✅ ChatroomManager数据保存成功")
+                else:
+                    logger.warning("⚠️ ChatroomManager数据保存部分失败")
+            except Exception as e:
+                logger.error(f"❌ ChatroomManager数据保存失败: {e}")
+            
             elapsed_time = time.time() - start_time
             logger.info(f"🔄 自动保存完成，耗时: {elapsed_time:.3f}秒")
             
@@ -94,6 +106,12 @@ async def lifespan(app: FastAPI):
         match_manager = MatchManager()
         await match_manager.load_from_database()
         logger.info("MatchManager缓存初始化完成")
+        
+        # 初始化ChatroomManager缓存
+        logger.info("正在初始化ChatroomManager缓存...")
+        chatroom_manager = ChatroomManager()
+        await chatroom_manager.construct()  # 从数据库加载聊天室数据
+        logger.info("ChatroomManager缓存初始化完成")
         
         # 启动自动保存任务
         logger.info("正在启动自动保存后台任务...")
@@ -128,6 +146,10 @@ async def lifespan(app: FastAPI):
         match_manager = MatchManager()
         await match_manager.save_to_database()
         logger.info("最终匹配数据保存完成")
+        
+        chatroom_manager = ChatroomManager()
+        await chatroom_manager.save_chatroom_history()
+        logger.info("最终聊天室数据保存完成")
     except Exception as e:
         logger.error(f"最终数据保存失败: {e}")
     
@@ -150,6 +172,10 @@ app = FastAPI(
         {
             "name": "matches",
             "description": "匹配相关操作",
+        },
+        {
+            "name": "chatrooms",
+            "description": "聊天室相关操作",
         }
     ]
 )
