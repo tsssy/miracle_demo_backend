@@ -296,7 +296,7 @@ class ChatroomManager:
             logger.info(f"SEND MSG STEP 3: Creating message from {sender_user_id} to {receiver_user_id}")
             
             # Create Message instance
-            message = Message(sender_user, receiver_user, message_content)
+            message = Message(sender_user, receiver_user, message_content, chatroom_id)
             
             logger.info(f"SEND MSG STEP 4: Saving message {message.message_id} to database")
             
