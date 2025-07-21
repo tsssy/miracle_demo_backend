@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test Suite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 3px; cursor: pointer; }
+        .test-base { background-color: #e3f2fd; }
+        .test-message { background-color: #e8f5e8; }
+        .test-match { background-color: #fff3e0; }
+        #console { background-color: #f5f5f5; padding: 15px; margin-top: 20px; max-height: 400px; overflow-y: auto; font-family: monospace; white-space: pre-wrap; }
+        button:hover { opacity: 0.8; }
+        .test-button { background-color: #4CAF50; color: white; }
+        .stop-button { background-color: #f44336; color: white; }
+        .clear-button { background-color: #2196F3; color: white; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Test Suite</h1>
+    <p>Test the three WebSocket handlers: Base, Message, and Match</p>
+    
+    <div style="margin-bottom: 20px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; color: #856404;">
+        <h4 style="margin-top: 0;">⚠️ 重要说明 - User Authentication Required</h4>
+        <p><strong>只有数据库中存在的用户才能连接到WebSocket聊天室</strong></p>
+        <ul>
+            <li>WebSocket连接需要使用数据库中已存在的user_id</li>
+            <li>如果使用不存在的user_id，认证将失败并断开连接</li>
+            <li>要创建测试用户，请先运行: <code>python test_api.py</code> 或使用HTTP API创建用户</li>
+            <li>示例有效用户ID: 1000000, 1000001, 1000002 等 (已存在于数据库中)</li>
+            <li>检查所有可用用户ID: <code>python check_user_cache.py</code></li>
+        </ul>
+    </div>
+    
+    <div style="margin-bottom: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px;">
+        <label for="customUserId"><strong>Custom User ID:</strong></label>
+        <input type="text" id="customUserId" placeholder="Enter valid user ID (must exist in database)" style="padding: 5px; margin-left: 10px; width: 250px;">
+        <small style="margin-left: 10px; color: #666;">必须是数据库中已存在的用户ID</small>
+    </div>
+
+    <div class="test-section test-base">
+        <h3>Base Handler Test (/ws/base)</h3>
+        <p>Basic WebSocket connection with authentication and message broadcasting</p>
+        <button class="test-button" onclick="testBase()">Test Base Handler</button>
+        <button class="stop-button" onclick="stopBase()">Stop Base Test</button>
+    </div>
+
+    <div class="test-section test-message">
+        <h3>Message Handler Test (/ws/message)</h3>
+        <p>Private messaging and broadcast functionality</p>
+        <button class="test-button" onclick="testMessage()">Test Message Handler</button>
+        <button class="stop-button" onclick="stopMessage()">Stop Message Test</button>
+        
+        <div style="margin-top: 15px;">
+            <h4>Send Custom Message:</h4>
+            <input type="text" id="messageContent" placeholder="Enter message content" style="padding: 5px; width: 200px; margin-right: 10px;">
+            <select id="messageType" style="padding: 5px; margin-right: 10px;">
+                <option value="broadcast">Broadcast</option>
+                <option value="private">Private</option>
+            </select>
+            <input type="text" id="targetUserId" placeholder="Target user ID (for private)" style="padding: 5px; width: 150px; margin-right: 10px;">
+            <button class="test-button" onclick="sendCustomMessage()">Send Message</button>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <h4>Received Messages:</h4>
+            <div id="messageDisplay" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 10px; height: 200px; overflow-y: auto; font-family: monospace; white-space: pre-wrap;"></div>
+            <button class="clear-button" onclick="clearMessages()" style="margin-top: 5px;">Clear Messages</button>
+        </div>
+    </div>
+
+    <div class="test-section test-match">
+        <h3>Match Handler Test (/ws/match)</h3>
+        <p>User matching system with match sessions</p>
+        <button class="test-button" onclick="testMatch()">Test Match Handler</button>
+        <button class="stop-button" onclick="stopMatch()">Stop Match Test</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button class="clear-button" onclick="clearConsole()">Clear Console</button>
+        <button class="test-button" onclick="testAll()">Test All Handlers</button>
+        <button class="stop-button" onclick="stopAll()">Stop All Tests</button>
+    </div>
+
+    <div id="console"></div>
+
+    <script>
+        let baseWs = null;
+        let messageWs = null;
+        let matchWs = null;
+
+        function log(message) {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            console.textContent += `[${timestamp}] ${message}\n`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function logMessage(message) {
+            const messageDisplay = document.getElementById('messageDisplay');
+            const timestamp = new Date().toLocaleTimeString();
+            messageDisplay.textContent += `[${timestamp}] ${message}\n`;
+            messageDisplay.scrollTop = messageDisplay.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('console').textContent = '';
+        }
+
+        function clearMessages() {
+            document.getElementById('messageDisplay').textContent = '';
+        }
+
+        function getUserId(prefix) {
+            const customId = document.getElementById('customUserId').value.trim();
+            if (!customId) {
+                alert('请输入有效的用户ID！\nPlease enter a valid user ID that exists in the database.');
+                return null;
+            }
+            return customId;
+        }
+
+        function testBase() {
+            if (baseWs) {
+                log('Base WebSocket already connected');
+                return;
+            }
+
+            log('🔵 Testing /ws/base WebSocket connection...');
+            baseWs = new WebSocket('ws://localhost:8000/ws/base');
+
+            baseWs.onopen = function() {
+                log('✅ Connected to /ws/base');
+                
+                const authMessage = {
+                    user_id: "test_user_base_" + Date.now()
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                baseWs.send(JSON.stringify(authMessage));
+            };
+
+            baseWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Base received: ' + JSON.stringify(data));
+                
+                if (data.status === 'authenticated') {
+                    setTimeout(() => {
+                        const testMessage = {
+                            content: "Hello from base test client!",
+                            timestamp: new Date().toISOString()
+                        };
+                        log('📤 Sending base test message: ' + JSON.stringify(testMessage));
+                        baseWs.send(JSON.stringify(testMessage));
+                    }, 1000);
+                }
+            };
+
+            baseWs.onclose = function() {
+                log('❌ /ws/base connection closed');
+                baseWs = null;
+            };
+
+            baseWs.onerror = function(error) {
+                log('⚠️ /ws/base error: ' + error);
+                baseWs = null;
+            };
+        }
+
+        function stopBase() {
+            if (baseWs) {
+                baseWs.close();
+                baseWs = null;
+                log('🛑 Base WebSocket connection stopped');
+            }
+        }
+
+        function testMessage() {
+            if (messageWs) {
+                log('Message WebSocket already connected');
+                return;
+            }
+
+            log('🟢 Testing /ws/message WebSocket connection...');
+            messageWs = new WebSocket('ws://localhost:8000/ws/message');
+
+            messageWs.onopen = function() {
+                log('✅ Connected to /ws/message');
+                logMessage('✅ Connected to message WebSocket');
+                
+                const userId = getUserId("test_user_message");
+                if (!userId) {
+                    messageWs.close();
+                    return;
+                }
+                
+                const authMessage = {
+                    user_id: userId
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                logMessage('🔐 Authenticating as: ' + authMessage.user_id);
+                messageWs.send(JSON.stringify(authMessage));
+            };
+
+            messageWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Message received: ' + JSON.stringify(data));
+                
+                // Display message in the message display area
+                if (data.type === 'broadcast_message') {
+                    logMessage(`📢 BROADCAST from ${data.from}: ${data.content}`);
+                } else if (data.type === 'private_message') {
+                    logMessage(`💬 PRIVATE from ${data.from}: ${data.content}`);
+                } else if (data.type === 'user_joined') {
+                    logMessage(`👋 User joined: ${data.user_id}`);
+                } else if (data.type === 'user_left') {
+                    logMessage(`👋 User left: ${data.user_id}`);
+                } else if (data.status === 'authenticated') {
+                    logMessage(`✅ Authenticated as: ${data.user_id}`);
+                    log(`✅ Authentication successful for user: ${data.user_id}`);
+                    // Auto-send a test broadcast after authentication
+                    setTimeout(() => {
+                        const broadcastMessage = {
+                            type: "broadcast",
+                            content: "Hello everyone from message test!",
+                            timestamp: new Date().toISOString()
+                        };
+                        log('📤 Sending auto broadcast: ' + JSON.stringify(broadcastMessage));
+                        messageWs.send(JSON.stringify(broadcastMessage));
+                    }, 1000);
+                } else if (data.error) {
+                    logMessage(`❌ Error: ${data.error}`);
+                    log('❌ Authentication failed: ' + data.error);
+                    alert('认证失败：' + data.error + '\n请确保输入的用户ID在数据库中存在。');
+                } else if (data.type === 'message_status') {
+                    logMessage(`📋 Message status - delivered: ${data.delivered}, target: ${data.target_user_id}`);
+                } else {
+                    logMessage(`📨 Raw message: ${JSON.stringify(data)}`);
+                }
+            };
+
+            messageWs.onclose = function() {
+                log('❌ /ws/message connection closed');
+                logMessage('❌ Connection closed');
+                messageWs = null;
+            };
+
+            messageWs.onerror = function(error) {
+                log('⚠️ /ws/message error: ' + error);
+                logMessage('⚠️ Connection error: ' + error);
+                messageWs = null;
+            };
+        }
+
+        function sendCustomMessage() {
+            if (!messageWs) {
+                alert('Please connect to message WebSocket first!');
+                return;
+            }
+
+            const content = document.getElementById('messageContent').value.trim();
+            const messageType = document.getElementById('messageType').value;
+            const targetUserId = document.getElementById('targetUserId').value.trim();
+
+            if (!content) {
+                alert('Please enter message content!');
+                return;
+            }
+
+            const message = {
+                type: messageType,
+                content: content,
+                timestamp: new Date().toISOString()
+            };
+
+            if (messageType === 'private') {
+                if (!targetUserId) {
+                    alert('Please enter target user ID for private message!');
+                    return;
+                }
+                message.target_user_id = targetUserId;
+            }
+
+            log('📤 Sending custom message: ' + JSON.stringify(message));
+            logMessage(`📤 Sending ${messageType} message: ${content}${messageType === 'private' ? ` (to: ${targetUserId})` : ''}`);
+            messageWs.send(JSON.stringify(message));
+
+            // Clear the input fields
+            document.getElementById('messageContent').value = '';
+            document.getElementById('targetUserId').value = '';
+        }
+
+        function stopMessage() {
+            if (messageWs) {
+                messageWs.close();
+                messageWs = null;
+                log('🛑 Message WebSocket connection stopped');
+            }
+        }
+
+        function testMatch() {
+            if (matchWs) {
+                log('Match WebSocket already connected');
+                return;
+            }
+
+            log('🟠 Testing /ws/match WebSocket connection...');
+            matchWs = new WebSocket('ws://localhost:8000/ws/match');
+
+            matchWs.onopen = function() {
+                log('✅ Connected to /ws/match');
+                
+                const authMessage = {
+                    user_id: "test_user_match_" + Date.now()
+                };
+                log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                matchWs.send(JSON.stringify(authMessage));
+            };
+
+            matchWs.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                log('📨 Match received: ' + JSON.stringify(data));
+                
+                if (data.status === 'authenticated') {
+                    setTimeout(() => {
+                        const startMatchMessage = {
+                            type: "start_matching"
+                        };
+                        log('🔍 Starting matching: ' + JSON.stringify(startMatchMessage));
+                        matchWs.send(JSON.stringify(startMatchMessage));
+                    }, 1000);
+                }
+                
+                if (data.type === 'match_status' && data.status === 'waiting_for_match') {
+                    log('⏳ Waiting for match... Will stop in 5 seconds');
+                    setTimeout(() => {
+                        const stopMatchMessage = {
+                            type: "stop_matching"
+                        };
+                        log('🛑 Stopping matching: ' + JSON.stringify(stopMatchMessage));
+                        matchWs.send(JSON.stringify(stopMatchMessage));
+                    }, 5000);
+                }
+            };
+
+            matchWs.onclose = function() {
+                log('❌ /ws/match connection closed');
+                matchWs = null;
+            };
+
+            matchWs.onerror = function(error) {
+                log('⚠️ /ws/match error: ' + error);
+                matchWs = null;
+            };
+        }
+
+        function stopMatch() {
+            if (matchWs) {
+                matchWs.close();
+                matchWs = null;
+                log('🛑 Match WebSocket connection stopped');
+            }
+        }
+
+        function testAll() {
+            log('🚀 Starting all WebSocket tests...');
+            testBase();
+            setTimeout(() => testMessage(), 1000);
+            setTimeout(() => testMatch(), 2000);
+        }
+
+        function stopAll() {
+            log('🛑 Stopping all WebSocket connections...');
+            stopBase();
+            stopMessage();
+            stopMatch();
+        }
+    </script>
+</body>
+</html>

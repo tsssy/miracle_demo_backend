@@ -54,7 +54,7 @@ tail -f logs/app.log
 
 **Layered Architecture**: Clear separation between API layer, service layer, and data layer.
 
-**Singleton Services**: `UserManagement` and `MatchManager` classes use singleton pattern for state management with in-memory storage.
+**Singleton Services**: `UserManagement`, `MatchManager`, and `ChatroomManager` classes use singleton pattern for state management with in-memory storage and database persistence.
 
 **Database Abstraction**: Custom `Database` class in `app/core/database.py` provides async MongoDB operations with automatic ObjectId to string conversion.
 
@@ -75,11 +75,19 @@ MONGODB_AUTH_SOURCE=admin
 - `users` - User profiles and data
 - `telegram_sessions` - Telegram integration data  
 - `Question` - User-generated questions
+- `matches` - Match records between users
+- `chatrooms` - Chatroom data with participant information
+- `messages` - Message records with chatroom association
 
-### Important: Database ID Handling
-- Users have custom `_id` values (user_id as document ID)
+### Important: Database ID Handling and Performance Optimization
+- **All entities use MongoDB `_id` field as primary key for O(log n) query performance**
+- Users: `_id` stores user_id (telegram_id)
+- Matches: `_id` stores match_id 
+- Chatrooms: `_id` stores chatroom_id
+- Messages: `_id` stores message_id
 - All ObjectId fields are automatically converted to strings in responses
-- MongoDB operations should use ObjectId for querying existing records
+- Database-driven counter initialization prevents ID conflicts on server restart
+- Query operations use `_id` field for optimal indexing performance
 
 ## CORS Configuration
 
@@ -113,10 +121,38 @@ All endpoints are prefixed with `/api/v1/users/`:
 ## Business Logic Notes
 
 ### User Management Service
-- In-memory user storage with MongoDB persistence
+- In-memory user storage with MongoDB persistence using `_id` primary key
 - Gender-based user categorization (male/female lists)
 - Telegram ID integration for user identification
 - Question parsing from telegram session `final_string` field
+- Database-driven initialization from existing user records
+
+### Match Management Service
+- Singleton pattern with O(log n) database queries using `_id` indexing
+- Database-driven counter initialization prevents match ID conflicts
+- Comprehensive match loading from database on service startup
+- Integration with UserManagement for bidirectional match tracking
+- Match scoring and like status management
+
+### Chatroom Management Service  
+- Database-driven counter initialization for both chatrooms and messages
+- O(log n) query performance using `_id` primary key structure
+- Automatic message and chatroom data loading on service initialization
+- Message insurance mechanism with chatroom validation
+
+### Message System & Chatroom Management
+- **Message Insurance Mechanism**: Each message is assigned to exactly one chatroom via `chatroom_id`
+- **Real-time Validation**: Message creation validates sender/receiver belong to specified chatroom
+- **Data Integrity**: `Message.validate_message_chatroom_consistency()` checks database consistency
+- **Chatroom Lifecycle**: Chatrooms are created when matches are established between users
+- **Message Storage**: Messages stored in `messages` collection with chatroom assignment
+- **Offline Message Support**: Messages persist for retrieval when users reconnect
+
+### WebSocket Message Handling
+- **Private Chat Initialization**: Two-step process (chatroom creation + history retrieval)
+- **Message Types**: Support for private messages, broadcasts, and chat initialization
+- **Real-time Delivery**: WebSocket-based message delivery with fallback to database storage
+- **Connection Management**: User connection tracking for message routing
 
 ### Request/Response Logging
 - Every request gets a unique ID (`req_[timestamp]`)
@@ -126,9 +162,78 @@ All endpoints are prefixed with `/api/v1/users/`:
 
 ## Development Status
 
-**Completed**: User management API, MongoDB integration, comprehensive logging, JWT framework, CORS configuration
+**Completed**: 
+- User management API with MongoDB integration using `_id` primary keys
+- Comprehensive logging system with unique request IDs
+- JWT framework and CORS configuration
+- Message system with chatroom assignment and insurance mechanisms
+- WebSocket-based real-time messaging with private chat support
+- Chatroom management with automatic creation from matches
+- Data integrity validation for message-chatroom relationships
+- **Performance optimization**: All entities migrated to use MongoDB `_id` field for O(log n) query performance
+- **Service initialization**: Database-driven counter initialization prevents ID conflicts on server restart
 
-**Skeleton/Placeholder**: Matching system (`service_match.py`), chatroom functionality (`service_chatroom.py`), WebSocket handling (`service_connection_handler.py`)
+**Active Development**: 
+- Advanced matching algorithms and scoring refinements
+- Enhanced WebSocket connection management
+- Real-time notifications and presence detection
+
+**Skeleton/Placeholder**: 
+- Advanced matching features and algorithms
+- Group chat functionality
+- Message encryption and security features
+
+## Message Insurance Mechanism
+
+### Overview
+A comprehensive data integrity system ensuring messages can only belong to one specific chatroom, preventing data corruption and cross-chatroom message leakage.
+
+### Core Components
+
+#### 1. Message-Chatroom Binding
+```python
+# Message constructor now requires chatroom_id
+message = Message(sender_user, receiver_user, content, chatroom_id)
+```
+
+#### 2. Real-time Validation
+- **Creation-time Checks**: `_validate_chatroom_membership()` validates during message creation
+- **Chatroom Existence**: Verifies the specified chatroom exists in ChatroomManager
+- **User Membership**: Ensures both sender and receiver belong to the specified chatroom
+- **Immediate Failure**: Throws `ValueError` if validation fails, preventing invalid message creation
+
+#### 3. Database Schema
+```javascript
+// messages collection schema
+{
+  "message_id": Number,
+  "message_content": String,
+  "message_send_time_in_utc": Date,
+  "message_sender_id": Number,
+  "message_receiver_id": Number,
+  "chatroom_id": Number  // Insurance mechanism field
+}
+```
+
+#### 4. Consistency Validation
+```python
+# Static method for database-wide consistency check
+is_valid = await Message.validate_message_chatroom_consistency()
+```
+
+### Safety Features
+
+- **Prevention**: Blocks invalid messages at creation time
+- **Detection**: Database-wide consistency validation available
+- **Migration**: Existing messages automatically assigned correct chatroom_id
+- **Logging**: Detailed validation logging for debugging
+
+### Usage Guidelines
+
+1. **Always specify chatroom_id** when creating messages
+2. **Use ChatroomManager.send_message()** for standard message sending (handles validation automatically)
+3. **Run periodic consistency checks** in production environments
+4. **Monitor logs** for validation failures indicating potential bugs
 
 ## Testing Approach
 

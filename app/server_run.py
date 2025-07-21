@@ -1,7 +1,7 @@
 #Daniel 到此一游
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from contextlib import asynccontextmanager
 import sys
 from pathlib import Path
@@ -9,11 +9,13 @@ from fastapi.middleware.cors import CORSMiddleware # 导入 CORS 中间件
 import json
 import time
 import asyncio
+from fastapi.websockets import WebSocketDisconnect # 导入 WebSocketDisconnect
 
 ROOT_PATH = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT_PATH))
 
 from app.api.v1.api import api_router
+from app.ws import all_ws_routers
 from app.config import settings
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
@@ -104,13 +106,21 @@ async def lifespan(app: FastAPI):
         # 初始化MatchManager缓存
         logger.info("正在初始化MatchManager缓存...")
         match_manager = MatchManager()
-        await match_manager.load_from_database()
+        await match_manager.construct()
         logger.info("MatchManager缓存初始化完成")
         
         # 初始化ChatroomManager缓存
         logger.info("正在初始化ChatroomManager缓存...")
         chatroom_manager = ChatroomManager()
-        await chatroom_manager.construct()  # 从数据库加载聊天室数据
+        construct_success = await chatroom_manager.construct()  # 从数据库加载聊天室数据
+        
+        # 检查初始化状态
+        if construct_success:
+            logger.info(f"ChatroomManager缓存初始化完成 - 加载了 {len(chatroom_manager.chatrooms)} 个聊天室")
+            logger.info(f"ChatroomManager可用的聊天室ID: {list(chatroom_manager.chatrooms.keys())}")
+        else:
+            logger.error("ChatroomManager缓存初始化失败")
+            
         logger.info("ChatroomManager缓存初始化完成")
         
         # 启动自动保存任务
@@ -306,6 +316,15 @@ async def log_requests_and_responses(request: Request, call_next):
         logger.error(f"🔴 [{request_id}] ====== 请求失败 ======")
         raise
 
+# 注册HTTP API路由
+app.include_router(api_router, prefix="/api/v1")
+logger.info(f"HTTP API路由已注册")
+
+# 批量注册WebSocket路由
+for ws_router in all_ws_routers:
+    app.include_router(ws_router)
+logger.info(f"WebSocket路由已注册")
+
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
     "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
@@ -318,15 +337,11 @@ logger.info(f"CORS允许的域名: {cors_origins}")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=["*"],  # 允许所有源头
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有 HTTP 方法
     allow_headers=["*"],  # 允许所有请求头
 )
-
-# 注册API路由
-app.include_router(api_router, prefix=settings.API_V1_STR)
-logger.info(f"API路由已注册，前缀: {settings.API_V1_STR}")
 
 @app.get("/")
 async def root():
@@ -341,8 +356,7 @@ if __name__ == "__main__":
         "host": "0.0.0.0",
         "port": 8000,
         "reload": False,
-        "workers": 1,
-        "ws": "none"  # Disable WebSocket support
+        "workers": 1
     }
     
     try:

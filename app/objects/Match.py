@@ -10,8 +10,45 @@ class Match:
     """
     匹配类，管理一个Match
     """
+    _match_counter = 0
+    _initialized = False
+    
+    @classmethod
+    async def initialize_counter(cls):
+        """
+        从数据库初始化匹配计数器，确保不会产生重复ID
+        """
+        if cls._initialized:
+            return
+            
+        try:
+            # 查找数据库中最大的_id（match_id存储在_id字段中）
+            matches = await Database.find("matches", sort=[("_id", -1)], limit=1)
+            
+            if matches:
+                max_id = matches[0]["_id"]
+                cls._match_counter = max_id
+                logger.info(f"Match counter initialized from database: starting from {max_id}")
+            else:
+                cls._match_counter = 0
+                logger.info("No existing matches found, starting counter from 0")
+                
+            cls._initialized = True
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize match counter: {e}")
+            # 如果初始化失败，使用时间戳作为起始点以避免冲突
+            cls._match_counter = int(time.time() * 1000000)  # 微秒时间戳
+            cls._initialized = True
+            logger.warning(f"Using timestamp as match counter starting point: {cls._match_counter}")
+    
     def __init__(self, telegram_user_session_id_1: int, telegram_user_session_id_2: int, reason_to_id_1: str, reason_to_id_2: str, match_score: int):
-        self.match_id = int(time.time() * 1000000)  # Generate unique match ID using timestamp
+        # 确保计数器已初始化
+        if not Match._initialized:
+            raise RuntimeError("Match counter not initialized. Call Match.initialize_counter() first.")
+            
+        Match._match_counter += 1
+        self.match_id = Match._match_counter
         self.user_id_1 = telegram_user_session_id_1
         self.user_id_2 = telegram_user_session_id_2
         self.description_to_user_1 = reason_to_id_1  # String description
@@ -95,11 +132,11 @@ class Match:
 
     async def save_to_database(self) -> bool:
         """
-        保存匹配到数据库
+        保存匹配到数据库，使用match_id作为_id主键
         """
         try:
             match_data = {
-                "match_id": self.match_id,
+                "_id": self.match_id,  # 使用match_id作为MongoDB的_id主键
                 "user_id_1": self.user_id_1,
                 "user_id_2": self.user_id_2,
                 "description_to_user_1": self.description_to_user_1,
@@ -111,21 +148,21 @@ class Match:
                 "created_at": time.time()
             }
             
-            # Check if match already exists
-            existing_match = await Database.find_one("matches", {"match_id": self.match_id})
+            # 检查匹配是否已存在（基于_id查询，O(log n)复杂度）
+            existing_match = await Database.find_one("matches", {"_id": self.match_id})
             
             if existing_match:
-                # Update existing match
+                # 更新现有匹配
                 await Database.update_one(
                     "matches",
-                    {"match_id": self.match_id},
-                    {"$set": match_data}
+                    {"_id": self.match_id},
+                    {"$set": {k: v for k, v in match_data.items() if k != "_id"}}  # 不更新_id字段
                 )
-                logger.info(f"Updated match {self.match_id} in database")
+                # logger.info(f"Updated match {self.match_id} in database")
             else:
-                # Insert new match
+                # 插入新匹配
                 await Database.insert_one("matches", match_data)
-                logger.info(f"Saved new match {self.match_id} to database")
+                # logger.info(f"Saved new match {self.match_id} to database")
             
             return True
         except Exception as e:

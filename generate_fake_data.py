@@ -114,23 +114,50 @@ async def generate_fake_matches(users_data, num_matches=20):
         print("用户数据不足，无法生成匹配")
         return []
     
+    # 按性别分组用户
+    male_users = [user for user in users_data if user["gender"] == 1]
+    female_users = [user for user in users_data if user["gender"] == 2]
+    
+    if not male_users or not female_users:
+        print("缺少男性或女性用户，无法生成匹配")
+        return []
+    
+    print(f"可用用户: 男性 {len(male_users)} 个，女性 {len(female_users)} 个")
+    
     matches_data = []
     match_id_start = int(time.time() * 1000000)  # 使用时间戳生成match_id
+    used_pairs = set()  # 记录已使用的配对，避免重复
+    
+    attempts = 0
+    max_attempts = num_matches * 3  # 最多尝试次数，避免无限循环
     
     for i in range(num_matches):
-        # 随机选择两个不同的用户
-        user1, user2 = random.sample(users_data, 2)
+        if attempts >= max_attempts:
+            print(f"达到最大尝试次数，停止生成匹配。已生成 {len(matches_data)} 个匹配")
+            break
+            
+        attempts += 1
         
-        # 确保性别匹配（男-女 或 女-男）
-        if user1["gender"] == user2["gender"]:
-            continue  # 跳过同性匹配
+        # 随机选择一个女性用户来配对男性用户
+        female_user = random.choice(female_users)
+        male_user = random.choice(male_users)
         
-        match_id = match_id_start + i
+        # 创建配对标识符（女性ID, 男性ID）
+        pair_id = (female_user["_id"], male_user["_id"])
+        
+        # 检查是否已经配对过
+        if pair_id in used_pairs:
+            i -= 1  # 重新尝试这个索引
+            continue
+        
+        used_pairs.add(pair_id)
+        
+        match_id = match_id_start + len(matches_data)  # 使用已生成的匹配数量作为索引
         
         match_data = {
-            "match_id": match_id,
-            "user_id_1": user1["_id"],
-            "user_id_2": user2["_id"],
+            "_id": match_id,  # 使用match_id作为MongoDB的_id主键
+            "user_id_1": female_user["_id"],  # 女性用户ID
+            "user_id_2": male_user["_id"],    # 男性用户ID
             "description_to_user_1": random.choice(MATCH_REASONS),
             "description_to_user_2": random.choice(MATCH_REASONS),
             "is_liked": random.choice([True, False]),
@@ -143,10 +170,10 @@ async def generate_fake_matches(users_data, num_matches=20):
         matches_data.append(match_data)
         
         # 更新用户的match_ids
-        if match_id not in user1.get("match_ids", []):
-            user1.setdefault("match_ids", []).append(match_id)
-        if match_id not in user2.get("match_ids", []):
-            user2.setdefault("match_ids", []).append(match_id)
+        if match_id not in female_user.get("match_ids", []):
+            female_user.setdefault("match_ids", []).append(match_id)
+        if match_id not in male_user.get("match_ids", []):
+            male_user.setdefault("match_ids", []).append(match_id)
     
     try:
         # 清空现有匹配数据（可选）
