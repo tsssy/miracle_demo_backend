@@ -308,8 +308,7 @@ class ChatroomManager:
             
             logger.info(f"SEND MSG STEP 5: Adding message {message.message_id} to chatroom {chatroom_id}")
             
-            # Add message to chatroom memory
-            chatroom.messages.append(message)
+            # Add message ID to chatroom (don't store message instance in memory)
             chatroom.message_ids.append(message.message_id)
             
             logger.info(f"SEND MSG STEP 6: Updating chatroom {chatroom_id} in database")
@@ -338,13 +337,9 @@ class ChatroomManager:
                 if chatroom:
                     success = await chatroom.save_to_database()
                     
-                    # Also save all messages in the chatroom
-                    message_save_count = 0
-                    for message in chatroom.messages:
-                        if await message.save_to_database():
-                            message_save_count += 1
-                    
-                    logger.info(f"Saved chatroom {chatroom_id} and {message_save_count} messages")
+                    # Messages are already saved to database when sent via send_message()
+                    # No need to save them again here since chatroom.messages is empty
+                    logger.info(f"Saved chatroom {chatroom_id} structure to database")
                     return success
                 else:
                     logger.error(f"Chatroom {chatroom_id} not found")
@@ -357,12 +352,10 @@ class ChatroomManager:
                 for chatroom in self.chatrooms.values():
                     if await chatroom.save_to_database():
                         success_count += 1
-                        
-                        # Save all messages in the chatroom
-                        for message in chatroom.messages:
-                            await message.save_to_database()
                 
-                logger.info(f"Saved {success_count}/{total_chatrooms} chatrooms to database")
+                # Messages are already saved to database when sent via send_message()
+                # No need to save them again here since chatroom.messages is empty
+                logger.info(f"Saved {success_count}/{total_chatrooms} chatrooms structure to database")
                 return success_count == total_chatrooms
                 
         except Exception as e:
