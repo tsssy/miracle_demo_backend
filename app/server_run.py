@@ -15,6 +15,7 @@ ROOT_PATH = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT_PATH))
 
 from app.api.v1.api import api_router
+from app.ws import all_ws_routers
 from app.config import settings
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
@@ -307,65 +308,14 @@ async def log_requests_and_responses(request: Request, call_next):
         logger.error(f"🔴 [{request_id}] ====== 请求失败 ======")
         raise
 
-# Websocket测试
-# WebSocket 路由1：回显消息
-@app.websocket("/ws/echo")
-async def websocket_echo(websocket: WebSocket):
-    await websocket.accept()
-    try:
-        while True:
-            # 接收客户端消息
-            data = await websocket.receive_text()
-            logger.info(f"[ECHO] 收到消息: {data}")
-            if data == "bye":
-                # 收到 'bye' 主动断开连接
-                await websocket.close()
-                logger.info(f"[ECHO] 已主动断开连接（收到 bye）")
-                break
-            await websocket.send_text(f"echo: {data}")
-            logger.info(f"[ECHO] 已回显消息: {data}")
-    except WebSocketDisconnect:
-        logger.info(f"[ECHO] 客户端已断开连接")
+# 注册HTTP API路由
+app.include_router(api_router)
+logger.info(f"HTTP API路由已注册")
 
-# WebSocket 路由2：将消息转为大写
-@app.websocket("/ws/upper")
-async def websocket_upper(websocket: WebSocket):
-    await websocket.accept()
-    try:
-        while True:
-            # 接收客户端消息
-            data = await websocket.receive_text()
-            logger.info(f"[UPPER] 收到消息: {data}")
-            if data == "bye":
-                # 收到 'bye' 主动断开连接
-                await websocket.close()
-                logger.info(f"[UPPER] 已主动断开连接（收到 bye）")
-                break
-            upper_data = data.upper()
-            await websocket.send_text(f"upper: {upper_data}")
-            logger.info(f"[UPPER] 已发送大写消息: {upper_data}")
-    except WebSocketDisconnect:
-        logger.info(f"[UPPER] 客户端已断开连接")
-
-# WebSocket 路由3：将消息反转
-@app.websocket("/ws/reverse")
-async def websocket_reverse(websocket: WebSocket):
-    await websocket.accept()
-    try:
-        while True:
-            # 接收客户端消息
-            data = await websocket.receive_text()
-            logger.info(f"[REVERSE] 收到消息: {data}")
-            if data == "bye":
-                # 收到 'bye' 主动断开连接
-                await websocket.close()
-                logger.info(f"[REVERSE] 已主动断开连接（收到 bye）")
-                break
-            reversed_data = data[::-1]
-            await websocket.send_text(f"reverse: {reversed_data}")
-            logger.info(f"[REVERSE] 已发送反转消息: {reversed_data}")
-    except WebSocketDisconnect:
-        logger.info(f"[REVERSE] 客户端已断开连接")
+# 批量注册WebSocket路由
+for ws_router in all_ws_routers:
+    app.include_router(ws_router)
+logger.info(f"WebSocket路由已注册")
 
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
@@ -384,10 +334,6 @@ app.add_middleware(
     allow_methods=["*"],  # 允许所有 HTTP 方法
     allow_headers=["*"],  # 允许所有请求头
 )
-
-# 注册API路由
-app.include_router(api_router, prefix=settings.API_V1_STR)
-logger.info(f"API路由已注册，前缀: {settings.API_V1_STR}")
 
 @app.get("/")
 async def root():

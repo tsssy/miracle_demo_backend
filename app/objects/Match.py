@@ -121,11 +121,11 @@ class Match:
                     {"match_id": self.match_id},
                     {"$set": match_data}
                 )
-                logger.info(f"Updated match {self.match_id} in database")
+                # logger.info(f"Updated match {self.match_id} in database")
             else:
                 # Insert new match
                 await Database.insert_one("matches", match_data)
-                logger.info(f"Saved new match {self.match_id} to database")
+                # logger.info(f"Saved new match {self.match_id} to database")
             
             return True
         except Exception as e:
