@@ -66,6 +66,7 @@ class Message:
     async def save_to_database(self) -> bool:
         """
         保存消息到数据库，使用message_id作为_id主键
+        消息一旦创建不可更新，确保数据完整性
         """
         try:
             message_dict = {
@@ -81,18 +82,14 @@ class Message:
             existing_message = await Database.find_one("messages", {"_id": self.message_id})
             
             if existing_message:
-                # 更新现有消息
-                await Database.update_one(
-                    "messages",
-                    {"_id": self.message_id},
-                    {"$set": {k: v for k, v in message_dict.items() if k != "_id"}}  # 不更新_id字段
-                )
+                # 消息已存在，不允许更新
+                logger.warning(f"Message {self.message_id} already exists in database - skipping save (messages are immutable)")
+                return True  # 返回True因为消息已经存在于数据库中
             else:
                 # 插入新消息
                 await Database.insert_one("messages", message_dict)
-            
-            logger.info(f"Saved message {self.message_id} to database")
-            return True
+                logger.info(f"Saved new message {self.message_id} to database")
+                return True
             
         except Exception as e:
             logger.error(f"Error saving message {self.message_id} to database: {e}")
