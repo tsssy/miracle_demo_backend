@@ -1,7 +1,7 @@
 #Daniel 到此一游
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from contextlib import asynccontextmanager
 import sys
 from pathlib import Path
@@ -14,6 +14,7 @@ ROOT_PATH = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT_PATH))
 
 from app.api.v1.api import api_router
+from app.api.v1.websocket_routes import router as websocket_router
 from app.config import settings
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
@@ -21,6 +22,9 @@ from app.utils.singleton_status import SingletonStatusReporter
 from app.services.https.UserManagement import UserManagement
 from app.services.https.MatchManager import MatchManager
 from app.services.https.ChatroomManager import ChatroomManager
+from app.WebsocketServices.ConnectionHandler import ConnectionHandler
+from app.WebsocketServices.MessageConnectionHandler import MessageConnectionHandler
+from app.WebsocketServices.MatchSessionHandler import MatchSessionHandler
 
 logger = MyLogger("server")
 
@@ -308,10 +312,11 @@ async def log_requests_and_responses(request: Request, call_next):
 
 # 添加 CORS 中间件，只允许特定来源
 cors_origins = [
-    "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
-    "https://cupid-yukio-frontend-test.vercel.app",
-    "http://localhost:5173",  # 本地开发环境前端地址
-    "http://127.0.0.1:5173",  # 本地IP地址
+    "*",
+    # "https://cupid-yukio-frontend.vercel.app",  # 生产环境前端地址
+    # "https://cupid-yukio-frontend-test.vercel.app",
+    # "http://localhost:5173",  # 本地开发环境前端地址
+    # "http://127.0.0.1:5173",  # 本地IP地址
 ]
 
 logger.info(f"CORS允许的域名: {cors_origins}")
@@ -324,14 +329,13 @@ app.add_middleware(
     allow_headers=["*"],  # 允许所有请求头
 )
 
-# 注册API路由
-app.include_router(api_router, prefix=settings.API_V1_STR)
-logger.info(f"API路由已注册，前缀: {settings.API_V1_STR}")
+# 注册HTTP API路由
+app.include_router(api_router)
+logger.info(f"HTTP API路由已注册")
 
-@app.get("/")
-async def root():
-    logger.debug("访问根路径")
-    return {"message": "Welcome to New LoveLush User Service API"}
+# 注册WebSocket路由
+app.include_router(websocket_router)
+logger.info(f"WebSocket路由已注册")
 
 if __name__ == "__main__":
     logger.info(f"启动服务器: {settings.PROJECT_NAME} v{settings.VERSION}")

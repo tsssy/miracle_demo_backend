@@ -2,7 +2,9 @@ from fastapi import HTTPException, status
 from app.config import settings
 from app.core.database import Database
 from app.objects.User import User
+from app.utils.my_logger import MyLogger
 
+logger = MyLogger("User")
 
 class UserManagement:
     """
@@ -118,7 +120,6 @@ class UserManagement:
             # 保存所有内存中的用户
             success_count = 0
             total_users = len(self.user_list)
-            
             for user in self.user_list.values():
                 try:
                     # 使用 user_id 作为 MongoDB 的 _id
@@ -132,10 +133,8 @@ class UserManagement:
                         "match_ids": user.match_ids,
                         "blocked_user_ids": user.blocked_user_ids,
                     }
-
                     # 检查用户是否已在数据库中
                     existing_user_in_db = await Database.find_one("users", {"_id": user.user_id})
-
                     if existing_user_in_db:
                         # 如果存在，则更新。$set 的内容不能包含 _id
                         update_payload = user_dict.copy()
@@ -148,21 +147,18 @@ class UserManagement:
                     else:
                         # 如果不存在，则插入 (包含 _id)
                         await Database.insert_one("users", user_dict)
-                    
                     success_count += 1
-                    
                 except Exception as e:
                     # 记录单个用户保存失败，但继续保存其他用户
-                    print(f"保存用户 {user.user_id} 失败: {e}")
                     continue
-            
+            # 只记录一条日志，显示总共保存了多少个用户
+            logger.info(f"[UserManagement] 本次共保存用户: {success_count}/{total_users}")
             return success_count == total_users
         else:
             # 保存指定的用户
             user = self.user_list.get(user_id)
             if not user:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="要保存的用户在内存中不存在")
-
             # 使用 user_id 作为 MongoDB 的 _id
             user_dict = {
                 "_id": user.user_id,
@@ -174,10 +170,8 @@ class UserManagement:
                 "match_ids": user.match_ids,
                 "blocked_user_ids": user.blocked_user_ids,
             }
-
             # 检查用户是否已在数据库中
             existing_user_in_db = await Database.find_one("users", {"_id": user.user_id})
-
             if existing_user_in_db:
                 # 如果存在，则更新。$set 的内容不能包含 _id
                 update_payload = user_dict.copy()
@@ -190,7 +184,6 @@ class UserManagement:
             else:
                 # 如果不存在，则插入 (包含 _id)
                 await Database.insert_one("users", user_dict)
-
             return True
 
     # 根据id获取用户信息 [API调用]

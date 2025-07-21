@@ -136,7 +136,7 @@ class Database:
         """更新单个文档"""
         try:
             result = await cls.get_collection(collection_name).update_one(query, update)
-            logger.info(f"Modified {result.modified_count} document")
+            # logger.info(f"Modified {result.modified_count} document")
             return result.modified_count
         except Exception as e:
             logger.error(f"Error updating document: {e}")
@@ -149,7 +149,7 @@ class Database:
             result = await cls.get_collection(collection_name).update_many(
                 query, update
             )
-            logger.info(f"Modified {result.modified_count} documents")
+            # logger.info(f"Modified {result.modified_count} documents")
             return result.modified_count
         except Exception as e:
             logger.error(f"Error updating documents: {e}")
