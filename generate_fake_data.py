@@ -155,7 +155,7 @@ async def generate_fake_matches(users_data, num_matches=20):
         match_id = match_id_start + len(matches_data)  # 使用已生成的匹配数量作为索引
         
         match_data = {
-            "match_id": match_id,
+            "_id": match_id,  # 使用match_id作为MongoDB的_id主键
             "user_id_1": female_user["_id"],  # 女性用户ID
             "user_id_2": male_user["_id"],    # 男性用户ID
             "description_to_user_1": random.choice(MATCH_REASONS),

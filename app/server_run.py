@@ -106,7 +106,7 @@ async def lifespan(app: FastAPI):
         # 初始化MatchManager缓存
         logger.info("正在初始化MatchManager缓存...")
         match_manager = MatchManager()
-        await match_manager.load_from_database()
+        await match_manager.construct()
         logger.info("MatchManager缓存初始化完成")
         
         # 初始化ChatroomManager缓存

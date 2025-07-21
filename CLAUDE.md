@@ -54,7 +54,7 @@ tail -f logs/app.log
 
 **Layered Architecture**: Clear separation between API layer, service layer, and data layer.
 
-**Singleton Services**: `UserManagement` and `MatchManager` classes use singleton pattern for state management with in-memory storage.
+**Singleton Services**: `UserManagement`, `MatchManager`, and `ChatroomManager` classes use singleton pattern for state management with in-memory storage and database persistence.
 
 **Database Abstraction**: Custom `Database` class in `app/core/database.py` provides async MongoDB operations with automatic ObjectId to string conversion.
 
@@ -75,14 +75,19 @@ MONGODB_AUTH_SOURCE=admin
 - `users` - User profiles and data
 - `telegram_sessions` - Telegram integration data  
 - `Question` - User-generated questions
-- `chatrooms` - Chat room data with user pairs and message references
-- `messages` - Individual messages with chatroom assignment
-- `matches` - User matching data with optional chatroom references
+- `matches` - Match records between users
+- `chatrooms` - Chatroom data with participant information
+- `messages` - Message records with chatroom association
 
-### Important: Database ID Handling
-- Users have custom `_id` values (user_id as document ID)
+### Important: Database ID Handling and Performance Optimization
+- **All entities use MongoDB `_id` field as primary key for O(log n) query performance**
+- Users: `_id` stores user_id (telegram_id)
+- Matches: `_id` stores match_id 
+- Chatrooms: `_id` stores chatroom_id
+- Messages: `_id` stores message_id
 - All ObjectId fields are automatically converted to strings in responses
-- MongoDB operations should use ObjectId for querying existing records
+- Database-driven counter initialization prevents ID conflicts on server restart
+- Query operations use `_id` field for optimal indexing performance
 
 ## CORS Configuration
 
@@ -116,10 +121,24 @@ All endpoints are prefixed with `/api/v1/users/`:
 ## Business Logic Notes
 
 ### User Management Service
-- In-memory user storage with MongoDB persistence
+- In-memory user storage with MongoDB persistence using `_id` primary key
 - Gender-based user categorization (male/female lists)
 - Telegram ID integration for user identification
 - Question parsing from telegram session `final_string` field
+- Database-driven initialization from existing user records
+
+### Match Management Service
+- Singleton pattern with O(log n) database queries using `_id` indexing
+- Database-driven counter initialization prevents match ID conflicts
+- Comprehensive match loading from database on service startup
+- Integration with UserManagement for bidirectional match tracking
+- Match scoring and like status management
+
+### Chatroom Management Service  
+- Database-driven counter initialization for both chatrooms and messages
+- O(log n) query performance using `_id` primary key structure
+- Automatic message and chatroom data loading on service initialization
+- Message insurance mechanism with chatroom validation
 
 ### Message System & Chatroom Management
 - **Message Insurance Mechanism**: Each message is assigned to exactly one chatroom via `chatroom_id`
@@ -144,18 +163,20 @@ All endpoints are prefixed with `/api/v1/users/`:
 ## Development Status
 
 **Completed**: 
-- User management API with MongoDB integration
+- User management API with MongoDB integration using `_id` primary keys
 - Comprehensive logging system with unique request IDs
 - JWT framework and CORS configuration
 - Message system with chatroom assignment and insurance mechanisms
 - WebSocket-based real-time messaging with private chat support
 - Chatroom management with automatic creation from matches
 - Data integrity validation for message-chatroom relationships
+- **Performance optimization**: All entities migrated to use MongoDB `_id` field for O(log n) query performance
+- **Service initialization**: Database-driven counter initialization prevents ID conflicts on server restart
 
 **Active Development**: 
-- Matching system (`MatchManager` class) - partially implemented
-- User matching algorithms and scoring
-- Match-based chatroom initialization
+- Advanced matching algorithms and scoring refinements
+- Enhanced WebSocket connection management
+- Real-time notifications and presence detection
 
 **Skeleton/Placeholder**: 
 - Advanced matching features and algorithms

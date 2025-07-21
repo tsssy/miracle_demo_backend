@@ -21,7 +21,71 @@ class MatchManager:
             logger.info("MatchManager singleton instance created")
         return cls._instance
 
-    def create_match(self, user_id_1: int, user_id_2: int, reason_1: str, reason_2: str, match_score: int) -> Match:
+    async def construct(self) -> bool:
+        """
+        Initialize MatchManager by initializing match counter and loading matches from database
+        """
+        try:
+            # Initialize Match counter from database
+            logger.info("MatchManager construct: Initializing Match counter...")
+            await Match.initialize_counter()
+            
+            # Load existing matches from database
+            logger.info("MatchManager construct: Loading matches from database...")
+            matches_data = await Database.find("matches")
+            logger.info(f"MatchManager construct: Found {len(matches_data)} matches in database")
+            
+            loaded_count = 0
+            for match_data in matches_data:
+                try:
+                    match_id = match_data["_id"]  # match_id现在存储在_id字段中
+                    user_id_1 = match_data["user_id_1"]
+                    user_id_2 = match_data["user_id_2"]
+                    
+                    logger.info(f"MatchManager construct: Processing match {match_id} (users: {user_id_1}, {user_id_2})")
+                    
+                    # 创建Match实例但使用现有ID
+                    # 先临时禁用初始化检查
+                    Match._initialized = True
+                    original_counter = Match._match_counter
+                    
+                    # 创建Match实例
+                    match = Match(
+                        telegram_user_session_id_1=user_id_1,
+                        telegram_user_session_id_2=user_id_2,
+                        reason_to_id_1=match_data.get("description_to_user_1", ""),
+                        reason_to_id_2=match_data.get("description_to_user_2", ""),
+                        match_score=match_data.get("match_score", 0)
+                    )
+                    
+                    # 恢复原始计数器并设置正确的match_id
+                    Match._match_counter = original_counter
+                    match.match_id = match_id
+                    
+                    # 设置其他属性
+                    match.is_liked = match_data.get("is_liked", False)
+                    match.mutual_game_scores = match_data.get("mutual_game_scores", {})
+                    match.chatroom_id = match_data.get("chatroom_id")
+                    
+                    # 存储到内存
+                    self.match_list[match_id] = match
+                    loaded_count += 1
+                    
+                    logger.info(f"MatchManager construct: Successfully loaded match {match_id}")
+                    
+                except Exception as e:
+                    logger.error(f"MatchManager construct: Error loading match from database: {e}")
+                    continue
+            
+            logger.info(f"MatchManager construct: Loaded {loaded_count} matches from database")
+            logger.info(f"MatchManager construct completed successfully")
+            return True
+            
+        except Exception as e:
+            logger.error(f"MatchManager construct: Error constructing MatchManager: {e}")
+            return False
+
+    async def create_match(self, user_id_1: int, user_id_2: int, reason_1: str, reason_2: str, match_score: int) -> Match:
         """
         创建新的匹配
         """

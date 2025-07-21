@@ -29,6 +29,13 @@ class ChatroomManager:
         Initialize ChatroomManager by loading data from database
         """
         try:
+            # Initialize counters from database first
+            logger.info("ChatroomManager construct: Initializing counters...")
+            from app.objects.Message import Message
+            from app.objects.Chatroom import Chatroom
+            await Message.initialize_counter()
+            await Chatroom.initialize_counter()
+            
             # Load existing chatrooms from database
             logger.info("ChatroomManager construct: Querying chatrooms from database...")
             chatrooms_data = await Database.find("chatrooms")
@@ -37,7 +44,7 @@ class ChatroomManager:
             
             for chatroom_data in chatrooms_data:
                 try:
-                    chatroom_id = chatroom_data["chatroom_id"]
+                    chatroom_id = chatroom_data["_id"]  # chatroom_id现在存储在_id字段中
                     user1_id = chatroom_data["user1_id"]
                     user2_id = chatroom_data["user2_id"]
                     
@@ -199,11 +206,12 @@ class ChatroomManager:
             
             logger.info(f"STEP 2.2: Found {len(message_ids)} message_ids for chatroom {chatroom_id}")
             
-            # Load messages from database by ID
+            # Load messages from database by ID (using _id for O(log n) lookup)
             messages = []
             for message_id in message_ids:
                 try:
-                    message_data = await Database.find_one("messages", {"message_id": message_id})
+                    # 使用_id字段查询，获得O(log n)的查询性能
+                    message_data = await Database.find_one("messages", {"_id": message_id})
                     
                     if message_data:
                         # Get sender user instance for sender name
