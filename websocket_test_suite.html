@@ -22,10 +22,22 @@
     <h1>WebSocket Test Suite</h1>
     <p>Test the three WebSocket handlers: Base, Message, and Match</p>
     
+    <div style="margin-bottom: 20px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; color: #856404;">
+        <h4 style="margin-top: 0;">⚠️ 重要说明 - User Authentication Required</h4>
+        <p><strong>只有数据库中存在的用户才能连接到WebSocket聊天室</strong></p>
+        <ul>
+            <li>WebSocket连接需要使用数据库中已存在的user_id</li>
+            <li>如果使用不存在的user_id，认证将失败并断开连接</li>
+            <li>要创建测试用户，请先运行: <code>python test_api.py</code> 或使用HTTP API创建用户</li>
+            <li>示例有效用户ID: 1000000, 1000001, 1000002 等 (已存在于数据库中)</li>
+            <li>检查所有可用用户ID: <code>python check_user_cache.py</code></li>
+        </ul>
+    </div>
+    
     <div style="margin-bottom: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px;">
         <label for="customUserId"><strong>Custom User ID:</strong></label>
-        <input type="text" id="customUserId" placeholder="Enter your user ID (optional)" style="padding: 5px; margin-left: 10px; width: 200px;">
-        <small style="margin-left: 10px; color: #666;">Leave blank to use auto-generated ID</small>
+        <input type="text" id="customUserId" placeholder="Enter valid user ID (must exist in database)" style="padding: 5px; margin-left: 10px; width: 250px;">
+        <small style="margin-left: 10px; color: #666;">必须是数据库中已存在的用户ID</small>
     </div>
 
     <div class="test-section test-base">
@@ -103,7 +115,11 @@
 
         function getUserId(prefix) {
             const customId = document.getElementById('customUserId').value.trim();
-            return customId || `${prefix}_${Date.now()}`;
+            if (!customId) {
+                alert('请输入有效的用户ID！\nPlease enter a valid user ID that exists in the database.');
+                return null;
+            }
+            return customId;
         }
 
         function testBase() {
@@ -173,8 +189,14 @@
                 log('✅ Connected to /ws/message');
                 logMessage('✅ Connected to message WebSocket');
                 
+                const userId = getUserId("test_user_message");
+                if (!userId) {
+                    messageWs.close();
+                    return;
+                }
+                
                 const authMessage = {
-                    user_id: getUserId("test_user_message")
+                    user_id: userId
                 };
                 log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
                 logMessage('🔐 Authenticating as: ' + authMessage.user_id);
@@ -196,6 +218,7 @@
                     logMessage(`👋 User left: ${data.user_id}`);
                 } else if (data.status === 'authenticated') {
                     logMessage(`✅ Authenticated as: ${data.user_id}`);
+                    log(`✅ Authentication successful for user: ${data.user_id}`);
                     // Auto-send a test broadcast after authentication
                     setTimeout(() => {
                         const broadcastMessage = {
@@ -206,10 +229,12 @@
                         log('📤 Sending auto broadcast: ' + JSON.stringify(broadcastMessage));
                         messageWs.send(JSON.stringify(broadcastMessage));
                     }, 1000);
-                } else if (data.type === 'message_status') {
-                    logMessage(`📋 Message status - delivered: ${data.delivered}, target: ${data.target_user_id}`);
                 } else if (data.error) {
                     logMessage(`❌ Error: ${data.error}`);
+                    log('❌ Authentication failed: ' + data.error);
+                    alert('认证失败：' + data.error + '\n请确保输入的用户ID在数据库中存在。');
+                } else if (data.type === 'message_status') {
+                    logMessage(`📋 Message status - delivered: ${data.delivered}, target: ${data.target_user_id}`);
                 } else {
                     logMessage(`📨 Raw message: ${JSON.stringify(data)}`);
                 }

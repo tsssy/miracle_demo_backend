@@ -1,6 +1,7 @@
 import json
 import logging
 from fastapi import WebSocket
+from app.services.https.UserManagement import UserManagement
 
 
 class ConnectionHandler:
@@ -95,13 +96,38 @@ class ConnectionHandler:
 
     async def _authenticate(self, auth_data: dict) -> bool:
         """
-        认证逻辑，子类可以重写
+        认证逻辑，检查用户是否在UserManagement缓存中存在
         """
         if "user_id" not in auth_data:
+            logging.warning("Authentication failed: no user_id provided")
             return False
         
-        self.user_id = str(auth_data["user_id"])
-        return True
+        user_id_input = auth_data["user_id"]
+        
+        # 获取UserManagement实例并检查用户是否存在
+        try:
+            user_manager = UserManagement()
+            
+            # 尝试转换为整数类型，因为缓存中的user_id是int类型
+            try:
+                user_id_int = int(user_id_input)
+                user_instance = user_manager.get_user_instance(user_id_int)
+            except (ValueError, TypeError):
+                # 如果无法转换为整数，尝试直接使用原值
+                user_instance = user_manager.get_user_instance(user_id_input)
+            
+            if user_instance is None:
+                logging.warning(f"Authentication failed: user_id '{user_id_input}' not found in UserManagement cache")
+                return False
+            
+            # 保存用户ID为字符串格式（用于WebSocket会话管理）
+            self.user_id = str(user_id_input)
+            logging.info(f"Authentication successful for user_id: {user_id_input} (found as {user_id_int if 'user_id_int' in locals() else user_id_input})")
+            return True
+            
+        except Exception as e:
+            logging.error(f"Authentication error for user_id '{user_id_input}': {e}")
+            return False
 
     async def on_connect(self):
         """
