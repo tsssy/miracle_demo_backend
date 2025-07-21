@@ -5,7 +5,7 @@ const ws = new WebSocket('ws://localhost:8000/ws/echo');
 ws.onopen = function() {
     console.log('已连接到 /ws/echo');
     // 发送测试消息
-    ws.send('你好 echo!');
+    ws.send('bye');
 };
 
 // 接收到消息时
