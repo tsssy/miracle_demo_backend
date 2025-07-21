@@ -5,3 +5,4 @@ motor
 pymongo
 pydantic
 python-jose 
+websockets>=10.0

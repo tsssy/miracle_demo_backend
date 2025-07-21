@@ -342,7 +342,7 @@ if __name__ == "__main__":
         "port": 8000,
         "reload": False,
         "workers": 1,
-        "ws": "none"  # Disable WebSocket support
+        # "ws": "none"  # Disable WebSocket support
     }
     
     try:
