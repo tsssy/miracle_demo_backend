@@ -1,5 +1,6 @@
 from app.config import settings
 from app.objects.Chatroom import Chatroom
+from app.objects.Message import Message
 from app.services.https.MatchManager import MatchManager
 from app.services.https.UserManagement import UserManagement
 from app.core.database import Database
@@ -60,7 +61,7 @@ class ChatroomManager:
                         
                         self.chatrooms[chatroom_id] = chatroom
                         loaded_count += 1
-                        logger.info(f"ChatroomManager construct: Successfully loaded chatroom {chatroom_id}")
+                        logger.info(f"ChatroomManager construct: Successfully loaded chatroom {chatroom_id} with {len(chatroom.message_ids)} message_ids")
                     else:
                         logger.warning(f"ChatroomManager construct: Cannot load chatroom {chatroom_id}: users {user1_id} (found: {user1 is not None}) or {user2_id} (found: {user2 is not None}) not found")
                         
@@ -163,7 +164,7 @@ class ChatroomManager:
             logger.error(f"STEP 1 FAILED: Error getting or creating chatroom for match {match_id}: {e}")
             return None
 
-    def get_chatroom_history(self, chatroom_id, user_id) -> List[Tuple[str, str, int, str]]:
+    async def get_chatroom_history(self, chatroom_id, user_id) -> List[Tuple[str, str, int, str]]:
         """
         Get chat history for a chatroom, replacing user's own name with "I"
         Returns list of (message, datetime, sender_id, sender_name)
@@ -188,10 +189,46 @@ class ChatroomManager:
                     logger.error(f"  - ID: {cid} (type: {type(cid)}), Users: {room.user1.user_id if room.user1 else 'None'}, {room.user2.user_id if room.user2 else 'None'}")
                 return []
             
-            logger.info(f"STEP 2.2: Getting messages from chatroom {chatroom_id}")
-            # Get messages from chatroom
-            messages = chatroom.get_messages()
-            logger.info(f"STEP 2.2: Found {len(messages)} messages in chatroom")
+            logger.info(f"STEP 2.2: Loading messages from database for chatroom {chatroom_id}")
+            
+            # Load messages on-demand from database using message_ids
+            message_ids = chatroom.message_ids
+            if not message_ids:
+                logger.info(f"STEP 2.2: No message_ids found for chatroom {chatroom_id}")
+                return []
+            
+            logger.info(f"STEP 2.2: Found {len(message_ids)} message_ids for chatroom {chatroom_id}")
+            
+            # Load messages from database by ID
+            messages = []
+            for message_id in message_ids:
+                try:
+                    message_data = await Database.find_one("messages", {"message_id": message_id})
+                    
+                    if message_data:
+                        # Get sender user instance for sender name
+                        user_manager = UserManagement()
+                        sender_user = user_manager.get_user_instance(message_data["message_sender_id"])
+                        sender_name = sender_user.telegram_user_name if sender_user else f"User{message_data['message_sender_id']}"
+                        
+                        # Create message tuple: (message_content, datetime_utc, sender_id, sender_name)
+                        message_tuple = (
+                            message_data["message_content"],
+                            message_data["message_send_time_in_utc"],
+                            message_data["message_sender_id"],
+                            sender_name
+                        )
+                        messages.append(message_tuple)
+                        
+                        logger.debug(f"STEP 2.2: Loaded message {message_id}")
+                    else:
+                        logger.warning(f"STEP 2.2: Message {message_id} not found in database")
+                        
+                except Exception as e:
+                    logger.error(f"STEP 2.2: Error loading message {message_id}: {e}")
+                    continue
+            
+            logger.info(f"STEP 2.2: Successfully loaded {len(messages)} messages from database")
             
             logger.info(f"STEP 2.3: Transforming messages for user {user_id}")
             # Transform messages for the requesting user
@@ -213,6 +250,81 @@ class ChatroomManager:
         except Exception as e:
             logger.error(f"STEP 2 FAILED: Error getting chat history for chatroom {chatroom_id}: {e}")
             return []
+
+    async def send_message(self, chatroom_id, sender_user_id, message_content) -> bool:
+        """
+        Send a message in the specified chatroom
+        Creates Message instance, stores in chatroom, and saves to database
+        """
+        try:
+            # 统一转换为int类型
+            chatroom_id = int(chatroom_id)
+            sender_user_id = int(sender_user_id)
+            
+            logger.info(f"SEND MSG STEP 1: Sending message in chatroom {chatroom_id} from user {sender_user_id}")
+            
+            # Get chatroom from memory
+            chatroom = self.chatrooms.get(chatroom_id)
+            if not chatroom:
+                logger.error(f"SEND MSG STEP 1 FAILED: Chatroom {chatroom_id} not found in memory")
+                return False
+            
+            logger.info(f"SEND MSG STEP 2: Getting sender user instance for user {sender_user_id}")
+            
+            # Get sender user instance
+            user_manager = UserManagement()
+            sender_user = user_manager.get_user_instance(sender_user_id)
+            if not sender_user:
+                logger.error(f"SEND MSG STEP 2 FAILED: Sender user {sender_user_id} not found")
+                return False
+            
+            # Determine receiver user (the other user in the chatroom)
+            if sender_user_id == chatroom.user1_id:
+                receiver_user = chatroom.user2
+                receiver_user_id = chatroom.user2_id
+            elif sender_user_id == chatroom.user2_id:
+                receiver_user = chatroom.user1
+                receiver_user_id = chatroom.user1_id
+            else:
+                logger.error(f"SEND MSG STEP 2 FAILED: User {sender_user_id} not authorized for chatroom {chatroom_id}")
+                return False
+            
+            if not receiver_user:
+                logger.error(f"SEND MSG STEP 2 FAILED: Receiver user {receiver_user_id} not found")
+                return False
+            
+            logger.info(f"SEND MSG STEP 3: Creating message from {sender_user_id} to {receiver_user_id}")
+            
+            # Create Message instance
+            message = Message(sender_user, receiver_user, message_content)
+            
+            logger.info(f"SEND MSG STEP 4: Saving message {message.message_id} to database")
+            
+            # Save message to database first
+            save_success = await message.save_to_database()
+            if not save_success:
+                logger.error(f"SEND MSG STEP 4 FAILED: Could not save message {message.message_id} to database")
+                return False
+            
+            logger.info(f"SEND MSG STEP 5: Adding message {message.message_id} to chatroom {chatroom_id}")
+            
+            # Add message to chatroom memory
+            chatroom.messages.append(message)
+            chatroom.message_ids.append(message.message_id)
+            
+            logger.info(f"SEND MSG STEP 6: Updating chatroom {chatroom_id} in database")
+            
+            # Save updated chatroom to database (to update message_ids)
+            chatroom_save_success = await chatroom.save_to_database()
+            if not chatroom_save_success:
+                logger.warning(f"SEND MSG STEP 6 WARNING: Could not update chatroom {chatroom_id} in database, but message was saved")
+            
+            logger.info(f"SEND MSG SUCCESS: Message {message.message_id} sent successfully in chatroom {chatroom_id}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"SEND MSG FAILED: Error sending message in chatroom {chatroom_id}: {e}")
+            return False
 
     async def save_chatroom_history(self, chatroom_id: Optional[int] = None) -> bool:
         """

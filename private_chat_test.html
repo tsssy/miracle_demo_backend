@@ -1006,8 +1006,8 @@
                 return;
             }
             
-            if (!targetUserId) {
-                alert('请先启动私信流程');
+            if (!currentChatroom) {
+                alert('请先启动私信流程并获取聊天室ID');
                 return;
             }
             
@@ -1015,6 +1015,7 @@
             const messageData = {
                 type: 'private',
                 target_user_id: targetUserId.toString(),
+                chatroom_id: currentChatroom,  // 添加必需的chatroom_id参数
                 content: message,
                 timestamp: new Date().toISOString()
             };

@@ -25,49 +25,11 @@ class MessageConnectionHandler(ConnectionHandler):
             
         elif message_type == "private":
             # 私聊消息
-            target_user_id = message.get("target_user_id")
-            content = message.get("content", "")
-            
-            if not target_user_id:
-                await self.websocket.send_text(json.dumps({
-                    "error": "target_user_id is required for private messages"
-                }))
-                return
-            
-            # 统一转换为int类型
-            try:
-                target_user_id = int(target_user_id)
-            except (ValueError, TypeError) as e:
-                await self.websocket.send_text(json.dumps({
-                    "error": f"Invalid target_user_id format: {str(e)}"
-                }))
-                return
-            
-            # 发送私聊消息
-            success = await self.send_to_user(str(target_user_id), json.dumps({
-                "type": "private_message",
-                "from": int(self.user_id),
-                "content": content,
-                "timestamp": message.get("timestamp")
-            }))
-            
-            # 给发送者确认
-            await self.websocket.send_text(json.dumps({
-                "type": "message_status",
-                "target_user_id": target_user_id,
-                "delivered": success,
-                "content": content
-            }))
+            await self.handle_private_message(message)
             
         elif message_type == "broadcast":
             # 广播消息
-            content = message.get("content", "")
-            await self.broadcast(json.dumps({
-                "type": "broadcast_message",
-                "from": self.user_id,
-                "content": content,
-                "timestamp": message.get("timestamp")
-            }), exclude_id=self.user_id)
+            await self.handle_broadcast_message(message)
             
         else:
             await self.websocket.send_text(json.dumps({
@@ -142,7 +104,7 @@ class MessageConnectionHandler(ConnectionHandler):
                 "message": f"正在获取聊天历史记录... (chatroom_id: {chatroom_id})"
             }))
             
-            chat_history = chatroom_manager.get_chatroom_history(chatroom_id, current_user_id)
+            chat_history = await chatroom_manager.get_chatroom_history(chatroom_id, current_user_id)
             
             # 步骤2完成通知
             await self.websocket.send_text(json.dumps({
@@ -170,6 +132,128 @@ class MessageConnectionHandler(ConnectionHandler):
             await self.websocket.send_text(json.dumps({
                 "type": "private_chat_error",
                 "error": f"Private chat initialization failed: {str(e)}"
+            }))
+
+    async def handle_private_message(self, message: dict):
+        """
+        处理私聊消息
+        创建Message实例并保存到chatroom和数据库
+        """
+        try:
+            target_user_id = message.get("target_user_id")
+            chatroom_id = message.get("chatroom_id")
+            content = message.get("content", "")
+            
+            if not target_user_id:
+                await self.websocket.send_text(json.dumps({
+                    "error": "target_user_id is required for private messages"
+                }))
+                return
+            
+            if not chatroom_id:
+                await self.websocket.send_text(json.dumps({
+                    "error": "chatroom_id is required for private messages"
+                }))
+                return
+            
+            # 统一转换为int类型
+            try:
+                current_user_id = int(self.user_id)
+                target_user_id = int(target_user_id)
+                chatroom_id = int(chatroom_id)
+            except (ValueError, TypeError) as e:
+                await self.websocket.send_text(json.dumps({
+                    "error": f"Invalid ID format: {str(e)}"
+                }))
+                return
+            
+            logger.info(f"私聊消息 - 用户 {current_user_id} 向用户 {target_user_id} 在聊天室 {chatroom_id} 中发送消息")
+            
+            # 使用ChatroomManager发送消息，创建Message实例并保存到chatroom和数据库
+            chatroom_manager = ChatroomManager()
+            success = await chatroom_manager.send_message(
+                chatroom_id, current_user_id, content
+            )
+            
+            if success:
+                # 通过WebSocket发送消息给目标用户
+                websocket_success = await self.send_to_user(str(target_user_id), json.dumps({
+                    "type": "private_message",
+                    "from": current_user_id,
+                    "content": content,
+                    "chatroom_id": chatroom_id,
+                    "timestamp": message.get("timestamp")
+                }))
+                
+                # 给发送者确认
+                await self.websocket.send_text(json.dumps({
+                    "type": "message_status",
+                    "target_user_id": target_user_id,
+                    "chatroom_id": chatroom_id,
+                    "delivered": websocket_success,
+                    "saved_to_database": success,
+                    "content": content
+                }))
+                
+                logger.info(f"私聊消息处理完成 - 数据库保存: {success}, WebSocket发送: {websocket_success}")
+            else:
+                # 发送失败
+                await self.websocket.send_text(json.dumps({
+                    "type": "message_status",
+                    "target_user_id": target_user_id,
+                    "chatroom_id": chatroom_id,
+                    "delivered": False,
+                    "saved_to_database": False,
+                    "content": content,
+                    "error": "Failed to save message to database"
+                }))
+                logger.error(f"私聊消息失败 - 无法保存到数据库")
+                
+        except Exception as e:
+            logger.error(f"处理私聊消息失败: {e}")
+            await self.websocket.send_text(json.dumps({
+                "type": "message_status",
+                "error": f"Private message handling failed: {str(e)}"
+            }))
+
+    async def handle_broadcast_message(self, message: dict):
+        """
+        处理广播消息
+        """
+        try:
+            content = message.get("content", "")
+            
+            if not content.strip():
+                await self.websocket.send_text(json.dumps({
+                    "error": "message content cannot be empty"
+                }))
+                return
+            
+            logger.info(f"广播消息 - 用户 {self.user_id} 发送广播消息")
+            
+            # 发送广播消息
+            await self.broadcast(json.dumps({
+                "type": "broadcast_message",
+                "from": self.user_id,
+                "content": content,
+                "timestamp": message.get("timestamp")
+            }), exclude_id=self.user_id)
+            
+            # 给发送者确认
+            await self.websocket.send_text(json.dumps({
+                "type": "broadcast_status",
+                "content": content,
+                "delivered": True,
+                "message": "广播消息发送成功"
+            }))
+            
+            logger.info(f"广播消息处理完成 - 用户 {self.user_id}")
+            
+        except Exception as e:
+            logger.error(f"处理广播消息失败: {e}")
+            await self.websocket.send_text(json.dumps({
+                "type": "broadcast_status",
+                "error": f"Broadcast message handling failed: {str(e)}"
             }))
 
     async def on_connect(self):
