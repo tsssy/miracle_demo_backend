@@ -21,6 +21,12 @@
 <body>
     <h1>WebSocket Test Suite</h1>
     <p>Test the three WebSocket handlers: Base, Message, and Match</p>
+    
+    <div style="margin-bottom: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px;">
+        <label for="customUserId"><strong>Custom User ID:</strong></label>
+        <input type="text" id="customUserId" placeholder="Enter your user ID (optional)" style="padding: 5px; margin-left: 10px; width: 200px;">
+        <small style="margin-left: 10px; color: #666;">Leave blank to use auto-generated ID</small>
+    </div>
 
     <div class="test-section test-base">
         <h3>Base Handler Test (/ws/base)</h3>
@@ -34,6 +40,23 @@
         <p>Private messaging and broadcast functionality</p>
         <button class="test-button" onclick="testMessage()">Test Message Handler</button>
         <button class="stop-button" onclick="stopMessage()">Stop Message Test</button>
+        
+        <div style="margin-top: 15px;">
+            <h4>Send Custom Message:</h4>
+            <input type="text" id="messageContent" placeholder="Enter message content" style="padding: 5px; width: 200px; margin-right: 10px;">
+            <select id="messageType" style="padding: 5px; margin-right: 10px;">
+                <option value="broadcast">Broadcast</option>
+                <option value="private">Private</option>
+            </select>
+            <input type="text" id="targetUserId" placeholder="Target user ID (for private)" style="padding: 5px; width: 150px; margin-right: 10px;">
+            <button class="test-button" onclick="sendCustomMessage()">Send Message</button>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <h4>Received Messages:</h4>
+            <div id="messageDisplay" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 10px; height: 200px; overflow-y: auto; font-family: monospace; white-space: pre-wrap;"></div>
+            <button class="clear-button" onclick="clearMessages()" style="margin-top: 5px;">Clear Messages</button>
+        </div>
     </div>
 
     <div class="test-section test-match">
@@ -63,8 +86,24 @@
             console.scrollTop = console.scrollHeight;
         }
 
+        function logMessage(message) {
+            const messageDisplay = document.getElementById('messageDisplay');
+            const timestamp = new Date().toLocaleTimeString();
+            messageDisplay.textContent += `[${timestamp}] ${message}\n`;
+            messageDisplay.scrollTop = messageDisplay.scrollHeight;
+        }
+
         function clearConsole() {
             document.getElementById('console').textContent = '';
+        }
+
+        function clearMessages() {
+            document.getElementById('messageDisplay').textContent = '';
+        }
+
+        function getUserId(prefix) {
+            const customId = document.getElementById('customUserId').value.trim();
+            return customId || `${prefix}_${Date.now()}`;
         }
 
         function testBase() {
@@ -132,11 +171,13 @@
 
             messageWs.onopen = function() {
                 log('✅ Connected to /ws/message');
+                logMessage('✅ Connected to message WebSocket');
                 
                 const authMessage = {
-                    user_id: "test_user_message_" + Date.now()
+                    user_id: getUserId("test_user_message")
                 };
                 log('🔐 Sending authentication: ' + JSON.stringify(authMessage));
+                logMessage('🔐 Authenticating as: ' + authMessage.user_id);
                 messageWs.send(JSON.stringify(authMessage));
             };
 
@@ -144,39 +185,85 @@
                 const data = JSON.parse(event.data);
                 log('📨 Message received: ' + JSON.stringify(data));
                 
-                if (data.status === 'authenticated') {
+                // Display message in the message display area
+                if (data.type === 'broadcast_message') {
+                    logMessage(`📢 BROADCAST from ${data.from}: ${data.content}`);
+                } else if (data.type === 'private_message') {
+                    logMessage(`💬 PRIVATE from ${data.from}: ${data.content}`);
+                } else if (data.type === 'user_joined') {
+                    logMessage(`👋 User joined: ${data.user_id}`);
+                } else if (data.type === 'user_left') {
+                    logMessage(`👋 User left: ${data.user_id}`);
+                } else if (data.status === 'authenticated') {
+                    logMessage(`✅ Authenticated as: ${data.user_id}`);
+                    // Auto-send a test broadcast after authentication
                     setTimeout(() => {
                         const broadcastMessage = {
                             type: "broadcast",
                             content: "Hello everyone from message test!",
                             timestamp: new Date().toISOString()
                         };
-                        log('📤 Sending broadcast: ' + JSON.stringify(broadcastMessage));
+                        log('📤 Sending auto broadcast: ' + JSON.stringify(broadcastMessage));
                         messageWs.send(JSON.stringify(broadcastMessage));
                     }, 1000);
-                    
-                    setTimeout(() => {
-                        const privateMessage = {
-                            type: "private",
-                            target_user_id: "another_user",
-                            content: "This is a private message",
-                            timestamp: new Date().toISOString()
-                        };
-                        log('📤 Sending private message: ' + JSON.stringify(privateMessage));
-                        messageWs.send(JSON.stringify(privateMessage));
-                    }, 3000);
+                } else if (data.type === 'message_status') {
+                    logMessage(`📋 Message status - delivered: ${data.delivered}, target: ${data.target_user_id}`);
+                } else if (data.error) {
+                    logMessage(`❌ Error: ${data.error}`);
+                } else {
+                    logMessage(`📨 Raw message: ${JSON.stringify(data)}`);
                 }
             };
 
             messageWs.onclose = function() {
                 log('❌ /ws/message connection closed');
+                logMessage('❌ Connection closed');
                 messageWs = null;
             };
 
             messageWs.onerror = function(error) {
                 log('⚠️ /ws/message error: ' + error);
+                logMessage('⚠️ Connection error: ' + error);
                 messageWs = null;
             };
+        }
+
+        function sendCustomMessage() {
+            if (!messageWs) {
+                alert('Please connect to message WebSocket first!');
+                return;
+            }
+
+            const content = document.getElementById('messageContent').value.trim();
+            const messageType = document.getElementById('messageType').value;
+            const targetUserId = document.getElementById('targetUserId').value.trim();
+
+            if (!content) {
+                alert('Please enter message content!');
+                return;
+            }
+
+            const message = {
+                type: messageType,
+                content: content,
+                timestamp: new Date().toISOString()
+            };
+
+            if (messageType === 'private') {
+                if (!targetUserId) {
+                    alert('Please enter target user ID for private message!');
+                    return;
+                }
+                message.target_user_id = targetUserId;
+            }
+
+            log('📤 Sending custom message: ' + JSON.stringify(message));
+            logMessage(`📤 Sending ${messageType} message: ${content}${messageType === 'private' ? ` (to: ${targetUserId})` : ''}`);
+            messageWs.send(JSON.stringify(message));
+
+            // Clear the input fields
+            document.getElementById('messageContent').value = '';
+            document.getElementById('targetUserId').value = '';
         }
 
         function stopMessage() {
