@@ -4,4 +4,6 @@ python-dotenv
 motor
 pymongo
 pydantic
-python-jose 
+python-jose
+aiohttp 
+httpx
