@@ -23,6 +23,9 @@ python app/server_run.py
 
 # Alternative using uvicorn directly
 uvicorn app.server_run:app --host 0.0.0.0 --port 8000
+
+# Production server runs on port 4433
+# Base URL: https://lovetapoversea.xyz:4433
 ```
 
 ### Testing
@@ -44,10 +47,13 @@ tail -f logs/app.log
 
 ### Directory Structure
 - `app/api/v1/` - API endpoints and route definitions
+- `app/WebSocketsService/` - WebSocket handlers (ConnectionHandler, MessageConnectionHandler, MatchSessionHandler)
+- `app/ws/` - WebSocket routers (base, message, match)
 - `app/core/` - Core components (database, security)
-- `app/services/` - Business logic layer with singleton patterns
+- `app/services/https/` - Business logic layer with singleton patterns
 - `app/schemas/` - Pydantic models for request/response validation
-- `app/utils/` - Utility modules (logging, etc.)
+- `app/objects/` - Data model classes (User, Match, Message, Chatroom)
+- `app/utils/` - Utility modules (logging, singleton status)
 - `logs/` - Application log files
 
 ### Key Architectural Patterns
@@ -104,19 +110,52 @@ CORS_EXTRA_ORIGINS=https://domain1.com,https://domain2.com
 
 ### Default Allowed Origins
 - `https://cupid-yukio-frontend.vercel.app` (production)
+- `https://cupid-yukio-frontend-test.vercel.app` (test environment)
 - `http://localhost:5173` (local development)
 - `http://127.0.0.1:5173` (local IP)
 
+**Note**: Server currently allows all origins (`allow_origins=["*"]`) in middleware configuration.
+
 ## API Endpoints
 
-All endpoints are prefixed with `/api/v1/users/`:
+All endpoints are prefixed with `/api/v1/`:
 
+### User Management (`/api/v1/UserManagement/`)
 - `POST /create_new_user` - Create new user
 - `POST /edit_user_age` - Update user age  
 - `POST /edit_target_gender` - Update target gender preference
 - `POST /edit_summary` - Update user bio/summary
 - `POST /save_to_database` - Persist user data to MongoDB
 - `POST /get_user_info_with_user_id` - Retrieve user information
+
+### Match Management (`/api/v1/MatchManager/`)
+- `POST /create_match` - Create new match between users
+- `POST /get_match_info` - Get match information for user
+- `POST /toggle_like` - Toggle like status for match
+- `POST /save_to_database` - Save match to database
+
+### Chatroom Management (`/api/v1/ChatroomManager/`)
+- `POST /get_or_create_chatroom` - Get or create chatroom for users
+- `POST /get_chat_history` - Retrieve chat history
+- `POST /save_chatroom_history` - Save chatroom data to database
+
+## WebSocket Endpoints
+
+The application provides three WebSocket endpoints:
+
+### Base WebSocket (`/ws/base`)
+- General-purpose WebSocket with authentication and broadcast capabilities
+- Uses `ConnectionHandler` for basic message handling
+
+### Message WebSocket (`/ws/message`)
+- Specialized for private messaging functionality
+- Uses `MessageConnectionHandler` for private chat initialization and message routing
+- Supports private chat init, private messages, and broadcast messages
+
+### Match WebSocket (`/ws/match`)
+- Specialized for match-making functionality
+- Uses `MatchSessionHandler` for automatic match generation via N8n webhook integration
+- Automatically creates matches and saves to database upon connection
 
 ## Business Logic Notes
 
@@ -133,12 +172,18 @@ All endpoints are prefixed with `/api/v1/users/`:
 - Comprehensive match loading from database on service startup
 - Integration with UserManagement for bidirectional match tracking
 - Match scoring and like status management
+- **N8n Webhook Integration**: Automatic match generation via external webhook service
+- **Duplicate Prevention**: Checks for existing matches between users to ensure uniqueness
+- **Real-time Match Creation**: WebSocket-triggered match creation with immediate database persistence
 
 ### Chatroom Management Service  
 - Database-driven counter initialization for both chatrooms and messages
 - O(log n) query performance using `_id` primary key structure
 - Automatic message and chatroom data loading on service initialization
 - Message insurance mechanism with chatroom validation
+- **Auto-Save Integration**: 10-second interval automatic persistence of chatroom data
+- **Message Routing**: Real-time message delivery via WebSocket with database fallback
+- **History Management**: Comprehensive chat history retrieval and management
 
 ### Message System & Chatroom Management
 - **Message Insurance Mechanism**: Each message is assigned to exactly one chatroom via `chatroom_id`
@@ -159,19 +204,41 @@ All endpoints are prefixed with `/api/v1/users/`:
 - Full request/response bodies are logged for debugging
 - JSON parsing and pretty-printing in logs
 - Processing time tracking
+- Singleton status logged before and after each request
+
+### N8n Webhook Integration
+- **Automatic Match Generation**: `/ws/match` WebSocket automatically requests matches from N8n webhook service
+- **Match Creation Flow**: Upon WebSocket authentication, system requests 1 match, creates Match object, and saves to database
+- **Duplicate Prevention**: System checks for existing matches between users to ensure uniqueness
+- **Data Persistence**: Matches and updated user data automatically saved to database
+
+### Auto-Save Background Task
+- **10-Second Interval**: Automatic background task saves all singleton service data every 10 seconds
+- **Service Coverage**: UserManagement, MatchManager, and ChatroomManager data automatically persisted
+- **Error Handling**: Individual service save failures logged but don't stop other saves
+- **Graceful Shutdown**: Final save operation performed during application shutdown
+- **Performance Monitoring**: Save operations timed and logged for performance tracking
+
+### Singleton Status Reporting
+- **Real-time Monitoring**: `SingletonStatusReporter` provides status summaries for all services
+- **Request Logging**: Before/after singleton states logged for each HTTP request
+- **Debugging Support**: Comprehensive status information available for troubleshooting
 
 ## Development Status
 
 **Completed**: 
 - User management API with MongoDB integration using `_id` primary keys
-- Comprehensive logging system with unique request IDs
-- JWT framework and CORS configuration
+- Comprehensive logging system with unique request IDs and singleton status tracking
+- JWT framework and CORS configuration (currently allows all origins)
 - Message system with chatroom assignment and insurance mechanisms
 - WebSocket-based real-time messaging with private chat support
 - Chatroom management with automatic creation from matches
 - Data integrity validation for message-chatroom relationships
 - **Performance optimization**: All entities migrated to use MongoDB `_id` field for O(log n) query performance
 - **Service initialization**: Database-driven counter initialization prevents ID conflicts on server restart
+- **Match system**: Automated match generation via N8n webhook integration
+- **Auto-save system**: 10-second interval automatic database persistence for all services
+- **Production deployment**: Server configured for lovetapoversea.xyz:4433
 
 **Active Development**: 
 - Advanced matching algorithms and scoring refinements
@@ -206,7 +273,7 @@ message = Message(sender_user, receiver_user, content, chatroom_id)
 ```javascript
 // messages collection schema
 {
-  "message_id": Number,
+  "_id": Number,  // message_id as primary key
   "message_content": String,
   "message_send_time_in_utc": Date,
   "message_sender_id": Number,
@@ -241,5 +308,31 @@ Basic API testing using `httpx` library. Tests focus on:
 - User creation (male/female)
 - Data retrieval by telegram_id
 - Response format validation
+- WebSocket connection testing (base, message, match endpoints)
 
-No formal test framework is configured - tests are run as simple Python scripts.
+WebSocket test files available:
+- `frontend_base_test.js` - General WebSocket testing
+- `frontend_message_test.js` - Message functionality testing
+- `frontend_match_test.js` - Match system testing
+- `websocket_test_suite.html` - Comprehensive WebSocket test suite
+- `private_chat_test.html` - Private chat functionality testing
+- `match_session_test.html` - Match session testing
+
+No formal test framework is configured - tests are run as simple Python scripts and HTML test pages.
+
+## Production Configuration
+
+### Server Details
+- **Production URL**: `https://lovetapoversea.xyz:4433`
+- **Development URL**: `http://localhost:8000`
+- **Protocol**: HTTP/HTTPS for API, WebSocket/WSS for real-time communication
+
+### Frontend Integration
+Comprehensive frontend integration documentation available in `FRONTEND_INTEGRATION_GUIDE.md` including:
+- Complete API endpoint specifications
+- WebSocket connection patterns
+- Database schema documentation
+- Authentication flows
+- Error handling guidelines
+- Performance considerations
+- Security best practices
