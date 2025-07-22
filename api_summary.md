@@ -2,128 +2,325 @@
 
 ## HTTP API
 
-### UserManagement
+---
 
-#### 1. 创建新用户
+### 用户管理 UserManagement
+
+#### 1. 创建新用户 create_new_user
 - **Route:** `/UserManagement/create_new_user`
 - **Method:** POST
-- **Request Body:** `CreateNewUserRequest`
-- **Response Body:** `CreateNewUserResponse`
+- **请求体 Request Body:**
 
-#### 2. 编辑用户年龄
+**CreateNewUserRequest**
+```python
+class CreateNewUserRequest(BaseModel):
+    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
+    telegram_user_id: int = Field(..., description="用户的 Telegram ID")
+    gender: int = Field(..., description="用户性别 1/2/3")
+    @validator('gender')
+    def validate_gender(cls, v):
+        """验证性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('性别必须是 1、2、3 中的一个值')
+        return v
+```
+- **响应体 Response Body:**
+
+**CreateNewUserResponse**
+```python
+class CreateNewUserResponse(BaseModel):
+    success: bool = Field(..., description="是否创建成功")
+    user_id: int = Field(..., description="新用户的唯一ID")
+```
+
+---
+
+#### 2. 编辑用户年龄 edit_user_age
 - **Route:** `/UserManagement/edit_user_age`
 - **Method:** POST
-- **Request Body:** `EditUserAgeRequest`
-- **Response Body:** `EditUserAgeResponse`
+- **请求体 Request Body:**
 
-#### 3. 编辑用户目标性别
+**EditUserAgeRequest**
+```python
+class EditUserAgeRequest(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+    age: int = Field(..., description="用户年龄")
+```
+- **响应体 Response Body:**
+
+**EditUserAgeResponse**
+```python
+class EditUserAgeResponse(BaseModel):
+    success: bool = Field(..., description="是否编辑成功")
+```
+
+---
+
+#### 3. 编辑用户目标性别 edit_target_gender
 - **Route:** `/UserManagement/edit_target_gender`
 - **Method:** POST
-- **Request Body:** `EditTargetGenderRequest`
-- **Response Body:** `EditTargetGenderResponse`
+- **请求体 Request Body:**
 
-#### 4. 编辑用户简介
+**EditTargetGenderRequest**
+```python
+class EditTargetGenderRequest(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+    target_gender: int = Field(..., description="用户目标性别 1/2/3")
+    @validator('target_gender')
+    def validate_target_gender(cls, v):
+        """验证目标性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('目标性别必须是 1、2、3 中的一个值')
+        return v
+```
+- **响应体 Response Body:**
+
+**EditTargetGenderResponse**
+```python
+class EditTargetGenderResponse(BaseModel):
+    success: bool = Field(..., description="是否编辑成功")
+```
+
+---
+
+#### 4. 编辑用户简介 edit_summary
 - **Route:** `/UserManagement/edit_summary`
 - **Method:** POST
-- **Request Body:** `EditSummaryRequest`
-- **Response Body:** `EditSummaryResponse`
+- **请求体 Request Body:**
 
-#### 5. 保存用户信息到数据库
+**EditSummaryRequest**
+```python
+class EditSummaryRequest(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+    summary: str = Field(..., description="用户简介")
+```
+- **响应体 Response Body:**
+
+**EditSummaryResponse**
+```python
+class EditSummaryResponse(BaseModel):
+    success: bool = Field(..., description="是否编辑成功")
+```
+
+---
+
+#### 5. 保存用户信息到数据库 save_to_database
 - **Route:** `/UserManagement/save_to_database`
 - **Method:** POST
-- **Request Body:** `SaveUserInfoToDatabaseRequest`
-- **Response Body:** `SaveUserInfoToDatabaseResponse`
+- **请求体 Request Body:**
 
-#### 6. 根据用户id获取用户信息
+**SaveUserInfoToDatabaseRequest**
+```python
+class SaveUserInfoToDatabaseRequest(BaseModel):
+    user_id: Optional[int] = Field(None, description="用户ID，如果不提供则保存所有用户")
+```
+- **响应体 Response Body:**
+
+**SaveUserInfoToDatabaseResponse**
+```python
+class SaveUserInfoToDatabaseResponse(BaseModel):
+    success: bool = Field(..., description="是否保存成功")
+```
+
+---
+
+#### 6. 根据用户id获取用户信息 get_user_info_with_user_id
 - **Route:** `/UserManagement/get_user_info_with_user_id`
 - **Method:** POST
-- **Request Body:** `GetUserInfoWithUserIdRequest`
-- **Response Body:** `GetUserInfoWithUserIdResponse`
+- **请求体 Request Body:**
+
+**GetUserInfoWithUserIdRequest**
+```python
+class GetUserInfoWithUserIdRequest(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+```
+- **响应体 Response Body:**
+
+**GetUserInfoWithUserIdResponse**
+```python
+class GetUserInfoWithUserIdResponse(BaseModel):
+    user_id: int = Field(..., description="用户ID")
+    telegram_user_name: str = Field(..., description="用户的 Telegram 用户名")
+    telegram_id: int = Field(..., description="用户的 Telegram ID")
+    gender: int = Field(..., description="用户性别 1/2/3")
+    age: Optional[int] = Field(None, description="用户年龄")
+    target_gender: Optional[int] = Field(None, description="用户目标性别 1/2/3")
+    user_personality_trait: Optional[str] = Field(None, description="用户简介")
+    match_ids: List[int] = Field(default_factory=list, description="用户的匹配ID列表")
+    @validator('gender')
+    def validate_gender(cls, v):
+        """验证性别字段只能是 1、2、3"""
+        if v not in [1, 2, 3]:
+            raise ValueError('性别必须是 1、2、3 中的一个值')
+        return v
+    @validator('target_gender')
+    def validate_target_gender(cls, v):
+        """验证目标性别字段只能是 1、2、3"""
+        if v is not None and v not in [1, 2, 3]:
+            raise ValueError('目标性别必须是 1、2、3 中的一个值')
+        return v
+```
 
 ---
 
-### MatchManager
+### 匹配管理 MatchManager
 
-#### 1. 创建匹配
+#### 1. 创建匹配 create_match
 - **Route:** `/MatchManager/create_match`
 - **Method:** POST
-- **Request Body:** `CreateMatchRequest`
-- **Response Body:** `CreateMatchResponse`
+- **请求体 Request Body:**
 
-#### 2. 获取匹配信息
+**CreateMatchRequest**
+```python
+class CreateMatchRequest(BaseModel):
+    user_id_1: int = Field(..., description="第一个用户ID")
+    user_id_2: int = Field(..., description="第二个用户ID")
+    reason_1: str = Field(..., description="给用户1的匹配原因")
+    reason_2: str = Field(..., description="给用户2的匹配原因")
+    match_score: int = Field(..., description="匹配分数")
+```
+- **响应体 Response Body:**
+
+**CreateMatchResponse**
+```python
+class CreateMatchResponse(BaseModel):
+    match_id: int = Field(..., description="新创建的匹配ID")
+```
+
+---
+
+#### 2. 获取匹配信息 get_match_info
 - **Route:** `/MatchManager/get_match_info`
 - **Method:** POST
-- **Request Body:** `GetMatchInfoRequest`
-- **Response Body:** `GetMatchInfoResponse`
+- **请求体 Request Body:**
 
-#### 3. 切换点赞状态
+**GetMatchInfoRequest**
+```python
+class GetMatchInfoRequest(BaseModel):
+    user_id: int = Field(..., description="请求用户ID")
+    match_id: int = Field(..., description="匹配ID")
+```
+- **响应体 Response Body:**
+
+**GetMatchInfoResponse**
+```python
+class GetMatchInfoResponse(BaseModel):
+    target_user_id: int = Field(..., description="目标用户ID")
+    description_for_target: str = Field(..., description="给目标用户的描述")
+    is_liked: bool = Field(..., description="是否已点赞")
+    match_score: int = Field(..., description="匹配分数")
+    mutual_game_scores: Dict = Field(..., description="互动游戏分数")
+    chatroom_id: Optional[int] = Field(None, description="聊天室ID")
+```
+
+---
+
+#### 3. 切换点赞状态 toggle_like
 - **Route:** `/MatchManager/toggle_like`
 - **Method:** POST
-- **Request Body:** `ToggleLikeRequest`
-- **Response Body:** `ToggleLikeResponse`
+- **请求体 Request Body:**
 
-#### 4. 保存匹配到数据库
+**ToggleLikeRequest**
+```python
+class ToggleLikeRequest(BaseModel):
+    match_id: int = Field(..., description="匹配ID")
+```
+- **响应体 Response Body:**
+
+**ToggleLikeResponse**
+```python
+class ToggleLikeResponse(BaseModel):
+    success: bool = Field(..., description="操作是否成功")
+```
+
+---
+
+#### 4. 保存匹配到数据库 save_to_database
 - **Route:** `/MatchManager/save_to_database`
 - **Method:** POST
-- **Request Body:** `SaveMatchToDatabaseRequest`
-- **Response Body:** `SaveMatchToDatabaseResponse`
+- **请求体 Request Body:**
+
+**SaveMatchToDatabaseRequest**
+```python
+class SaveMatchToDatabaseRequest(BaseModel):
+    match_id: Optional[int] = Field(None, description="匹配ID，如果不提供则保存所有匹配")
+```
+- **响应体 Response Body:**
+
+**SaveMatchToDatabaseResponse**
+```python
+class SaveMatchToDatabaseResponse(BaseModel):
+    success: bool = Field(..., description="保存是否成功")
+```
 
 ---
 
-### ChatroomManager
+### 聊天室管理 ChatroomManager
 
-#### 1. 获取或创建聊天室
+#### 1. 获取或创建聊天室 get_or_create_chatroom
 - **Route:** `/ChatroomManager/get_or_create_chatroom`
 - **Method:** POST
-- **Request Body:** `GetOrCreateChatroomRequest`
-- **Response Body:** `GetOrCreateChatroomResponse`
+- **请求体 Request Body:**
 
-#### 2. 获取聊天历史记录
+**GetOrCreateChatroomRequest**
+```python
+class GetOrCreateChatroomRequest(BaseModel):
+    user_id_1: int = Field(..., description="第一个用户的ID")
+    user_id_2: int = Field(..., description="第二个用户的ID")
+    match_id: int = Field(..., description="匹配ID")
+```
+- **响应体 Response Body:**
+
+**GetOrCreateChatroomResponse**
+```python
+class GetOrCreateChatroomResponse(BaseModel):
+    success: bool = Field(..., description="是否操作成功")
+    chatroom_id: int = Field(..., description="聊天室ID")
+```
+
+---
+
+#### 2. 获取聊天历史记录 get_chat_history
 - **Route:** `/ChatroomManager/get_chat_history`
 - **Method:** POST
-- **Request Body:** `GetChatHistoryRequest`
-- **Response Body:** `GetChatHistoryResponse`
+- **请求体 Request Body:**
 
-#### 3. 保存聊天室历史记录
+**GetChatHistoryRequest**
+```python
+class GetChatHistoryRequest(BaseModel):
+    chatroom_id: int = Field(..., description="聊天室ID")
+    user_id: int = Field(..., description="请求用户的ID")
+```
+- **响应体 Response Body:**
+
+**GetChatHistoryResponse**
+```python
+class ChatMessage(BaseModel):
+    sender_name: str = Field(..., description="发送者名称或'I'")
+    message: str = Field(..., description="消息内容")
+    datetime: str = Field(..., description="消息时间")
+
+class GetChatHistoryResponse(BaseModel):
+    success: bool = Field(..., description="是否获取成功")
+    messages: List[ChatMessage] = Field(default=[], description="聊天记录")
+```
+
+---
+
+#### 3. 保存聊天室历史记录 save_chatroom_history
 - **Route:** `/ChatroomManager/save_chatroom_history`
 - **Method:** POST
-- **Request Body:** `SaveChatroomHistoryRequest`
-- **Response Body:** `SaveChatroomHistoryResponse`
+- **请求体 Request Body:**
 
----
+**SaveChatroomHistoryRequest**
+```python
+class SaveChatroomHistoryRequest(BaseModel):
+    chatroom_id: Optional[int] = Field(None, description="聊天室ID，如果不提供则保存所有聊天室")
+```
+- **响应体 Response Body:**
 
-## WebSocket API
-
-### /ws/base
-- **说明：** 基础 WebSocket 连接，使用 `ConnectionHandler` 处理。
-- **认证消息格式：** `{ "user_id": int }`
-- **消息类型：**
-  - `message`：普通消息广播，格式 `{ "type": "message", "from": user_id, "content": ... }`
-  - 认证失败/成功、错误等均为 JSON 格式返回
-
-### /ws/match
-- **说明：** 匹配专用 WebSocket，使用 `MatchSessionHandler` 处理。
-- **认证消息格式：** `{ "user_id": int }`
-- **消息类型：**
-  - `match_info`：匹配信息推送
-  - `match_error`：匹配错误信息
-  - 连接时自动推送匹配结果
-
-### /ws/message
-- **说明：** 消息专用 WebSocket，使用 `MessageConnectionHandler` 处理。
-- **认证消息格式：** `{ "user_id": int }`
-- **消息类型：**
-  - `private_chat_init`：初始化私聊，需传 `target_user_id` 和 `match_id`
-  - `private`：私聊消息，需传 `target_user_id`, `chatroom_id`, `content`
-  - `broadcast`：广播消息，需传 `content`
-  - `private_message`：私聊消息推送
-  - `broadcast_message`：广播消息推送
-  - `user_joined`/`user_left`：用户加入/离开通知
-  - `message_status`/`broadcast_status`：消息状态反馈
-  - 错误信息均为 JSON 格式返回
-
----
-
-> **注：** 所有请求/响应体的详细字段定义请参考 `app/schemas/` 目录下的同名 schema 文件。
-
-// 本文档自动生成，所有接口均带有中文注释说明。 
+**SaveChatroomHistoryResponse**
+```python
+class SaveChatroomHistoryResponse(BaseModel):
+    success: bool = Field(..., description="是否保存成功")
+``` 
