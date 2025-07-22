@@ -42,7 +42,7 @@ class Match:
             cls._initialized = True
             logger.warning(f"Using timestamp as match counter starting point: {cls._match_counter}")
     
-    def __init__(self, telegram_user_session_id_1: int, telegram_user_session_id_2: int, reason_to_id_1: str, reason_to_id_2: str, match_score: int):
+    def __init__(self, telegram_user_session_id_1: int, telegram_user_session_id_2: int, reason_to_id_1: str, reason_to_id_2: str, match_score: int, match_time: str):
         # 确保计数器已初始化
         if not Match._initialized:
             raise RuntimeError("Match counter not initialized. Call Match.initialize_counter() first.")
@@ -57,6 +57,7 @@ class Match:
         self.match_score = match_score
         self.mutual_game_scores = {}  # {session_id: {score: int, description: str, game_session_id: int}}
         self.chatroom_id = None
+        self.match_time = match_time
         
         self.chatroom = None
         self.user_1 = None
@@ -145,7 +146,7 @@ class Match:
                 "match_score": self.match_score,
                 "mutual_game_scores": self.mutual_game_scores,
                 "chatroom_id": self.chatroom_id,
-                "created_at": time.time()
+                "match_time": self.match_time
             }
             
             # 检查匹配是否已存在（基于_id查询，O(log n)复杂度）
@@ -193,5 +194,6 @@ class Match:
             "is_liked": self.is_liked,
             "match_score": self.match_score,
             "mutual_game_scores": self.mutual_game_scores,
-            "chatroom_id": self.chatroom_id
+            "chatroom_id": self.chatroom_id,
+            "match_time": self.match_time
         }

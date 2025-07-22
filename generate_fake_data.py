@@ -9,6 +9,7 @@ import random
 import time
 import sys
 from pathlib import Path
+from datetime import datetime, timezone, timedelta
 
 # 添加项目根目录到路径
 ROOT_PATH = Path(__file__).resolve().parents[1]
@@ -154,6 +155,21 @@ async def generate_fake_matches(users_data, num_matches=20):
         
         match_id = match_id_start + len(matches_data)  # 使用已生成的匹配数量作为索引
         
+        # 生成随机的UTC时间字符串（过去30天内）
+        days_ago = random.randint(0, 30)
+        hours_ago = random.randint(0, 23) 
+        minutes_ago = random.randint(0, 59)
+        seconds_ago = random.randint(0, 59)
+        
+        # 计算过去的时间
+        past_time = datetime.now(timezone.utc) - timedelta(
+            days=days_ago, 
+            hours=hours_ago, 
+            minutes=minutes_ago, 
+            seconds=seconds_ago
+        )
+        match_time_str = past_time.strftime("%Y-%m-%d %H:%M:%S UTC")
+        
         match_data = {
             "_id": match_id,  # 使用match_id作为MongoDB的_id主键
             "user_id_1": female_user["_id"],  # 女性用户ID
@@ -164,7 +180,7 @@ async def generate_fake_matches(users_data, num_matches=20):
             "match_score": random.randint(60, 95),
             "mutual_game_scores": {},  # 初始为空
             "chatroom_id": None,
-            "created_at": time.time()
+            "match_time": match_time_str
         }
         
         matches_data.append(match_data)
