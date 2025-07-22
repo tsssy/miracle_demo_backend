@@ -42,25 +42,58 @@ class MatchSessionHandler(ConnectionHandler):
             
             # 获取第一个匹配
             match_data = matches[0]
+            user_id_1 = match_data.get('self_user_id')
+            user_id_2 = match_data.get('matched_user_id')
             
             # 获取MatchManager实例
             match_manager = MatchManager()
             
+            # 检查是否已存在该用户对的匹配（确保唯一性）
+            existing_matches = match_manager.get_user_matches(user_id_1)
+            for existing_match in existing_matches:
+                if (existing_match.user_id_1 == user_id_2 or existing_match.user_id_2 == user_id_2):
+                    await self.websocket.send_text(json.dumps({
+                        "type": "match_info",
+                        "match_id": existing_match.match_id,
+                        "self_user_id": user_id_1,
+                        "matched_user_id": user_id_2,
+                        "match_score": existing_match.match_score,
+                        "reason_of_match_given_to_self_user": existing_match.description_to_user_1 if existing_match.user_id_1 == user_id_1 else existing_match.description_to_user_2,
+                        "reason_of_match_given_to_matched_user": existing_match.description_to_user_2 if existing_match.user_id_1 == user_id_1 else existing_match.description_to_user_1,
+                        "message": "Existing match found"
+                    }))
+                    logging.info(f"Existing match found for users {user_id_1} and {user_id_2}: match_id={existing_match.match_id}")
+                    return
+            
             # 创建匹配
             match = await match_manager.create_match(
-                user_id_1=match_data.get('self_user_id'),
-                user_id_2=match_data.get('matched_user_id'),
+                user_id_1=user_id_1,
+                user_id_2=user_id_2,
                 reason_1=match_data.get('reason_of_match_given_to_self_user'),
                 reason_2=match_data.get('reason_of_match_given_to_matched_user'),
                 match_score=match_data.get('match_score')
             )
             
+            # 立即保存匹配到数据库
+            match_saved = await match_manager.save_to_database(match.match_id)
+            if not match_saved:
+                logging.error(f"Failed to save match {match.match_id} to database")
+            else:
+                logging.info(f"Match {match.match_id} saved to database successfully")
+            
+            # 保存更新的用户到数据库
+            from app.services.https.UserManagement import UserManagement
+            user_manager = UserManagement()
+            await user_manager.save_to_database(user_id_1)
+            await user_manager.save_to_database(user_id_2)
+            logging.info(f"Users {user_id_1} and {user_id_2} updated and saved to database")
+            
             # 发送匹配信息给客户端
             match_info = {
                 "type": "match_info",
                 "match_id": match.match_id,
-                "self_user_id": match_data.get('self_user_id'),
-                "matched_user_id": match_data.get('matched_user_id'),
+                "self_user_id": user_id_1,
+                "matched_user_id": user_id_2,
                 "match_score": match_data.get('match_score'),
                 "reason_of_match_given_to_self_user": match_data.get('reason_of_match_given_to_self_user'),
                 "reason_of_match_given_to_matched_user": match_data.get('reason_of_match_given_to_matched_user')
