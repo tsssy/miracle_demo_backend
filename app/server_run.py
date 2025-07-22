@@ -23,6 +23,7 @@ from app.utils.singleton_status import SingletonStatusReporter
 from app.services.https.UserManagement import UserManagement
 from app.services.https.MatchManager import MatchManager
 from app.services.https.ChatroomManager import ChatroomManager
+from app.services.https.N8nWebhookManager import N8nWebhookManager
 
 logger = MyLogger("server")
 
@@ -122,6 +123,11 @@ async def lifespan(app: FastAPI):
             logger.error("ChatroomManager缓存初始化失败")
             
         logger.info("ChatroomManager缓存初始化完成")
+        
+        # 初始化N8nWebhookManager
+        logger.info("正在初始化N8nWebhookManager...")
+        n8n_webhook_manager = N8nWebhookManager()
+        logger.info("N8nWebhookManager初始化完成")
         
         # 启动自动保存任务
         logger.info("正在启动自动保存后台任务...")

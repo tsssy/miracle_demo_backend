@@ -7,8 +7,18 @@ logger = MyLogger(__name__)
 
 
 class N8nWebhookManager:
+    _instance = None
+    _initialized = False
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(N8nWebhookManager, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self):
-        self.base_url = "http://8.216.32.239:5678/webhook/match"
+        if not self._initialized:
+            self.base_url = "http://8.216.32.239:5678/webhook/match"
+            N8nWebhookManager._initialized = True
         
     async def request_matches(self, user_id: int, num_of_matches: int = 1) -> List[Dict]:
         """
