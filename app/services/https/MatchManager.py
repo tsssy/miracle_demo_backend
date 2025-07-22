@@ -3,6 +3,7 @@ from app.config import settings
 from app.objects.Match import Match
 from app.core.database import Database
 from app.utils.my_logger import MyLogger
+from datetime import datetime, timezone
 
 logger = MyLogger("MatchManager")
 
@@ -55,7 +56,8 @@ class MatchManager:
                         telegram_user_session_id_2=user_id_2,
                         reason_to_id_1=match_data.get("description_to_user_1", ""),
                         reason_to_id_2=match_data.get("description_to_user_2", ""),
-                        match_score=match_data.get("match_score", 0)
+                        match_score=match_data.get("match_score", 0),
+                        match_time=match_data.get("match_time", "Unknown")
                     )
                     
                     # 恢复原始计数器并设置正确的match_id
@@ -96,7 +98,8 @@ class MatchManager:
                 telegram_user_session_id_2=user_id_2,
                 reason_to_id_1=reason_1,
                 reason_to_id_2=reason_2,
-                match_score=match_score
+                match_score=match_score,
+                match_time=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
             )
             
             # Store in memory
@@ -268,7 +271,8 @@ class MatchManager:
                         telegram_user_session_id_2=match_data["user_id_2"],
                         reason_to_id_1=match_data["description_to_user_1"],
                         reason_to_id_2=match_data["description_to_user_2"],
-                        match_score=match_data["match_score"]
+                        match_score=match_data["match_score"],
+                        match_time=match_data.get("match_time", "Unknown")
                     )
                     
                     # Restore additional properties
