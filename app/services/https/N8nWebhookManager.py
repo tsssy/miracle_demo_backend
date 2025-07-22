@@ -68,7 +68,7 @@ class N8nWebhookManager:
             
             logger.info(f"Requesting matches (sync) for user_id={user_id}, num_of_matches={num_of_matches}")
             
-            with httpx.Client(timeout=30.0) as client:
+            with httpx.Client(timeout=60.0) as client:
                 response = client.get(self.base_url, params=params)
                 response.raise_for_status()
                 
