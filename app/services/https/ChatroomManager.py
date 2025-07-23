@@ -47,13 +47,16 @@ class ChatroomManager:
                     chatroom_id = chatroom_data["_id"]  # chatroom_id现在存储在_id字段中
                     user1_id = chatroom_data["user1_id"]
                     user2_id = chatroom_data["user2_id"]
+                    match_id = chatroom_data.get("match_id")  # 获取match_id，如果不存在则为None
                     
-                    logger.info(f"ChatroomManager construct: Processing chatroom {chatroom_id} (users: {user1_id}, {user2_id})")
+                    logger.info(f"ChatroomManager construct: Processing chatroom {chatroom_id} (users: {user1_id}, {user2_id}, match_id: {match_id})")
                     
                     # 统一转换为int类型
                     chatroom_id = int(chatroom_id)
                     user1_id = int(user1_id)
                     user2_id = int(user2_id)
+                    if match_id is not None:
+                        match_id = int(match_id)
                     
                     # Get user instances
                     user_manager = UserManagement()
@@ -62,13 +65,13 @@ class ChatroomManager:
                     
                     if user1 and user2:
                         # Create chatroom instance with existing ID
-                        chatroom = Chatroom(user1, user2, None)
+                        chatroom = Chatroom(user1, user2, match_id)
                         chatroom.chatroom_id = chatroom_id
                         chatroom.message_ids = chatroom_data.get("message_ids", [])
                         
                         self.chatrooms[chatroom_id] = chatroom
                         loaded_count += 1
-                        logger.info(f"ChatroomManager construct: Successfully loaded chatroom {chatroom_id} with {len(chatroom.message_ids)} message_ids")
+                        logger.info(f"ChatroomManager construct: Successfully loaded chatroom {chatroom_id} with {len(chatroom.message_ids)} message_ids and match_id {match_id}")
                     else:
                         logger.warning(f"ChatroomManager construct: Cannot load chatroom {chatroom_id}: users {user1_id} (found: {user1 is not None}) or {user2_id} (found: {user2 is not None}) not found")
                         
@@ -259,10 +262,11 @@ class ChatroomManager:
             logger.error(f"STEP 2 FAILED: Error getting chat history for chatroom {chatroom_id}: {e}")
             return []
 
-    async def send_message(self, chatroom_id, sender_user_id, message_content) -> bool:
+    async def send_message(self, chatroom_id, sender_user_id, message_content) -> dict:
         """
         Send a message in the specified chatroom
         Creates Message instance, stores in chatroom, and saves to database
+        Returns dict with success status and match_id
         """
         try:
             # 统一转换为int类型
@@ -275,7 +279,7 @@ class ChatroomManager:
             chatroom = self.chatrooms.get(chatroom_id)
             if not chatroom:
                 logger.error(f"SEND MSG STEP 1 FAILED: Chatroom {chatroom_id} not found in memory")
-                return False
+                return {"success": False, "match_id": None}
             
             logger.info(f"SEND MSG STEP 2: Getting sender user instance for user {sender_user_id}")
             
@@ -284,7 +288,7 @@ class ChatroomManager:
             sender_user = user_manager.get_user_instance(sender_user_id)
             if not sender_user:
                 logger.error(f"SEND MSG STEP 2 FAILED: Sender user {sender_user_id} not found")
-                return False
+                return {"success": False, "match_id": None}
             
             # Determine receiver user (the other user in the chatroom)
             if sender_user_id == chatroom.user1_id:
@@ -295,11 +299,11 @@ class ChatroomManager:
                 receiver_user_id = chatroom.user1_id
             else:
                 logger.error(f"SEND MSG STEP 2 FAILED: User {sender_user_id} not authorized for chatroom {chatroom_id}")
-                return False
+                return {"success": False, "match_id": None}
             
             if not receiver_user:
                 logger.error(f"SEND MSG STEP 2 FAILED: Receiver user {receiver_user_id} not found")
-                return False
+                return {"success": False, "match_id": None}
             
             logger.info(f"SEND MSG STEP 3: Creating message from {sender_user_id} to {receiver_user_id}")
             
@@ -312,7 +316,7 @@ class ChatroomManager:
             save_success = await message.save_to_database()
             if not save_success:
                 logger.error(f"SEND MSG STEP 4 FAILED: Could not save message {message.message_id} to database")
-                return False
+                return {"success": False, "match_id": chatroom.match_id}
             
             logger.info(f"SEND MSG STEP 5: Adding message {message.message_id} to chatroom {chatroom_id}")
             
@@ -326,12 +330,12 @@ class ChatroomManager:
             if not chatroom_save_success:
                 logger.warning(f"SEND MSG STEP 6 WARNING: Could not update chatroom {chatroom_id} in database, but message was saved")
             
-            logger.info(f"SEND MSG SUCCESS: Message {message.message_id} sent successfully in chatroom {chatroom_id}")
-            return True
+            logger.info(f"SEND MSG SUCCESS: Message {message.message_id} sent successfully in chatroom {chatroom_id} with match_id {chatroom.match_id}")
+            return {"success": True, "match_id": chatroom.match_id}
             
         except Exception as e:
             logger.error(f"SEND MSG FAILED: Error sending message in chatroom {chatroom_id}: {e}")
-            return False
+            return {"success": False, "match_id": None}
 
     async def save_chatroom_history(self, chatroom_id: Optional[int] = None) -> bool:
         """

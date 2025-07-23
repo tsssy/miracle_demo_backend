@@ -51,11 +51,12 @@ class Chatroom:
         self.message_ids = []
         self.user1_id = user1.user_id
         self.user2_id = user2.user_id
+        self.match_id = match_id  # 添加match_id属性
         
         self.user1 = user1
         self.user2 = user2
         
-        logger.info(f"Created chatroom {self.chatroom_id} for users {self.user1_id} and {self.user2_id}")
+        logger.info(f"Created chatroom {self.chatroom_id} for users {self.user1_id} and {self.user2_id} with match_id {self.match_id}")
 
     async def save_to_database(self) -> bool:
         """
@@ -66,7 +67,8 @@ class Chatroom:
                 "_id": self.chatroom_id,  # 使用chatroom_id作为MongoDB的_id主键
                 "user1_id": self.user1_id,
                 "user2_id": self.user2_id,
-                "message_ids": self.message_ids
+                "message_ids": self.message_ids,
+                "match_id": self.match_id  # 添加match_id到数据库字段
             }
             
             # 检查聊天室是否已存在（基于_id查询，O(log n)复杂度）
