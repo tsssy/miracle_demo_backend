@@ -171,25 +171,30 @@ class MessageConnectionHandler(ConnectionHandler):
             
             # 使用ChatroomManager发送消息，创建Message实例并保存到chatroom和数据库
             chatroom_manager = ChatroomManager()
-            success = await chatroom_manager.send_message(
+            send_result = await chatroom_manager.send_message(
                 chatroom_id, current_user_id, content
             )
             
+            success = send_result.get("success", False)
+            match_id = send_result.get("match_id")
+            
             if success:
-                # 通过WebSocket发送消息给目标用户
+                # 通过WebSocket发送消息给目标用户，包含match_id
                 websocket_success = await self.send_to_user(str(target_user_id), json.dumps({
                     "type": "private_message",
                     "from": current_user_id,
                     "content": content,
                     "chatroom_id": chatroom_id,
+                    "match_id": match_id,  # 添加match_id字段
                     "timestamp": message.get("timestamp")
                 }))
                 
-                # 给发送者确认
+                # 给发送者确认，包含match_id
                 await self.websocket.send_text(json.dumps({
                     "type": "message_status",
                     "target_user_id": target_user_id,
                     "chatroom_id": chatroom_id,
+                    "match_id": match_id,  # 添加match_id字段
                     "delivered": websocket_success,
                     "saved_to_database": success,
                     "content": content
@@ -210,6 +215,7 @@ class MessageConnectionHandler(ConnectionHandler):
                     "type": "message_status",
                     "target_user_id": target_user_id,
                     "chatroom_id": chatroom_id,
+                    "match_id": match_id,  # 添加match_id字段，即使失败也要包含
                     "delivered": False,
                     "saved_to_database": False,
                     "content": content,
