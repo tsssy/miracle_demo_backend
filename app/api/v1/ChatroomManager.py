@@ -37,10 +37,10 @@ async def get_chat_history(request: GetChatHistoryRequest):
         
         # 转换格式以匹配响应模型
         messages = []
-        for sender_name, message, datetime_str in chat_history:
+        for message_content, datetime_str, sender_id, sender_name in chat_history:
             messages.append({
                 "sender_name": sender_name,
-                "message": message,
+                "message": message_content,
                 "datetime": datetime_str
             })
         
