@@ -196,6 +196,14 @@ class MessageConnectionHandler(ConnectionHandler):
                 }))
                 
                 logger.info(f"私聊消息处理完成 - 数据库保存: {success}, WebSocket发送: {websocket_success}")
+
+                # 新增：广播内部消息，通知有用户收到私信
+                # 中文注释：广播一个内部消息，type为'user_message_update'，内容为“User xxxxxx (user_id) receives a message from user xxxxxx(user_id)”
+                await self.broadcast(json.dumps({
+                    "type": "user_message_update",
+                    "message": f"User {target_user_id} ({target_user_id}) receives a message from user {current_user_id} ({current_user_id})"
+                }), exclude_id=None)  # 不排除任何人，所有人都能收到
+
             else:
                 # 发送失败
                 await self.websocket.send_text(json.dumps({
@@ -208,7 +216,7 @@ class MessageConnectionHandler(ConnectionHandler):
                     "error": "Failed to save message to database"
                 }))
                 logger.error(f"私聊消息失败 - 无法保存到数据库")
-                
+            
         except Exception as e:
             logger.error(f"处理私聊消息失败: {e}")
             await self.websocket.send_text(json.dumps({
