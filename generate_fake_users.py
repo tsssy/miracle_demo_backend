@@ -47,6 +47,10 @@ PERSONALITY_TRAITS = [
     "有上进心，不断学习进步，追求更好的自己"
 ]
 
+# 性别常量定义
+GENDER_FEMALE = 1  # 女
+GENDER_MALE = 2    # 男
+
 async def generate_fake_users(num_users=30):
     """生成假用户数据，确保男女数量平均"""
     print(f"开始生成 {num_users} 个假用户（男女各 {num_users//2} 个）...")
@@ -66,9 +70,9 @@ async def generate_fake_users(num_users=30):
         user_data = {
             "_id": user_id,  # 使用user_id作为MongoDB的_id
             "telegram_user_name": f"@{name.lower()}",
-            "gender": 1,  # 男性
+            "gender": GENDER_MALE,  # 男性
             "age": random.randint(18, 35),
-            "target_gender": 2,  # 男性寻找女性
+            "target_gender": GENDER_FEMALE,  # 男性寻找女性
             "user_personality_summary": random.choice(PERSONALITY_TRAITS),
             "match_ids": [],  # 初始为空，后续生成匹配时会填充
             "blocked_user_ids": []
@@ -84,9 +88,9 @@ async def generate_fake_users(num_users=30):
         user_data = {
             "_id": user_id,  # 使用user_id作为MongoDB的_id
             "telegram_user_name": f"@{name.lower()}",
-            "gender": 2,  # 女性
+            "gender": GENDER_FEMALE,  # 女性
             "age": random.randint(18, 35),
-            "target_gender": 1,  # 女性寻找男性
+            "target_gender": GENDER_MALE,  # 女性寻找男性
             "user_personality_summary": random.choice(PERSONALITY_TRAITS),
             "match_ids": [],  # 初始为空，后续生成匹配时会填充
             "blocked_user_ids": []
@@ -131,15 +135,15 @@ async def main():
             print(f"总用户数: {len(users_data)}")
             
             # 统计性别分布
-            male_count = sum(1 for user in users_data if user["gender"] == 1)
-            female_count = sum(1 for user in users_data if user["gender"] == 2)
+            male_count = sum(1 for user in users_data if user["gender"] == GENDER_MALE)
+            female_count = sum(1 for user in users_data if user["gender"] == GENDER_FEMALE)
             print(f"男性用户: {male_count}, 女性用户: {female_count}")
             
             # 显示前几个用户的信息作为示例
             print("\n=== 用户示例 ===")
             for i, user in enumerate(users_data[:5]):
-                gender_str = "男" if user["gender"] == 1 else "女"
-                target_gender_str = "女" if user["target_gender"] == 2 else "男"
+                gender_str = "男" if user["gender"] == GENDER_MALE else "女"
+                target_gender_str = "女" if user["target_gender"] == GENDER_FEMALE else "男"
                 print(f"用户 {i+1}: ID={user['_id']}, 用户名={user['telegram_user_name']}, "
                       f"性别={gender_str}, 年龄={user['age']}, 目标性别={target_gender_str}")
         
