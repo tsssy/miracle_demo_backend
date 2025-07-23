@@ -30,7 +30,7 @@ async def get_or_create_chatroom(request: GetOrCreateChatroomRequest):
 async def get_chat_history(request: GetChatHistoryRequest):
     chatroom_manager = ChatroomManager()
     try:
-        chat_history = chatroom_manager.get_chatroom_history(
+        chat_history = await chatroom_manager.get_chatroom_history(
             chatroom_id=request.chatroom_id,
             user_id=request.user_id
         )
