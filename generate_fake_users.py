@@ -16,35 +16,37 @@ sys.path.append(str(ROOT_PATH))
 from app.core.database import Database
 from app.config import settings
 
-# 假数据模板
+# 常见的Telegram男性用户名
 MALE_NAMES = [
-    "张三", "李四", "王五", "赵六", "钱七", "孙八", "周九", "吴十",
-    "郑十一", "王十二", "冯十三", "陈十四", "褚十五", "卫十六",
-    "蒋十七", "沈十八", "韩十九", "杨二十", "朱二一", "秦二二"
+    "alex_king", "john_doe", "michael99", "david_smith", "chris_jay", "tommy_lee", "kevin_chen", "jason_wu",
+    "daniel_brown", "eric_walker", "peter_pan", "samuel_liu", "leo_martin", "bruce_wayne", "tony_stark",
+    "jackson_007", "harry_potter", "bobby_ray", "steven_zhang", "matt_clark"
 ]
 
+# 常见的Telegram女性用户名
 FEMALE_NAMES = [
-    "小红", "小美", "小丽", "小芳", "小燕", "小花", "小雨", "小雪",
-    "小月", "小星", "小云", "小凤", "小琳", "小婷", "小敏", "小慧",
-    "小静", "小娟", "小萍", "小霞", "小娜", "小莉", "小梅", "小兰"
+    "sophia_rose", "emma_watson", "olivia_liu", "ava_smith", "mia_jones", "isabella_chen", "amelia_clark",
+    "charlotte_xu", "lucy_love", "grace_lee", "zoe_moon", "lily_white", "hannah_sun", "natalie_star",
+    "ella_green", "scarlett_fox", "victoria_king", "chloe_queen", "sarah_hope", "ruby_sky"
 ]
 
+# 英文版性格特征，每条为半段落
 PERSONALITY_TRAITS = [
-    "性格开朗，喜欢运动和旅行，热爱生活",
-    "温柔体贴，喜欢读书和音乐，追求内心的平静",
-    "活泼可爱，爱好摄影和美食，享受生活的美好",
-    "成熟稳重，工作认真负责，有强烈的责任感",
-    "幽默风趣，善于沟通，喜欢交朋友",
-    "内向安静，喜欢独处思考，热爱艺术",
-    "积极向上，充满正能量，喜欢挑战自己",
-    "温暖善良，关心他人，有爱心和同情心",
-    "聪明睿智，思维敏捷，喜欢学习新知识",
-    "浪漫主义者，相信真爱，追求完美的感情",
-    "独立自主，有自己的想法和追求，不随波逐流",
-    "乐观开朗，总是能看到事情好的一面，给人正能量",
-    "细心体贴，善于观察他人的需求，很会照顾人",
-    "有责任心，说到做到，值得信赖",
-    "有上进心，不断学习进步，追求更好的自己"
+    "Outgoing and adventurous, I love exploring new places and meeting new people. My passion for sports and travel keeps me energetic and open-minded.",
+    "Gentle and thoughtful, I enjoy reading and listening to music in my free time. I value inner peace and meaningful conversations with close friends.",
+    "Cheerful and creative, I have a passion for photography and discovering delicious food. Life is about enjoying every beautiful moment and sharing joy with others.",
+    "Mature and responsible, I take my work seriously and always strive to do my best. My strong sense of duty drives me to support those around me.",
+    "Humorous and sociable, I love making people laugh and building connections. Communication is my strength, and I cherish every friendship.",
+    "Introverted and calm, I find inspiration in solitude and art. My quiet nature allows me to observe the world deeply and appreciate its subtle beauty.",
+    "Positive and motivated, I embrace challenges and constantly seek self-improvement. My optimism helps me overcome obstacles and inspire others.",
+    "Warm-hearted and compassionate, I care deeply about others and enjoy helping those in need. Kindness and empathy are at the core of who I am.",
+    "Intelligent and curious, I am always eager to learn new things and expand my horizons. My quick thinking helps me adapt to any situation.",
+    "A romantic at heart, I believe in true love and strive for meaningful relationships. I am always searching for beauty and perfection in life.",
+    "Independent and determined, I have my own dreams and ambitions. I am not afraid to stand out and pursue what I truly believe in.",
+    "Optimistic and cheerful, I always look on the bright side and bring positive energy to those around me. Life is too short to dwell on negativity.",
+    "Attentive and caring, I am sensitive to the needs of others and enjoy making people feel comfortable. My nurturing nature makes me a reliable friend.",
+    "Trustworthy and dependable, I keep my promises and value honesty. People can always count on me in times of need.",
+    "Ambitious and hardworking, I am dedicated to personal growth and achieving my goals. I believe in continuous learning and striving for excellence."
 ]
 
 # 性别常量定义
