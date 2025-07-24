@@ -83,3 +83,10 @@ class GetUserInfoWithUserIdResponse(BaseModel):
         if v is not None and v not in [1, 2, 3]:
             raise ValueError('目标性别必须是 1、2、3 中的一个值')
         return v
+
+# 用户注销
+class DeactivateUserRequest(BaseModel):
+    user_id: int = Field(..., description="要注销的用户ID")
+
+class DeactivateUserResponse(BaseModel):
+    success: bool = Field(..., description="是否注销成功")

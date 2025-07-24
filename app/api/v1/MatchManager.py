@@ -13,14 +13,14 @@ router = APIRouter()
 async def create_match(request: CreateMatchRequest):
     match_manager = MatchManager()
     try:
-        new_match = match_manager.create_match(
+        new_match = await match_manager.create_match(
             user_id_1=request.user_id_1,
             user_id_2=request.user_id_2,
             reason_1=request.reason_1,
             reason_2=request.reason_2,
             match_score=request.match_score
         )
-        return CreateMatchResponse(match_id=new_match.match_id)
+        return CreateMatchResponse(success=True, match_id=new_match.match_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
