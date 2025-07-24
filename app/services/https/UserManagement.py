@@ -2,7 +2,9 @@ from fastapi import HTTPException, status
 from app.config import settings
 from app.core.database import Database
 from app.objects.User import User
+from app.utils.my_logger import MyLogger
 
+logger = MyLogger("UserManagement")
 
 class UserManagement:
     """
@@ -238,3 +240,126 @@ class UserManagement:
     # 获得用户实例 [内部方法，非API调用]
     def get_user_instance(self, user_id):
         return self.user_list.get(user_id)
+
+    # 用户注销 [API调用]
+    async def deactivate_user(self, user_id):
+        """
+        用户注销功能，删除用户及其相关的匹配数据、聊天室和消息
+        数据流程：
+        1. 检查用户是否存在
+        2. 获取用户的所有match_ids
+        3. 从MatchManager获取相关Match实例
+        4. 获取Match中涉及的其他用户
+        5. 收集需要删除的Chatroom和Message数据
+        6. 删除用户（内存+数据库）
+        7. 从其他用户的match_ids中移除相关match_id
+        8. 删除相关Match实例（内存+数据库）
+        9. 删除相关Chatroom实例（内存+数据库）
+        10. 删除相关Message实例（数据库）
+        [API调用]
+        """
+        try:
+            # Convert string to int if needed
+            if isinstance(user_id, str) and user_id.isdigit():
+                user_id = int(user_id)
+            
+            # Step 1: 检查用户是否存在
+            target_user = self.user_list.get(user_id)
+            if not target_user:
+                logger.info("用户不存在")
+                return False
+            
+            # Step 2: 获取用户的所有match_ids
+            user_match_ids = target_user.match_ids.copy()  # 创建副本，避免修改时的问题
+            
+            # Step 3: 从MatchManager获取相关Match实例
+            from app.services.https.MatchManager import MatchManager
+            match_manager = MatchManager()
+            
+            matches_to_delete = []
+            other_users_to_update = set()  # 使用set避免重复
+            chatrooms_to_delete = []  # 需要删除的聊天室
+            messages_to_delete = []   # 需要删除的消息
+            
+            for match_id in user_match_ids:
+                match_instance = match_manager.get_match(match_id)
+                if match_instance:
+                    matches_to_delete.append(match_instance)
+                    
+                    # Step 4: 获取Match中涉及的其他用户
+                    other_user_id = match_instance.get_target_user_id(user_id)
+                    if other_user_id:
+                        other_user = self.get_user_instance(other_user_id)
+                        if other_user:
+                            other_users_to_update.add((other_user, match_id))
+                    
+                    # Step 5: 收集需要删除的Chatroom和Message数据
+                    if match_instance.chatroom_id:
+                        from app.services.https.ChatroomManager import ChatroomManager
+                        chatroom_manager = ChatroomManager()
+                        
+                        chatroom = chatroom_manager.chatrooms.get(match_instance.chatroom_id)
+                        if chatroom:
+                            chatrooms_to_delete.append(chatroom)
+                            # 收集该聊天室中的所有消息ID
+                            messages_to_delete.extend(chatroom.message_ids)
+            
+            # Step 6: 删除本人用户实例（内存+数据库）
+            # 从内存中删除
+            del self.user_list[user_id]
+            
+            # 从性别分类列表中删除
+            if target_user.gender == 1:
+                self.male_user_list.pop(user_id, None)
+            elif target_user.gender == 2:
+                self.female_user_list.pop(user_id, None)
+                
+            # 从数据库中删除
+            await Database.delete_one("users", {"_id": user_id})
+            
+            # Step 7: 从其他用户的match_ids中移除相关match_id
+            for other_user, match_id in other_users_to_update:
+                if match_id in other_user.match_ids:
+                    other_user.match_ids.remove(match_id)
+                    # 更新数据库中的用户数据
+                    await Database.update_one(
+                        "users",
+                        {"_id": other_user.user_id},
+                        {"$pull": {"match_ids": match_id}}
+                    )
+            
+            # Step 8: 删除相关Match实例（内存+数据库）
+            for match_instance in matches_to_delete:
+                # 从MatchManager内存中删除
+                match_manager.match_list.pop(match_instance.match_id, None)
+                
+                # 从数据库中删除
+                await Database.delete_one("matches", {"_id": match_instance.match_id})
+            
+            # Step 9: 删除相关Chatroom实例（内存+数据库）
+            from app.services.https.ChatroomManager import ChatroomManager
+            chatroom_manager = ChatroomManager()
+            
+            for chatroom in chatrooms_to_delete:
+                # 从ChatroomManager内存中删除
+                chatroom_manager.chatrooms.pop(chatroom.chatroom_id, None)
+                
+                # 从数据库中删除
+                await Database.delete_one("chatrooms", {"_id": chatroom.chatroom_id})
+            
+            # Step 10: 删除相关Message实例（数据库）
+            # 使用批量删除操作提高效率
+            if messages_to_delete:
+                await Database.delete_many("messages", {"_id": {"$in": messages_to_delete}})
+            
+            # 更新用户计数器
+            self.user_counter = len(self.user_list)
+            
+            print(f"用户注销成功: 删除用户 {user_id}，清理了 {len(matches_to_delete)} 个匹配，"
+                  f"{len(chatrooms_to_delete)} 个聊天室，{len(messages_to_delete)} 条消息，"
+                  f"更新了 {len(other_users_to_update)} 个其他用户")
+            return True
+            
+        except Exception as e:
+            print(f"用户注销失败: {e}")
+            return False

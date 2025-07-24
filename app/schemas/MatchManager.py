@@ -10,6 +10,7 @@ class CreateMatchRequest(BaseModel):
     match_score: int = Field(..., description="匹配分数")
 
 class CreateMatchResponse(BaseModel):
+    success: bool = Field(..., description="创建是否成功")
     match_id: int = Field(..., description="新创建的匹配ID")
 
 # 获取匹配信息

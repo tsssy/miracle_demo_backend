@@ -31,3 +31,13 @@ class SaveChatroomHistoryRequest(BaseModel):
 
 class SaveChatroomHistoryResponse(BaseModel):
     success: bool = Field(..., description="是否保存成功")
+
+# Send message
+class SendMessageRequest(BaseModel):
+    chatroom_id: int = Field(..., description="聊天室ID")
+    sender_user_id: int = Field(..., description="发送者用户ID")
+    message_content: str = Field(..., description="消息内容")
+
+class SendMessageResponse(BaseModel):
+    success: bool = Field(..., description="是否发送成功")
+    match_id: Optional[int] = Field(None, description="关联的匹配ID")

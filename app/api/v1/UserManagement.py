@@ -5,7 +5,8 @@ from app.schemas.UserManagement import (
     EditTargetGenderRequest, EditTargetGenderResponse,
     EditSummaryRequest, EditSummaryResponse,
     SaveUserInfoToDatabaseRequest, SaveUserInfoToDatabaseResponse,
-    GetUserInfoWithUserIdRequest, GetUserInfoWithUserIdResponse
+    GetUserInfoWithUserIdRequest, GetUserInfoWithUserIdResponse,
+    DeactivateUserRequest, DeactivateUserResponse
 )
 from app.services.https.UserManagement import UserManagement
 
@@ -72,5 +73,15 @@ async def get_user_info_with_user_id(request: GetUserInfoWithUserIdRequest):
     try:
         user_info = user_manager.get_user_info_with_user_id(request.user_id)
         return GetUserInfoWithUserIdResponse(**user_info)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e)) 
+
+# 用户注销
+@router.post("/deactivate_user", response_model=DeactivateUserResponse)
+async def deactivate_user(request: DeactivateUserRequest):
+    user_manager = UserManagement()
+    try:
+        success = await user_manager.deactivate_user(request.user_id)
+        return DeactivateUserResponse(success=success)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) 

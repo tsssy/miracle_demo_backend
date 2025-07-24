@@ -2,7 +2,8 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.ChatroomManager import (
     GetOrCreateChatroomRequest, GetOrCreateChatroomResponse,
     GetChatHistoryRequest, GetChatHistoryResponse,
-    SaveChatroomHistoryRequest, SaveChatroomHistoryResponse
+    SaveChatroomHistoryRequest, SaveChatroomHistoryResponse,
+    SendMessageRequest, SendMessageResponse
 )
 from app.services.https.ChatroomManager import ChatroomManager
 
@@ -57,5 +58,22 @@ async def save_chatroom_history(request: SaveChatroomHistoryRequest):
             chatroom_id=request.chatroom_id
         )
         return SaveChatroomHistoryResponse(success=success)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/send_message", response_model=SendMessageResponse)
+# 发送消息到聊天室
+async def send_message(request: SendMessageRequest):
+    chatroom_manager = ChatroomManager()
+    try:
+        result = await chatroom_manager.send_message(
+            chatroom_id=request.chatroom_id,
+            sender_user_id=request.sender_user_id,
+            message_content=request.message_content
+        )
+        return SendMessageResponse(
+            success=result["success"],
+            match_id=result["match_id"]
+        )
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) 
