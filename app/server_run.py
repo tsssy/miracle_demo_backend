@@ -24,6 +24,7 @@ from app.services.https.UserManagement import UserManagement
 from app.services.https.MatchManager import MatchManager
 from app.services.https.ChatroomManager import ChatroomManager
 from app.services.https.N8nWebhookManager import N8nWebhookManager
+from app.services.https.DataIntegrity import DataIntegrity
 
 logger = MyLogger("server")
 
@@ -43,6 +44,22 @@ async def auto_save_to_database():
             
             logger.info("🔄 开始执行自动保存...")
             start_time = time.time()
+            
+            # 执行数据完备性检查（在保存前清理无效数据）
+            try:
+                logger.info("🔍 开始数据完备性检查...")
+                data_integrity = DataIntegrity()
+                integrity_result = await data_integrity.run_integrity_check()
+                
+                if integrity_result["success"]:
+                    logger.info(f"✅ 数据完备性检查完成: {integrity_result['checks_completed']}/{integrity_result['total_checks']} 项检查通过")
+                else:
+                    logger.warning(f"⚠️ 数据完备性检查部分失败: {integrity_result['checks_completed']}/{integrity_result['total_checks']} 项检查通过")
+                    if integrity_result["errors"]:
+                        for error in integrity_result["errors"]:
+                            logger.warning(f"⚠️ 完备性检查错误: {error}")
+            except Exception as e:
+                logger.error(f"❌ 数据完备性检查失败: {e}")
             
             # 保存UserManagement数据
             try:
