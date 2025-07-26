@@ -78,15 +78,22 @@ async def main():
         print(f"📈 完成检查: {result['checks_completed']}/{result['total_checks']} 项")
         print(f"⏱️  执行时间: {elapsed_time:.2f} 秒")
         
-        # 删除记录统计
+        # 数据清理统计
         print("\n📊 数据清理统计:")
-        print(f"  🗑️  删除的 Matches: {result['deleted_records']['matches']}")
-        print(f"  🗑️  更新的 Users: {result['deleted_records']['users']}")
-        print(f"  🗑️  删除的 Chatrooms: {result['deleted_records']['chatrooms']}")
-        print(f"  🗑️  删除的 Messages: {result['deleted_records']['messages']}")
+        print("  🗑️  删除记录:")
+        print(f"    • 删除的 Matches: {result['deleted_records']['matches']}")
+        print(f"    • 删除的 Users: {result['deleted_records']['users']}")
+        print(f"    • 删除的 Chatrooms: {result['deleted_records']['chatrooms']}")
+        print(f"    • 删除的 Messages: {result['deleted_records']['messages']}")
         
-        total_operations = sum(result['deleted_records'].values())
-        print(f"  📊 总计操作数: {total_operations}")
+        print("  🔄 更新记录:")
+        print(f"    • 补充match_id的 Users: {result['updated_records']['users']}")
+        print(f"    • 更新message_ids的 Chatrooms: {result['updated_records']['chatrooms']}")
+        
+        total_deleted = sum(result['deleted_records'].values())
+        total_updated = sum(result['updated_records'].values())
+        total_operations = total_deleted + total_updated
+        print(f"  📊 总计操作数: {total_operations} (删除: {total_deleted}, 更新: {total_updated})")
         
         # 错误信息
         if result["errors"]:
@@ -105,7 +112,7 @@ async def main():
         # 日志记录结果
         logger.info(f"数据库完备性检查完成 - 成功: {result['success']}, "
                    f"检查项: {result['checks_completed']}/{result['total_checks']}, "
-                   f"清理操作: {total_operations}, 耗时: {elapsed_time:.2f}秒")
+                   f"操作数: {total_operations}(删除: {total_deleted}, 更新: {total_updated}), 耗时: {elapsed_time:.2f}秒")
         
     except KeyboardInterrupt:
         print("\n\n⚠️ 用户中断操作")

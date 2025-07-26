@@ -57,13 +57,15 @@ class DataIntegrity:
         """
         检查MatchManager里的每一个Match实例，确保实例中的两个user都在UserManagement里存在
         如果有一个user不存在，该Match实例为非法实例，需要删除
+        同时进行反向检查：确保用户的match_ids包含相应的match
         """
         try:
             logger.info("开始检查Match数据完备性...")
             
             invalid_match_ids = []
+            valid_matches = []  # 存储有效的match，用于反向检查
             
-            # 轮询MatchManager里的每一个Match实例
+            # 第一步：轮询MatchManager里的每一个Match实例，检查用户是否存在
             for match_id, match in self.match_manager.match_list.items():
                 user_1_exists = self.user_manager.get_user_instance(match.user_id_1) is not None
                 user_2_exists = self.user_manager.get_user_instance(match.user_id_2) is not None
@@ -72,6 +74,9 @@ class DataIntegrity:
                 if not user_1_exists or not user_2_exists:
                     logger.warning(f"发现非法Match {match_id}: user1({match.user_id_1})存在={user_1_exists}, user2({match.user_id_2})存在={user_2_exists}")
                     invalid_match_ids.append(match_id)
+                else:
+                    # 记录有效的match用于反向检查
+                    valid_matches.append(match)
             
             # 删除非法的Match实例
             for match_id in invalid_match_ids:
@@ -84,7 +89,30 @@ class DataIntegrity:
                 await Database.delete_one("matches", {"_id": match_id})
                 logger.info(f"从数据库中删除非法Match {match_id}")
             
-            logger.info(f"Match数据检查完成，删除了 {len(invalid_match_ids)} 个非法Match")
+            # 第二步：反向检查 - 确保用户的match_ids包含相应的match
+            updated_users_count = 0
+            for match in valid_matches:
+                match_id = match.match_id
+                user_id_1 = match.user_id_1
+                user_id_2 = match.user_id_2
+                
+                # 检查user1的match_ids
+                user_1 = self.user_manager.get_user_instance(user_id_1)
+                if user_1 and match_id not in user_1.match_ids:
+                    user_1.match_ids.append(match_id)
+                    await self.user_manager.save_to_database(user_id_1)
+                    updated_users_count += 1
+                    logger.info(f"为用户 {user_id_1} 添加缺失的match_id: {match_id}")
+                
+                # 检查user2的match_ids
+                user_2 = self.user_manager.get_user_instance(user_id_2)
+                if user_2 and match_id not in user_2.match_ids:
+                    user_2.match_ids.append(match_id)
+                    await self.user_manager.save_to_database(user_id_2)
+                    updated_users_count += 1
+                    logger.info(f"为用户 {user_id_2} 添加缺失的match_id: {match_id}")
+            
+            logger.info(f"Match数据检查完成，删除了 {len(invalid_match_ids)} 个非法Match，为 {updated_users_count} 个用户补充了缺失的match_id")
             return True
             
         except Exception as e:
@@ -395,6 +423,10 @@ class DataIntegrity:
                     "users": 0,
                     "chatrooms": 0,
                     "messages": 0
+                },
+                "updated_records": {
+                    "users": 0,
+                    "chatrooms": 0
                 }
             }
             
@@ -416,6 +448,9 @@ class DataIntegrity:
                         for key, count in check_result.get("deleted", {}).items():
                             if key in result["deleted_records"]:
                                 result["deleted_records"][key] += count
+                        # 累加更新的记录数
+                        if "updated_users" in check_result:
+                            result["updated_records"]["users"] += check_result["updated_users"]
                         logger.info(f"{check_name} 数据库检查完成")
                     else:
                         result["errors"].append(f"{check_name} 数据库检查失败")
@@ -429,6 +464,7 @@ class DataIntegrity:
             
             logger.info(f"数据库级别完备性检查完成: {result['checks_completed']}/{result['total_checks']} 项检查成功")
             logger.info(f"删除记录统计: {result['deleted_records']}")
+            logger.info(f"更新记录统计: {result['updated_records']}")
             return result
             
         except Exception as e:
@@ -443,6 +479,10 @@ class DataIntegrity:
                     "users": 0,
                     "chatrooms": 0,
                     "messages": 0
+                },
+                "updated_records": {
+                    "users": 0,
+                    "chatrooms": 0
                 }
             }
     
@@ -451,14 +491,17 @@ class DataIntegrity:
         try:
             logger.info("开始检查数据库matches表...")
             
-            # 获取所有用户ID
+            # 获取所有用户数据
             users_data = await Database.find("users")
             existing_user_ids = set(user["_id"] for user in users_data)
+            users_dict = {user["_id"]: user for user in users_data}  # 用于快速查找用户数据
             
             # 获取所有matches
             matches_data = await Database.find("matches")
             invalid_match_ids = []
+            valid_matches = []  # 存储有效的match，用于反向检查
             
+            # 第一步：检查match中的用户是否存在
             for match_data in matches_data:
                 match_id = match_data.get("_id")
                 user_id_1 = match_data.get("user_id_1")
@@ -468,6 +511,13 @@ class DataIntegrity:
                 if user_id_1 not in existing_user_ids or user_id_2 not in existing_user_ids:
                     logger.warning(f"数据库中发现无效Match {match_id}: user1({user_id_1})存在={user_id_1 in existing_user_ids}, user2({user_id_2})存在={user_id_2 in existing_user_ids}")
                     invalid_match_ids.append(match_id)
+                else:
+                    # 记录有效的match用于反向检查
+                    valid_matches.append({
+                        "match_id": match_id,
+                        "user_id_1": user_id_1,
+                        "user_id_2": user_id_2
+                    })
             
             # 删除无效matches
             deleted_count = 0
@@ -476,12 +526,49 @@ class DataIntegrity:
                 deleted_count += 1
                 logger.info(f"从数据库删除无效Match {match_id}")
             
-            logger.info(f"数据库matches检查完成，删除了 {deleted_count} 个无效Match")
-            return {"success": True, "deleted": {"matches": deleted_count}}
+            # 第二步：反向检查 - 确保用户的match_ids包含相应的match
+            updated_users_count = 0
+            for match in valid_matches:
+                match_id = match["match_id"]
+                user_id_1 = match["user_id_1"]
+                user_id_2 = match["user_id_2"]
+                
+                # 检查user1的match_ids
+                user1_data = users_dict.get(user_id_1)
+                if user1_data:
+                    user1_match_ids = user1_data.get("match_ids", [])
+                    if match_id not in user1_match_ids:
+                        # 添加match_id到用户的match_ids列表
+                        user1_match_ids.append(match_id)
+                        await Database.update_one(
+                            "users",
+                            {"_id": user_id_1},
+                            {"$set": {"match_ids": user1_match_ids}}
+                        )
+                        updated_users_count += 1
+                        logger.info(f"为用户 {user_id_1} 添加缺失的match_id: {match_id}")
+                
+                # 检查user2的match_ids
+                user2_data = users_dict.get(user_id_2)
+                if user2_data:
+                    user2_match_ids = user2_data.get("match_ids", [])
+                    if match_id not in user2_match_ids:
+                        # 添加match_id到用户的match_ids列表
+                        user2_match_ids.append(match_id)
+                        await Database.update_one(
+                            "users",
+                            {"_id": user_id_2},
+                            {"$set": {"match_ids": user2_match_ids}}
+                        )
+                        updated_users_count += 1
+                        logger.info(f"为用户 {user_id_2} 添加缺失的match_id: {match_id}")
+            
+            logger.info(f"数据库matches检查完成，删除了 {deleted_count} 个无效Match，为 {updated_users_count} 个用户补充了缺失的match_id")
+            return {"success": True, "deleted": {"matches": deleted_count}, "updated_users": updated_users_count}
             
         except Exception as e:
             logger.error(f"检查数据库matches时发生错误: {e}")
-            return {"success": False, "deleted": {"matches": 0}}
+            return {"success": False, "deleted": {"matches": 0}, "updated_users": 0}
     
     async def _check_database_user_match_ids(self) -> dict:
         """检查数据库中users表的match_ids完备性"""
