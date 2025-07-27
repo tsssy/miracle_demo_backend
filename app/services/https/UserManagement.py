@@ -54,10 +54,10 @@ class UserManagement:
             user_id = user.user_id
             self.user_list[user_id] = user
             
-            # 根据性别分类
-            if user.gender == 1:
+            # 🔧 MODIFIED: 修复性别分类 - 根据性别分类
+            if user.gender == 1:  # 1=女性
                 self.female_user_list[user_id] = user
-            elif user.gender == 2:
+            elif user.gender == 2:  # 2=男性
                 self.male_user_list[user_id] = user
             
             loaded_count += 1

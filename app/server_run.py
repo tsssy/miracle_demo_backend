@@ -377,7 +377,7 @@ if __name__ == "__main__":
     uvicorn_config = {
         "app": "app.server_run:app",
         "host": "0.0.0.0",
-        "port": 8000,
+        "port": 8001,  # 🔧 MODIFIED: 改为8001避免与远端服务器冲突
         "reload": False,
         "workers": 1
     }

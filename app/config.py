@@ -14,7 +14,7 @@ class Settings:
     API_V1_STR: str = "/api/v1"
 
     # MongoDB配置
-    MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+    MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://8.216.32.239:27017")  # 🔧 MODIFIED: 改为远程数据库
     MONGODB_DB_NAME: str = os.getenv("MONGODB_DB_NAME", "miracle_demo")
     MONGODB_USERNAME: str = os.getenv("MONGODB_USERNAME", "root")
     MONGODB_PASSWORD: str = os.getenv("MONGODB_PASSWORD", "Awr20020311")

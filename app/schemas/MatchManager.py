@@ -39,3 +39,12 @@ class SaveMatchToDatabaseRequest(BaseModel):
 
 class SaveMatchToDatabaseResponse(BaseModel):
     success: bool = Field(..., description="保存是否成功")
+
+# 🔧 MODIFIED: 新增 - 获取所有女性用户匹配
+class GetNewMatchesForEveryoneRequest(BaseModel):
+    user_id: Optional[int] = Field(None, description="用户ID，如果提供则只为该用户匹配")
+    print_message: bool = Field(..., description="是否打印详细消息")
+
+class GetNewMatchesForEveryoneResponse(BaseModel):
+    success: bool = Field(..., description="操作是否成功")
+    message: str = Field(..., description="结果消息")

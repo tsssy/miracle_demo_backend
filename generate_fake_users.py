@@ -71,7 +71,7 @@ async def generate_fake_users(num_users=30):
         
         user_data = {
             "_id": user_id,  # 使用user_id作为MongoDB的_id
-            "telegram_user_name": f"@{name.lower()}",
+            "telegram_user_name": name.lower(),  # 🔧 MODIFIED: 删除@前缀
             "gender": GENDER_MALE,  # 男性
             "age": random.randint(18, 35),
             "target_gender": GENDER_FEMALE,  # 男性寻找女性
@@ -89,7 +89,7 @@ async def generate_fake_users(num_users=30):
         
         user_data = {
             "_id": user_id,  # 使用user_id作为MongoDB的_id
-            "telegram_user_name": f"@{name.lower()}",
+            "telegram_user_name": name.lower(),  # 🔧 MODIFIED: 删除@前缀
             "gender": GENDER_FEMALE,  # 女性
             "age": random.randint(18, 35),
             "target_gender": GENDER_MALE,  # 女性寻找男性
