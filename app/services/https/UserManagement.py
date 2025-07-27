@@ -56,9 +56,9 @@ class UserManagement:
             
             # 根据性别分类
             if user.gender == 1:
-                self.male_user_list[user_id] = user
-            elif user.gender == 2:
                 self.female_user_list[user_id] = user
+            elif user.gender == 2:
+                self.male_user_list[user_id] = user
             
             loaded_count += 1
         
@@ -76,9 +76,9 @@ class UserManagement:
         user = User(telegram_user_name=telegram_user_name, gender=gender, user_id=user_id)
         self.user_list[user_id] = user
         if gender == 1:
-            self.male_user_list[user_id] = user
-        elif gender == 2:
             self.female_user_list[user_id] = user
+        elif gender == 2:
+            self.male_user_list[user_id] = user
         
         # 更新用户计数器
         self.user_counter = len(self.user_list)
@@ -310,9 +310,9 @@ class UserManagement:
             
             # 从性别分类列表中删除
             if target_user.gender == 1:
-                self.male_user_list.pop(user_id, None)
-            elif target_user.gender == 2:
                 self.female_user_list.pop(user_id, None)
+            elif target_user.gender == 2:
+                self.male_user_list.pop(user_id, None)
                 
             # 从数据库中删除
             await Database.delete_one("users", {"_id": user_id})
