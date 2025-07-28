@@ -353,10 +353,11 @@ class MatchManager:
                     if match_results and len(match_results) > 0:
                         match_data = match_results[0]  # 取第一个匹配结果
                         
+                        # 🔧 MODIFIED: 修复description为空问题 - 使用N8n实际返回的字段名
                         # 从匹配结果中提取信息（根据N8n实际返回字段调整）
                         male_user_id = match_data.get("matched_user_id", match_data.get("user_id"))
-                        reason_to_female = match_data.get("reason_to_user", match_data.get("reason", ""))
-                        reason_to_male = match_data.get("reason_to_matched_user", match_data.get("reason", ""))
+                        reason_to_female = match_data.get("reason_of_match_given_to_self_user", "")
+                        reason_to_male = match_data.get("reason_of_match_given_to_matched_user", "")
                         match_score = match_data.get("match_score", match_data.get("score", 0))
                         
                         # 验证男性用户是否存在

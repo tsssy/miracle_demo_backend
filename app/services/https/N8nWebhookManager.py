@@ -46,7 +46,11 @@ class N8nWebhookManager:
                 data = response.json()
                 matches = data.get("output", [])
                 
+                # 🔧 MODIFIED: 添加详细的N8n响应日志以调试description问题
                 logger.info(f"Received {len(matches)} matches for user {user_id}")
+                if matches:
+                    logger.info(f"First match data structure: {matches[0]}")
+                
                 return matches
                 
         except httpx.HTTPError as e:
