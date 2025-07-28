@@ -370,6 +370,7 @@ class MatchManager:
                             continue
                         
                         # 创建匹配
+                        # 创建匹配
                         new_match = await self.create_match(
                             user_id_1=female_user.user_id,  # 女性用户作为user_id_1
                             user_id_2=male_user_id,         # 男性用户作为user_id_2
@@ -377,6 +378,10 @@ class MatchManager:
                             reason_2=reason_to_male,
                             match_score=int(match_score)
                         )
+                        
+                        # 保存用户的match_ids更新到数据库
+                        await user_manager.save_to_database(female_user.user_id)
+                        await user_manager.save_to_database(male_user_id)
                         
                         successful_matches.append(new_match)
                         logger.info(f"成功创建匹配 {new_match.match_id}: {female_user.telegram_user_name} <-> {male_user.telegram_user_name}")
