@@ -369,8 +369,7 @@ class MatchManager:
                             })
                             continue
                         
-                        # 创建匹配
-                        # 创建匹配
+                        # 创建匹配并更新用户的match_ids
                         new_match = await self.create_match(
                             user_id_1=female_user.user_id,  # 女性用户作为user_id_1
                             user_id_2=male_user_id,         # 男性用户作为user_id_2
@@ -378,6 +377,12 @@ class MatchManager:
                             reason_2=reason_to_male,
                             match_score=int(match_score)
                         )
+                        
+                        # 手动更新用户的match_ids
+                        if new_match.match_id not in female_user.match_ids:
+                            female_user.match_ids.append(new_match.match_id)
+                        if new_match.match_id not in male_user.match_ids:
+                            male_user.match_ids.append(new_match.match_id)
                         
                         # 保存用户的match_ids更新到数据库
                         await user_manager.save_to_database(female_user.user_id)
